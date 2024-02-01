@@ -69,13 +69,13 @@
                         <a href="products.php" class="header_nav-link">All products</a>
                     </li>
                     <li class="header_nav-item">
-                        <a href="#" class="header_nav-link">Rings</a>
+                        <a href="rings.php" class="header_nav-link">Rings</a>
                     </li>
                     <li class="header_nav-item">
-                        <a href="#" class="header_nav-link">Bracelets</a>
+                        <a href="bracelets.php" class="header_nav-link">Bracelets</a>
                     </li>
                     <li class="header_nav-item">
-                        <a href="#" class="header_nav-link">Necklaces</a>
+                        <a href="necklaces.php" class="header_nav-link">Necklaces</a>
                     </li>
                 </ul>
                 <div class="header_hamburger">

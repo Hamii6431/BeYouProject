@@ -8,7 +8,6 @@ if (isset($_POST['user_login'])) {
     $login_username = mysqli_real_escape_string($con, $_POST['login_username']);
     $login_password = mysqli_real_escape_string($con, $_POST['login_password']);
 
-    $loginSuccess = false;
 
     // Bejelentkezés ellenőrzése az user_table-ban
     $select_user_query = "SELECT * FROM user_table WHERE username = '$login_username' LIMIT 1";
@@ -23,7 +22,7 @@ if (isset($_POST['user_login'])) {
             $_SESSION['user_id'] = $row_user['user_ID'];
             $_SESSION['user_username'] = $row_user['username'];
             $_SESSION['user_email'] = $row_user['email'];
-            $loginSuccess = true;
+            $is_logged_in = true;
         }
     }
 
@@ -41,7 +40,7 @@ if (isset($_POST['user_login'])) {
                 $_SESSION['admin_id'] = $row_admin['admin_ID'];
                 $_SESSION['admin_username'] = $row_admin['admin_username'];
                 $_SESSION['user_type'] = 'admin';
-                $loginSuccess = true;
+                $is_logged_in = true;
             }
         }
     }
@@ -62,18 +61,10 @@ if (isset($_POST['user_register'])) {
     $user_email = mysqli_real_escape_string($con, $_POST['user_email']);
     $user_password = mysqli_real_escape_string($con, $_POST['user_password']);
     $user_password_again = mysqli_real_escape_string($con, $_POST['user_password_again']);
-    $user_address = mysqli_real_escape_string($con, $_POST['user_address']);
-    $user_mobile = mysqli_real_escape_string($con, $_POST['user_mobile']);
-    $country = mysqli_real_escape_string($con, $_POST['country']);
-    $postal_code = mysqli_real_escape_string($con, $_POST['postal_code']);
-    $street_address = mysqli_real_escape_string($con, $_POST['street_address']);
-    $city = mysqli_real_escape_string($con, $_POST['city']);
-    $gender = mysqli_real_escape_string($con, $_POST['gender']);
-    $birthdate = mysqli_real_escape_string($con, $_POST['birthdate']);
     $ip_address = $_SERVER['REMOTE_ADDR'];
 
     // Üres mezők ellenőrzése
-    if (empty($username) || empty($name) || empty($user_email) || empty($user_password) || empty($user_password_again) || empty($user_address) || empty($user_mobile) || empty($country) || empty($postal_code) || empty($street_address) || empty($city) || empty($gender) || empty($birthdate)) {
+    if (empty($username) || empty($name) || empty($user_email) || empty($user_password) || empty($user_password_again)) {
         echo "<script>alert('Please fill in all fields.')</script>";
         exit();
     }
@@ -97,32 +88,18 @@ if (isset($_POST['user_register'])) {
     $hashed_password = password_hash($user_password, PASSWORD_DEFAULT);
 
     // Felhasználói adatok beszúrása az user_table táblába
-    $insert_user_query = "INSERT INTO user_table (name, gender, birthdate, email, phone_number, username, password, ip_address) 
-    VALUES ('$name', '$gender', '$birthdate', '$user_email', '$user_mobile', '$username', '$hashed_password', '$ip_address')";
+    $insert_user_query = "INSERT INTO user_table (name, email, username, password, ip_address) 
+    VALUES ('$name', '$user_email', '$username', '$hashed_password', '$ip_address')";
 
     $result_user_insert = mysqli_query($con, $insert_user_query);
 
     if ($result_user_insert) {
-        // Utolsó beszúrt user_ID lekérdezése
-        $last_user_id = mysqli_insert_id($con);
-
-        // Szállítási címek táblába való beszúrása
-        $insert_shipping_address_query = "INSERT INTO shipping_addresses (user_ID, country, postal_code, street_address, city) 
-        VALUES ('$last_user_id', '$country', '$postal_code', '$street_address', '$city')";
-
-        $result_shipping_insert = mysqli_query($con, $insert_shipping_address_query);
-
-        if ($result_shipping_insert) {
-            echo "<script>alert('Registration successful.')</script>";
-        } else {
-            echo "<script>alert('Error during registration.')</script>";
-        }
+        echo "<script>alert('Registration successful.')</script>";
     } else {
         echo "<script>alert('Error during registration.')</script>";
     }
 }
 ?>
-
 
 
 <!DOCTYPE html>
@@ -174,18 +151,19 @@ if (isset($_POST['user_register'])) {
         margin-bottom: 1rem;
     }
 
+
     .form-group input {
         width: 100%;
         padding: 10px;
+        padding-top: 15px;
         box-sizing: border-box;
-        margin-top: 5px; /* Példa: minimális távolság az input mező teteje és a label között */
     }
 
     .form-group label {
-        margin-top: 0.2rem;
+
         position: absolute;
         top: 0;
-        left: 10px;
+        left: 5px;
         font-size: 12px;
         color: #888; /* Példa: szürke szín a kisebb fontmérethez */
         transition: all 0.3s;
@@ -277,8 +255,6 @@ input[type="checkbox"]:checked:after {
     display: block;
 }
 
-
-
     </style>
 </head>
 
@@ -312,7 +288,7 @@ input[type="checkbox"]:checked:after {
                             <!-- Bejelentkezési űrlap tartalma -->
                             <form method="POST" action="loginpage.php" class="orderform">
                                 <div class="form-group">
-                                    <input type="text" name="login_username" id="login_username" class="" placeholder=" " required>
+                                    <input type="text" name="login_username" id="login_username" class="container_input" placeholder=" " required>
                                     <label for="login_username">Enter your username *</label>
                                 </div>
                                 <!-- Password input -->
@@ -336,39 +312,47 @@ input[type="checkbox"]:checked:after {
 
                         </div>
 
+                        <!-- Regisztrációs űrlap tartalma -->
                         <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-                            <!-- Regisztrációs űrlap tartalma -->
-                            <form action="../../Backend/user_area/user_registration.php" method="post">
+                            <form action="../../Backend/user_area/user_registration.php" method="post" class="orderform">
                                 <!-- Felhasználónév -->
-                                <div class="form-outline mb-4">
-                                    <label for="username" class="form-label">
-                                        Username
-                                    </label>
-                                    <input type="text" name="username" id="username" class="form-control"
-                                        placeholder="Enter your username" autocomplete="off" required="required">
+                                <div class="form-group">
+                                    <input type="text" name="username" id="username" class="container_input" placeholder=" " autocomplete="off" required="required">
+                                    <label for="username">Enter your username *</label>
                                 </div>
 
                                 <!-- Rendes név -->
-                                <div class="form-outline mb-4">
-                                    <label for="name" class="form-label">
-                                        Full name
-                                    </label>
-                                    <input type="text" name="name" id="name" class="form-control"
-                                        placeholder="Enter your full name" autocomplete="off" required="required">
+                                <div class="form-group">
+                                    <input type="text" name="name" id="name" class="container_input" placeholder=" " autocomplete="off" required="required">
+                                    <label for="name">Enter your full name *</label>
                                 </div>
 
-                                <!-- ... (a többi regisztrációs űrlap mező itt helyezkedik el) ... -->
+                                <!-- E-mail cím -->
+                                <div class="form-group">
+                                    <input type="email" name="user_email" id="user_email" class="container_input" placeholder=" " autocomplete="off" required="required">
+                                    <label for="user_email">Enter your email address *</label>
+                                </div>
+
+                                <!-- Jelszó -->
+                                <div class="form-group">
+                                    <input type="password" name="user_password" id="user_password" class="container_input" placeholder=" " required="required">
+                                    <label for="user_password">Enter your password *</label>
+                                </div>
+
+                                <!-- Jelszó újra -->
+                                <div class="form-group">
+                                    <input type="password" name="user_password_again" id="user_password_again" class="container_input" placeholder=" " required="required">
+                                    <label for="user_password_again">Enter your password again *</label>
+                                </div>
 
                                 <!-- Regisztrációs gomb -->
-                                <div class="form-outline mb-4">
-                                    <input type="submit" name="user_register" class="btn btn-block mb-3" value="Register">
-                                    <p>Already have an account? <button class="btn btn-block mb-3" id="backToLoginButton"
-                                            class="btn btn-primary">
-                                            Back to login
-                                        </button></p>
+                                <div class="form-group">
+                                    <input type="submit" name="user_register" class="btn btn-block mb-3 login_button" value="Register">
+                                    <p>Already have an account? <button class="btn btn-block mb-3 status_button" id="backToLoginButton">Back to login</button></p>
                                 </div>
                             </form>
                         </div>
+
                     </div>
                     
                 </div>
