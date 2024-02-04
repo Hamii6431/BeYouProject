@@ -2,103 +2,8 @@
 include '../../Backend/includes/connect.php';
 include '../../Backend/includes/session.php';
 include '../assets/header.php';
-
-// Bejelentkezési folyamat kezelése
-if (isset($_POST['user_login'])) {
-    $login_username = mysqli_real_escape_string($con, $_POST['login_username']);
-    $login_password = mysqli_real_escape_string($con, $_POST['login_password']);
-
-
-    // Bejelentkezés ellenőrzése az user_table-ban
-    $select_user_query = "SELECT * FROM user_table WHERE username = '$login_username' LIMIT 1";
-    $result_user_select = mysqli_query($con, $select_user_query);
-
-    if ($result_user_select && mysqli_num_rows($result_user_select) == 1) {
-        $row_user = mysqli_fetch_assoc($result_user_select);
-        $hashed_password_user = $row_user['password'];
-
-        if (password_verify($login_password, $hashed_password_user)) {
-            // Sikeres bejelentkezés az user_table-ból
-            $_SESSION['user_id'] = $row_user['user_ID'];
-            $_SESSION['user_username'] = $row_user['username'];
-            $_SESSION['user_email'] = $row_user['email'];
-            $is_logged_in = true;
-        }
-    }
-
-    // Ha az user_table-ben nem található a felhasználó, akkor az admin_table-ban keresünk
-    if (!$loginSuccess) {
-        $select_admin_query = "SELECT * FROM table_admin WHERE admin_username = '$login_username' LIMIT 1";
-        $result_admin_select = mysqli_query($con, $select_admin_query);
-
-        if ($result_admin_select && mysqli_num_rows($result_admin_select) == 1) {
-            $row_admin = mysqli_fetch_assoc($result_admin_select);
-            $hashed_password_admin = $row_admin['admin_password'];
-
-            if (password_verify($login_password, $hashed_password_admin)) {
-                // Sikeres bejelentkezés a table_admin-ból
-                $_SESSION['admin_id'] = $row_admin['admin_ID'];
-                $_SESSION['admin_username'] = $row_admin['admin_username'];
-                $_SESSION['user_type'] = 'admin';
-                $is_logged_in = true;
-            }
-        }
-    }
-
-    if ($loginSuccess) {
-        header("location: /BeYou_web/Beyouproject/Frontend/user_area/profilepage.php");
-        exit();
-    } else {
-        echo "<script>alert('Invalid username or password. Please try again.')</script>";
-    }
-}
-
-// Regisztrációs folyamat kezelése
-if (isset($_POST['user_register'])) {
-    // Felhasználótól kapott adatok
-    $username = mysqli_real_escape_string($con, $_POST['username']);
-    $name = mysqli_real_escape_string($con, $_POST['name']);
-    $user_email = mysqli_real_escape_string($con, $_POST['user_email']);
-    $user_password = mysqli_real_escape_string($con, $_POST['user_password']);
-    $user_password_again = mysqli_real_escape_string($con, $_POST['user_password_again']);
-    $ip_address = $_SERVER['REMOTE_ADDR'];
-
-    // Üres mezők ellenőrzése
-    if (empty($username) || empty($name) || empty($user_email) || empty($user_password) || empty($user_password_again)) {
-        echo "<script>alert('Please fill in all fields.')</script>";
-        exit();
-    }
-
-    // Jelszó egyezőségének ellenőrzése
-    if ($user_password != $user_password_again) {
-        echo "<script>alert('Passwords do not match. Please try again.')</script>";
-        exit();
-    }
-
-    // Felhasználónév foglaltságának ellenőrzése
-    $check_username_query = "SELECT username FROM user_table WHERE username='$username' LIMIT 1";
-    $result_username_check = mysqli_query($con, $check_username_query);
-
-    if (mysqli_num_rows($result_username_check) > 0) {
-        echo "<script>alert('Username is already taken.')</script>";
-        exit();
-    }
-
-    // Jelszó hash készítése
-    $hashed_password = password_hash($user_password, PASSWORD_DEFAULT);
-
-    // Felhasználói adatok beszúrása az user_table táblába
-    $insert_user_query = "INSERT INTO user_table (name, email, username, password, ip_address) 
-    VALUES ('$name', '$user_email', '$username', '$hashed_password', '$ip_address')";
-
-    $result_user_insert = mysqli_query($con, $insert_user_query);
-
-    if ($result_user_insert) {
-        echo "<script>alert('Registration successful.')</script>";
-    } else {
-        echo "<script>alert('Error during registration.')</script>";
-    }
-}
+include '../../Backend/user_area/user_login.php';
+include '../../Backend/user_area/user_registration.php';
 ?>
 
 
@@ -124,7 +29,7 @@ if (isset($_POST['user_register'])) {
         }
 
         .container_vertical{
-            height:60%;   
+            height: 60%;   
             border-left: 1px solid #27251F;
             position: absolute;
             left: 50%;
@@ -134,7 +39,7 @@ if (isset($_POST['user_register'])) {
         .container_tab_items{
             display:flex;
             justify-content: space-between;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .tab_pill_item{
@@ -186,21 +91,22 @@ if (isset($_POST['user_register'])) {
         height: 50px;
         
     }
-    .login_button{
+    .sample_button{
         background-color: #27251F;
         color: white;
+        margin-bottom: 0.5rem;
     }
-    .login_button:hover {
+    .sample_button:hover {
         transition: 0.3s;
         background-color: #000000;
         color: white;
     }
-    .status_button{
+    .sample_button_reverse{
         background-color: white;
         color: black;
         border:1px solid black;
     }
-    .status_button:hover{
+    .sample_button_reverse:hover{
         transition: 0.3s;
         background-color: #000000;
         color: white;
@@ -210,6 +116,7 @@ if (isset($_POST['user_register'])) {
     .wrapper {
     width: 100%;
     display: flex;
+    margin-bottom: 1rem;
     }
 
 input[type="checkbox"] {
@@ -254,6 +161,12 @@ input[type="checkbox"]:checked {
 input[type="checkbox"]:checked:after {
     display: block;
 }
+.nav-link.active{
+    color: aqua !important;
+}
+#have_account{
+    margin-bottom: 0.5rem;
+}
 
     </style>
 </head>
@@ -296,17 +209,12 @@ input[type="checkbox"]:checked:after {
                                     <input type="password" name="login_password" id="login_password" class="" placeholder=" " required>
                                     <label for="login_password">Enter your password *</label>
                                 </div>
-
-                                <div class="container_terms">
-                                    <div class="wrapper">
-                                        <input type="checkbox" name="" value="">
-                                        <label><p href="termsandconditions.php">Terms and conditions</p></label>  <!--Módosítani-->
-                                    </div> 
+                                
+                                <div class="form-group">
                                     <p>* The required fields must be filled out. Without feedback, we cannot process your request.</p>
                                 </div>
-                                
-                                
-                                <button class="login_button" type="submit" name="user_login">LOGIN</button>
+
+                                <button class="sample_button" type="submit" name="user_login">LOGIN</button>
 
                             </form>
 
@@ -314,7 +222,7 @@ input[type="checkbox"]:checked:after {
 
                         <!-- Regisztrációs űrlap tartalma -->
                         <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-                            <form action="../../Backend/user_area/user_registration.php" method="post" class="orderform">
+                            <form action="loginpage.php#pills-login" method="post" class="orderform">
                                 <!-- Felhasználónév -->
                                 <div class="form-group">
                                     <input type="text" name="username" id="username" class="container_input" placeholder=" " autocomplete="off" required="required">
@@ -345,10 +253,19 @@ input[type="checkbox"]:checked:after {
                                     <label for="user_password_again">Enter your password again *</label>
                                 </div>
 
+                                <div class="container_terms">
+                                    <div class="wrapper">
+                                        <input type="checkbox" name="" value="">
+                                        <label><p class="m-0"href="termsandconditions.php">Terms and conditions *</p></label>  <!--Módosítani-->
+                                    </div> 
+                                    <p>* The required fields must be filled out. Without feedback, we cannot process your request.</p>
+                                </div>
+
                                 <!-- Regisztrációs gomb -->
                                 <div class="form-group">
-                                    <input type="submit" name="user_register" class="btn btn-block mb-3 login_button" value="Register">
-                                    <p>Already have an account? <button class="btn btn-block mb-3 status_button" id="backToLoginButton">Back to login</button></p>
+                                    <button class="sample_button" type="submit" name="user_register">REGISTER</button>
+                                    <p id="have_account">Already have an account?</p>
+                                    <button class="sample_button_reverse" id="backToLoginButton">BACK TO LOGIN</button>
                                 </div>
                             </form>
                         </div>
@@ -368,7 +285,7 @@ input[type="checkbox"]:checked:after {
             <div class="col-12 col-lg-5">
                 <div class="secondary_div">
                     <div class="container_orderstatus">
-                        <h3>CHECK ORDER STATUS</h3>
+                        <h3 class="m-0">CHECK ORDER STATUS</h3>
                         <hr>
                         <form method="POST" action="" class="orderform">
                                 <div class="form-group">
@@ -381,7 +298,7 @@ input[type="checkbox"]:checked:after {
                                     <label for="login_password">Order email address *</label>
                                 </div>
                                 
-                                <button class="status_button" type="submit" name="">STATUS CHECK</button>
+                                <button class="sample_button_reverse" type="submit" name="">STATUS CHECK</button>
 
                             </form>
                     </div>
