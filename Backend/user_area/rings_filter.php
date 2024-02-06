@@ -1,5 +1,5 @@
 <?php
-include 'connect.php';
+include '../../Backend/includes/connect.php';
 
 if(isset($_GET['types']) || isset($_GET['colors']) || isset($_GET['materials'])) {
     $types = isset($_GET['types']) ? implode(",", $_GET['types']) : '';
@@ -28,7 +28,7 @@ if(isset($_GET['types']) || isset($_GET['colors']) || isset($_GET['materials']))
     }
 } else {
     // Gyűrű szűrése
-    $ringTypeCondition = 'type_ID = <ring>';
+    $ringTypeCondition = 'type_Name = <Ring>';
     $sql = "SELECT * FROM products WHERE $ringTypeCondition";
 }
 

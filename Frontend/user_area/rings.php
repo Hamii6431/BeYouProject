@@ -40,23 +40,7 @@ include '../assets/header.php';
                             $type_query = "SELECT * FROM types";
                             $type_query_run = mysqli_query($con, $type_query);
                             
-                            if(mysqli_num_rows($type_query_run) > 0) {
-                                $checkedTypes = isset($_GET['types']) ? $_GET['types'] : [];
-
-                                foreach($type_query_run as $typelist) {
-                                    $typeID = $typelist['type_ID'];
-                                    $typeName = $typelist['type_Name'];
-                                    $isChecked = in_array($typeID, $checkedTypes);
-                                    ?>
-                                    <div>
-                                        <div class="wrapper">
-                                            <input type="checkbox" name="types[]" value="<?= $typeID ?>" <?= $isChecked ? 'checked' : '' ?>>
-                                            <label><?= $typeName ?></label>
-                                        </div>
-                                    </div>
-                                    <?php
-                                }
-                            }
+                            
                         ?>
                     </div>
                     <hr>

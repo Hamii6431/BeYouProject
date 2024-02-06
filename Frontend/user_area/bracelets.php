@@ -1,8 +1,5 @@
-<?php 
-include '../../Backend/includes/connect.php';
-include '../../Backend/includes/session.php';
+<?php
 include '../assets/header.php';
-
 // Az oldal többi része itt helyezkedik el
 ?>
 
