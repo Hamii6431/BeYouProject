@@ -25,7 +25,7 @@ include '../assets/header.php';
 <body>
     <div class="container-fluid">
         <div class="banner-container">
-            <img class="banner-img" src="../img/bannerimg_2.png" alt="Banner kép">
+            <img class="banner-img" src="../../public/img/bannerimg_2.png" alt="Banner kép">
         </div>
     </div>
     <div class="container-fluid primary_container mt-4">
