@@ -143,7 +143,7 @@ include '../assets/header.php';
                 }
             };
 
-            xhr.open('GET', 'includes/rings_filter.php?' + new URLSearchParams(formData).toString(), true);
+            xhr.open('GET', '../../Backend/user_area/rings_filter.php?' + new URLSearchParams(formData).toString(), true);
             xhr.send();
         }
 
