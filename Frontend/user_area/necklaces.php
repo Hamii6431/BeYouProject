@@ -1,5 +1,6 @@
 <?php 
 include '../assets/header.php';
+
 // Az oldal többi része itt helyezkedik el
 ?>
 
@@ -15,8 +16,8 @@ include '../assets/header.php';
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/products.css">
-    <link rel="stylesheet" href="css/font_import.css">
+    <link rel="stylesheet" href="../../public/user_area/css/products.css">
+    <link rel="stylesheet" href="../../public/user_area/css/font_import.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
 </head>
@@ -24,7 +25,7 @@ include '../assets/header.php';
 <body>
     <div class="container-fluid">
         <div class="banner-container">
-            <img class="banner-img" src="../img/bannerimg_2.png" alt="Banner kép">
+            <img class="banner-img" src="../../public/img/bannerimg_2.png" alt="Banner kép">
         </div>
     </div>
     <div class="container-fluid primary_container mt-4">
@@ -45,7 +46,7 @@ include '../assets/header.php';
                                 foreach($type_query_run as $typelist) {
                                     $typeID = $typelist['type_ID'];
                                     $typeName = $typelist['type_Name'];
-                                    $isChecked = in_array($typeID, $checkedTypes);
+                                    $isChecked = ($typeName == 'Necklace');
                                     ?>
                                     <div>
                                         <div class="wrapper">
@@ -123,7 +124,7 @@ include '../assets/header.php';
             </div>
             <div class="col-12 col-md-9 col-lg-9">
                 <div id="productDisplay" class="productdisplay row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                    <!-- Termékek dinamikusan frissülnek ide -->
+                    <!-- Termékek dinamikusan frissülnek ide --><?php echo $session_name; ?>
                 </div>
             </div>
         </div>
@@ -142,7 +143,9 @@ include '../assets/header.php';
                 }
             };
 
-            xhr.open('GET', 'includes/necklaces_filter.php?' + new URLSearchParams(formData).toString(), true);
+            xhr.open('GET', '../../Backend/user_area/filter_products.php?' + new URLSearchParams(formData).toString(), true);
+
+
             xhr.send();
         }
 
@@ -160,7 +163,7 @@ include '../assets/header.php';
                 productBox.innerHTML = `
                     <div class="productbox" data-type="${product.type}" data-color="${product.color}" data-material="${product.material}" onclick="redirectToProduct(${product.id})">
                         <div class="disp_productimg">
-                            <img src="../admin_area/product_images/${product.image}" alt="${product.name}">
+                            <img src="../../public/product_images/${product.image}" alt="${product.name}">
                         </div>
                         <div class="disp_productdata mt-2">
                             <div class="disp_productname">
@@ -191,7 +194,7 @@ include '../assets/header.php';
         }
 
         function redirectToProduct(productID) {
-            window.location.href = '../user_area/product.php?id=' + productID;
+            window.location.href = 'product.php?id=' + productID;
         }
 
         document.getElementById('filterForm').addEventListener('change', function() {
@@ -209,4 +212,6 @@ include '../assets/header.php';
 </body>
 </html>
 
-<?php include 'includes/footer.php'; ?>
+<?php 
+include '../assets/footer.php'; 
+?>

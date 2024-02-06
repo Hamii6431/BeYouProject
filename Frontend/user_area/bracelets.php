@@ -1,5 +1,6 @@
-<?php
+<?php 
 include '../assets/header.php';
+
 // Az oldal többi része itt helyezkedik el
 ?>
 
@@ -45,7 +46,7 @@ include '../assets/header.php';
                                 foreach($type_query_run as $typelist) {
                                     $typeID = $typelist['type_ID'];
                                     $typeName = $typelist['type_Name'];
-                                    $isChecked = in_array($typeID, $checkedTypes);
+                                    $isChecked = ($typeName == 'Bracelet');
                                     ?>
                                     <div>
                                         <div class="wrapper">
@@ -123,7 +124,7 @@ include '../assets/header.php';
             </div>
             <div class="col-12 col-md-9 col-lg-9">
                 <div id="productDisplay" class="productdisplay row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                    <!-- Termékek dinamikusan frissülnek ide -->
+                    <!-- Termékek dinamikusan frissülnek ide --><?php echo $session_name; ?>
                 </div>
             </div>
         </div>
@@ -142,7 +143,7 @@ include '../assets/header.php';
                 }
             };
 
-            xhr.open('GET', '../../Backend/user_area/bracelets_filter.php?' + new URLSearchParams(formData).toString(), true);
+            xhr.open('GET', '../../Backend/user_area/filter_products.php?' + new URLSearchParams(formData).toString(), true);
 
 
             xhr.send();
@@ -210,3 +211,7 @@ include '../assets/header.php';
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<?php 
+include '../assets/footer.php'; 
+?>
