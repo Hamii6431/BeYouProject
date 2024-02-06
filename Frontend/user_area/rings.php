@@ -56,7 +56,7 @@ include '../assets/header.php';
                                     </div>
                                     <?php
                                 }
-                            }
+                            }    
                         ?>
                     </div>
                     <hr>
@@ -143,9 +143,7 @@ include '../assets/header.php';
                 }
             };
 
-            xhr.open('GET', '../../Backend/user_area/filter_products.php?' + new URLSearchParams(formData).toString(), true);
-
-
+            xhr.open('GET', 'includes/rings_filter.php?' + new URLSearchParams(formData).toString(), true);
             xhr.send();
         }
 
