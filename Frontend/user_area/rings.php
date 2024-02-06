@@ -46,7 +46,7 @@ include '../assets/header.php';
                                 foreach($type_query_run as $typelist) {
                                     $typeID = $typelist['type_ID'];
                                     $typeName = $typelist['type_Name'];
-                                    $isChecked = in_array($typeID, $checkedTypes);
+                                    $isChecked = ($typeName == 'Ring');
                                     ?>
                                     <div>
                                         <div class="wrapper">
@@ -56,7 +56,7 @@ include '../assets/header.php';
                                     </div>
                                     <?php
                                 }
-                            }    
+                            }
                         ?>
                     </div>
                     <hr>
@@ -143,7 +143,9 @@ include '../assets/header.php';
                 }
             };
 
-            xhr.open('GET', 'includes/rings_filter.php?' + new URLSearchParams(formData).toString(), true);
+            xhr.open('GET', '../../Backend/user_area/filter_products.php?' + new URLSearchParams(formData).toString(), true);
+
+
             xhr.send();
         }
 
