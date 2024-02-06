@@ -7,7 +7,7 @@ if(isset($_GET['types']) || isset($_GET['colors']) || isset($_GET['materials']))
     $materials = isset($_GET['materials']) ? implode(",", $_GET['materials']) : '';
 
     // Gyűrű szűrése
-    $ringTypeCondition = 'type_ID = <ring>';
+    $ringTypeCondition = 'type_Name = <Ring>';
 
     if(!empty($types) && !empty($colors) && !empty($materials)) {
         $sql = "SELECT * FROM products WHERE $ringTypeCondition AND type_ID IN ($types) AND color_ID IN ($colors) AND material_ID IN ($materials)";
