@@ -1,17 +1,5 @@
 <?php 
-include '../../Backend/includes/connect.php';
-include '../../Backend/includes/session.php';
 include '../assets/header.php';
-
-// Bejelentkezés ellenőrzése
-if (isset($_SESSION['user_username'])) {
-    $username = $_SESSION['user_username'];
-    $user_email = $_SESSION['user_email'];
-    $user_ID = $_SESSION['user_id'];
-    $is_logged_in = true;
-} else {
-    $is_logged_in = false;
-}
 
 // Ellenőrizze, hogy van-e érvényes termékazonosító
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -176,7 +164,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <span class="popup-close" onclick="closePopupBox()">&times;</span>
                     <div id="popupContent">
                         <?php
-                            if ($is_logged_in) {
+                            if ($is_logged_in)  {
                                 echo "Product added to the cart.";
                             } else {
                                 echo "Please log in first";

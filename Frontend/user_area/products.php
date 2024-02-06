@@ -1,6 +1,4 @@
 <?php 
-include '../../Backend/includes/connect.php';
-include '../../Backend/includes/session.php';
 include '../assets/header.php';
 
 // Az oldal többi része itt helyezkedik el
@@ -126,7 +124,7 @@ include '../assets/header.php';
             </div>
             <div class="col-12 col-md-9 col-lg-9">
                 <div id="productDisplay" class="productdisplay row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                    <!-- Termékek dinamikusan frissülnek ide -->
+                    <!-- Termékek dinamikusan frissülnek ide --><?php echo $session_name; ?>
                 </div>
             </div>
         </div>

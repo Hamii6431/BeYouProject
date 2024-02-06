@@ -1,6 +1,5 @@
 <?php
 include '../../Backend/includes/connect.php';
-include '../../Backend/includes/session.php';
 include '../assets/header.php';
 include '../../Backend/user_area/user_login.php';
 include '../../Backend/user_area/user_registration.php';

@@ -1,12 +1,11 @@
-
 <?php
 
-$servername = "localhost";
-$username = "Hamii";
-$password = "4M9TZedhhxxd-PFP";
-$database = "BeYou";
+$DB_servername = "localhost";
+$DB_username = "Hamii";
+$DB_password = "4M9TZedhhxxd-PFP";
+$DB_database = "BeYou";
 
-$con = new mysqli($servername, $username, $password, $database);
+$con = new mysqli($DB_servername, $DB_username, $DB_password, $DB_database);
 
 
 if ($con->connect_error) {

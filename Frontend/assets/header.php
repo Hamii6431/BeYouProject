@@ -1,3 +1,7 @@
+<?php
+include '../../Backend/includes/connect.php';
+include '../../Backend/includes/session.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +22,7 @@
             </div>
             <div class="header_headericons">
                 <?php
-                if (isset($_SESSION['user_username'])) {
+                if (isset($_SESSION['session_user_id'])) {
                     // Ha be van jelentkezve és a profil gombra kattint a felhasználó a profilpage.php oldalra továbbítjuk.
                     echo '<a href="profilepage.php">';
                 } else {
@@ -31,11 +35,11 @@
                     </span>
                 </a>
                 <?php
-                if (isset($_SESSION['user_username'])) {
-                    // Ha be van jelentkezve és a profil gombra kattint a felhasználó a profilpage.php oldalra továbbítjuk.
+                if (isset($_SESSION['session_user_id'])) {
+                    // Ha be van jelentkezve és a kosár gombra kattint a felhasználó a cartpage.php oldalra továbbítjuk.
                     echo '<a href="cartpage.php">';
                 } else {
-                    // Ha nincs bejelentkezve és a profil gombra kattint a felhasználó a lloginpage.php oldalra továbbítjuk.
+                    // Ha nincs bejelentkezve és a kosár gombra kattint a felhasználó a loginpage.php oldalra továbbítjuk.
                     echo '<a href="loginpage.php">';
                 }
                 ?>
@@ -45,7 +49,7 @@
                 </a>
                 <a href="">
                 <?php
-                if (isset($_SESSION['user_username'])) {
+                if (isset($_SESSION['session_user_id'])) {
                     // Ha be van jelentkezve és a logout gombra kattint a felhasználó a logout.php oldalra továbbítjuk.
                     echo '<a href="logout.php">';
                 } else {

@@ -2,13 +2,13 @@
 include '../../Backend/includes/connect.php';
 include '../../Backend/includes/session.php';
 
-if (isset($_SESSION['user_id'])) {
-    $userID = $_SESSION['user_id'];
+if (isset($_SESSION['session_user_id'])) {
+    $session_user_id = $_SESSION['session_user_id'];
 
     $cart_query = "SELECT order_items.*, products.product_name, products.price, products.image
                    FROM order_items
                    INNER JOIN products ON order_items.product_ID = products.product_ID
-                   WHERE order_items.user_ID = $userID";
+                   WHERE order_items.user_ID = $session_user_id";
 
     $cart_query_run = mysqli_query($con, $cart_query);
 
