@@ -7,29 +7,29 @@ if(isset($_GET['types']) || isset($_GET['colors']) || isset($_GET['materials']))
     $materials = isset($_GET['materials']) ? implode(",", $_GET['materials']) : '';
 
     // Gyűrű szűrése
-    $ringTypeCondition = 'type_ID = <necklaces>';
+    $necklaceTypeCondition = 'type_Name = <Necklace>';
 
     if(!empty($types) && !empty($colors) && !empty($materials)) {
-        $sql = "SELECT * FROM products WHERE $ringTypeCondition AND type_ID IN ($types) AND color_ID IN ($colors) AND material_ID IN ($materials)";
+        $sql = "SELECT * FROM products WHERE $necklaceTypeCondition AND type_ID IN ($types) AND color_ID IN ($colors) AND material_ID IN ($materials)";
     } elseif(!empty($types) && !empty($colors)) {
-        $sql = "SELECT * FROM products WHERE $ringTypeCondition AND type_ID IN ($types) AND color_ID IN ($colors)";
+        $sql = "SELECT * FROM products WHERE $necklaceTypeCondition AND type_ID IN ($types) AND color_ID IN ($colors)";
     } elseif(!empty($types) && !empty($materials)) {
-        $sql = "SELECT * FROM products WHERE $ringTypeCondition AND type_ID IN ($types) AND material_ID IN ($materials)";
+        $sql = "SELECT * FROM products WHERE $necklaceTypeCondition AND type_ID IN ($types) AND material_ID IN ($materials)";
     } elseif(!empty($colors) && !empty($materials)) {
-        $sql = "SELECT * FROM products WHERE $ringTypeCondition AND color_ID IN ($colors) AND material_ID IN ($materials)";
+        $sql = "SELECT * FROM products WHERE $necklaceTypeCondition AND color_ID IN ($colors) AND material_ID IN ($materials)";
     } elseif(!empty($types)) {
-        $sql = "SELECT * FROM products WHERE $ringTypeCondition AND type_ID IN ($types)";
+        $sql = "SELECT * FROM products WHERE $necklaceTypeCondition AND type_ID IN ($types)";
     } elseif(!empty($colors)) {
-        $sql = "SELECT * FROM products WHERE $ringTypeCondition AND color_ID IN ($colors)";
+        $sql = "SELECT * FROM products WHERE $necklaceTypeCondition AND color_ID IN ($colors)";
     } elseif(!empty($materials)) {
-        $sql = "SELECT * FROM products WHERE $ringTypeCondition AND material_ID IN ($materials)";
+        $sql = "SELECT * FROM products WHERE $necklaceTypeCondition AND material_ID IN ($materials)";
     } else {
-        $sql = "SELECT * FROM products WHERE $ringTypeCondition";
+        $sql = "SELECT * FROM products WHERE $necklaceTypeCondition";
     }
 } else {
     // Gyűrű szűrése
-    $ringTypeCondition = 'type_ID = <nencklaces>';
-    $sql = "SELECT * FROM products WHERE $ringTypeCondition";
+    $necklaceTypeCondition = 'type_ID = <nencklaces>';
+    $sql = "SELECT * FROM products WHERE $necklaceTypeCondition";
 }
 
 $result = $con->query($sql);

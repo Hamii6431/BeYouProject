@@ -1,7 +1,5 @@
 <?php 
-include '../includes/connect.php';
-include 'includes/session.php';
-include 'includes/header.php';
+include '../assets/header.php';
 
 // Az oldal többi része itt helyezkedik el
 ?>
@@ -58,7 +56,7 @@ include 'includes/header.php';
                                     </div>
                                     <?php
                                 }
-                            }
+                            }    
                         ?>
                     </div>
                     <hr>
@@ -145,7 +143,7 @@ include 'includes/header.php';
                 }
             };
 
-            xhr.open('GET', 'includes/rings_filter.php?' + new URLSearchParams(formData).toString(), true);
+            xhr.open('GET', '../../Backend/user_area/rings_filter.php?' + new URLSearchParams(formData).toString(), true);
             xhr.send();
         }
 

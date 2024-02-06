@@ -10,29 +10,29 @@ if(isset($_GET['types']) || isset($_GET['colors']) || isset($_GET['materials']))
     $materials = isset($_GET['materials']) ? implode(",", $_GET['materials']) : '';
 
     // Charmok szűrése
-    $ringTypeCondition = 'type_Name = <Bracelets>';
+    $braceletTypeCondition = 'type_Name = <Bracelet>';
 
     if(!empty($types) && !empty($colors) && !empty($materials)) {
-        $sql = "SELECT * FROM products WHERE $ringTypeCondition AND type_ID IN ($types) AND color_ID IN ($colors) AND material_ID IN ($materials)";
+        $sql = "SELECT * FROM products WHERE $braceletTypeCondition AND type_ID IN ($types) AND color_ID IN ($colors) AND material_ID IN ($materials)";
     } elseif(!empty($types) && !empty($colors)) {
-        $sql = "SELECT * FROM products WHERE $ringTypeCondition AND type_ID IN ($types) AND color_ID IN ($colors)";
+        $sql = "SELECT * FROM products WHERE $braceletTypeCondition AND type_ID IN ($types) AND color_ID IN ($colors)";
     } elseif(!empty($types) && !empty($materials)) {
-        $sql = "SELECT * FROM products WHERE $ringTypeCondition AND type_ID IN ($types) AND material_ID IN ($materials)";
+        $sql = "SELECT * FROM products WHERE $braceletTypeCondition AND type_ID IN ($types) AND material_ID IN ($materials)";
     } elseif(!empty($colors) && !empty($materials)) {
-        $sql = "SELECT * FROM products WHERE $ringTypeCondition AND color_ID IN ($colors) AND material_ID IN ($materials)";
+        $sql = "SELECT * FROM products WHERE $braceletTypeCondition AND color_ID IN ($colors) AND material_ID IN ($materials)";
     } elseif(!empty($types)) {
-        $sql = "SELECT * FROM products WHERE $ringTypeCondition AND type_ID IN ($types)";
+        $sql = "SELECT * FROM products WHERE $braceletTypeCondition AND type_ID IN ($types)";
     } elseif(!empty($colors)) {
-        $sql = "SELECT * FROM products WHERE $ringTypeCondition AND color_ID IN ($colors)";
+        $sql = "SELECT * FROM products WHERE $braceletTypeCondition AND color_ID IN ($colors)";
     } elseif(!empty($materials)) {
-        $sql = "SELECT * FROM products WHERE $ringTypeCondition AND material_ID IN ($materials)";
+        $sql = "SELECT * FROM products WHERE $braceletTypeCondition AND material_ID IN ($materials)";
     } else {
-        $sql = "SELECT * FROM products WHERE $ringTypeCondition";
+        $sql = "SELECT * FROM products WHERE $braceletTypeCondition";
     }
 } else {
     // Charmok szűrése
-    $ringTypeCondition = 'type_Name = <Bracelets>';
-    $sql = "SELECT * FROM products WHERE $ringTypeCondition";
+    $braceletTypeCondition = 'type_Name = <Bracelet>';
+    $sql = "SELECT * FROM products WHERE $braceletTypeCondition";
 }
 
 $result = $con->query($sql);
