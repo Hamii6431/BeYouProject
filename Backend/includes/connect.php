@@ -1,17 +1,25 @@
 <?php
+//Fájl tartalma: Adatbázis kapcsolat létrehozása
 
-$DB_servername = "localhost";
-$DB_username = "Hamii";
-$DB_password = "4M9TZedhhxxd-PFP";
-$DB_database = "BeYou";
+class Database {
+    private $DB_servername = "localhost";
+    private $DB_username = "Hamii";
+    private $DB_password = "4M9TZedhhxxd-PFP";
+    private $DB_database = "BeYou";
+    public $conn;
 
-$con = new mysqli($DB_servername, $DB_username, $DB_password, $DB_database);
+    public function __construct() {
+        $this->conn = new mysqli($this->DB_servername, $this->DB_username, $this->DB_password, $this->DB_database);
 
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
+        }
+    }
 
-if ($con->connect_error) {
-    die("Connection failed: " . $con->connect_error);
+    public function getConnection() {
+        return $this->conn;
+    }
 }
 
-$result = $con;
-
+$con = new Database();
 ?>

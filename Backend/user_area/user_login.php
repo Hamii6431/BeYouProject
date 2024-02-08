@@ -29,7 +29,7 @@ if (isset($_POST['user_login'])) {
             $is_logged_in = true;
             
             if ($is_logged_in) {
-                header("location: /BeYou_web/Beyouproject/Frontend/user_area/profilepage.php");
+                header("location: ../../Frontend/user_area/profilepage.php");
                 exit();
             }
     } else {

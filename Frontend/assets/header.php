@@ -1,6 +1,5 @@
 <?php
-include '../../Backend/includes/connect.php';
-include '../../Backend/includes/session.php';
+require_once '../../Backend/includes/connect.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

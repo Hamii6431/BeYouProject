@@ -5,61 +5,167 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
 }
-
-.ccontent {
-    width: 90%;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 1rem;
+.container_profil_preview{
+    display:flex;
+    justify-content: center;
 }
-
-.ccardbody {
-    border: 1px solid rgb(189, 189, 189);
-    padding: 0.5rem 1.85rem 1.85rem 1.85rem;
-}
-
-.ccard {
-    height: auto;
-}
-
-.ccardheader {
-    border-bottom: 2px solid rgb(189, 189, 189);
-}
-
-.ccardprocontent {
+.container_profil_vertical{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
+            flex-direction: column;
+            align-items: center; /* Középre igazítás */
 }
 
-.ccardcontent {
-    width: 100%; /* Módosítás: Minden kártya teljes szélességű */
+
+
+.container_profil_preview_image {
+    width: 10rem;
+    height: 10rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+.container_profil_preview_image img {
+  display: inline;
+  margin: 0 auto;
+  margin-left: -25%; 
+  height: 100%;
+  width: auto;
+}
+.container_profil_preview_name{
     margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
-@media (min-width: 601px) {
-    .ccardcontent {
-        width: calc(50% - 0.5rem); /* Módosítás: 50%-os szélesség minden elemre a széles képernyőkön, padding hozzáadva a térközökhöz */
+.container_primary{
+    margin-top: 1.5rem;
+}
+
+.container_menu{
+    display:block;
+}
+.container_menuitem{
+    display:flex;
+    background-color: #F6F6F6;
+    border-radius: 3px;
+    margin-bottom: 0.1rem;
+    padding:0.5rem;
+}
+.container_menuitem_icon {
+    display:flex;
+    align-items: center;
+    transform: scale(1.2); /* Állítsd be a kívánt méretre */
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+}
+
+.container_menuitem_line{
+    height: 36;
+    width: 1px; /* Módosítva: 1px-ről 100%-ra */
+    background-color: #27251F;
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
+}
+
+.container_menuitem_text{
+    padding-left: 8px;
+    display:flex;
+    align-items: center;
+    font-size: 20px;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+
+
+
+.container_surface {
+            padding: 1rem;
+            padding-top: 0;
+        }
+
+        .surface_header1 {
+            margin-bottom: 2rem;
+        }
+
+        .surface_header2 {
+            border-bottom: 1px solid #D0D1D2;
+            margin-bottom: 1rem;
+        }
+
+        .surface_header2 p {
+            margin-bottom: 0;
+        }
+
+        .surface_body {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px 15px;
+        }
+
+        .form-group {
+            flex: 1 1 calc(50% - 20px);
+            /* Két elem egymás mellett, egy sorban, 20px rés a két elem között */
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            padding-top: 15px;
+            box-sizing: border-box;
+        }
+
+        .form-group label {
+            position: absolute;
+            top: 0;
+            left: 10px;
+            font-size: 12px;
+            color: #888;
+            transition: all 0.3s;
+        }
+
+        button {
+        border: none;
+        background: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
+        display: inline-flex;
+        align-items: center;
+        margin:0;
+        width: 100%;
+        
+        justify-content: center;
+        height: 50px;
+        
     }
-}
-
-.ccardcontent p {
-    margin: 0; /* Ne legyen margin fent és lent a <p> elemeknél */
-    margin-top: 0.1rem;
-}
-
-.dataheader {
-    color: gray;
-}
-
-.ccardcontent {
-    float: right; /* Módosítás: Azért, hogy a tartalom a jobb oldalon legyen */
-}
-
-.underlined {
-    text-decoration: underline;
-    color: rgb(94, 94, 94);
-}
+    .sample_button{
+        background-color: #27251F;
+        color: white;
+        margin-bottom: 0.5rem;
+    }
+    .sample_button:hover {
+        transition: 0.3s;
+        background-color: #000000;
+        color: white;
+    }
+    .sample_button_reverse{
+        background-color: white;
+        color: black;
+        border:1px solid black;
+    }
+    .sample_button_reverse:hover{
+        transition: 0.3s;
+        background-color: #000000;
+        color: white;
+    }
