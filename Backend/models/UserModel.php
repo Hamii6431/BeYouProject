@@ -9,9 +9,9 @@ class UserModel {
     }
 
     // Felhasználó keresése az userID azonosító alapján
-    public function userFinder ($userId) {
-        $stmt = $this->db->prepare("SELECT * FROM user_table WHERE user_ID = ? LIMIT 1");
-        $stmt->bind_param("i", $userId);
+    public function userFinder ($username) {
+        $stmt = $this->db->prepare("SELECT * FROM user_table WHERE username = ? LIMIT 1");
+        $stmt->bind_param("i", $username);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -24,8 +24,8 @@ class UserModel {
 
 
     // Felhasználó jelszavának ellenőrzése
-    public function verifyPassword($user, $password) {
-        return password_verify($password, $user['password']);
+    public function verifyPassword($username, $password) {
+        return password_verify($password, $username['password']);
     }
 
     // Új felhasználó regisztrálása

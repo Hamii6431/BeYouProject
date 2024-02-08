@@ -51,7 +51,7 @@ include '../assets/header.php';
                     <!-- Menüpontok -->
                     <div class="container_menuitem" onclick="fetchContent('accountMenuItem')">Account</div>
                     <div class="container_menuitem" onclick="fetchContent('manageAccountMenuItem')">Manage Account</div>
-                    <div class="container_menuitem" onclick="fetchContent('shippingAddressesMenuItem')">Shipping Addresses</div>
+                    <div class="container_menuitem" onclick="fetchContent('manageShippingForm')">Shipping</div>
                     <div class="container_menuitem" onclick="fetchContent('myOrdersMenuItem')">My Orders</div>
                 </div>
             </div>
@@ -67,11 +67,9 @@ include '../assets/header.php';
     <script src="../../public/user_area/js/profile.js"></script>
     <script>
         function fetchContent(menuItemId) {
-            fetch(`../../Backend/controllers/ProfileContentController.php?menuItemId=${menuItemId}&userId=${<?php echo $_SESSION['user_id']; ?>}`)
+            fetch(`../../Backend/controllers/ProfileContentController.php?menuItemId=${menuItemId}`)
                 .then(response => response.text())
-                .then(html => {
-                    document.getElementById('profileContainer').innerHTML = html;
-                })
+                .then(html => document.getElementById('profileContainer').innerHTML = html)
                 .catch(error => console.error('Error loading the content:', error));
         }
     </script>

@@ -1,6 +1,5 @@
 <?php
 //Fájl tartalma: Adatbázis kapcsolat létrehozása
-
 class Database {
     private $DB_servername = "localhost";
     private $DB_username = "Hamii";
