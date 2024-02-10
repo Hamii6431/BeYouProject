@@ -1,46 +1,41 @@
 <?php
-//Fájl tartalma: [Cím]
-
 class UserModel {
-    private $db;
+    private $db; // Adatbázis kapcsolatot tároló változó
 
-    public function __construct($db) {
-        $this->db = $db;
+    public function __construct() {
+        // Adatbázis kapcsolat létrehozása
+        $this->db = Database::getInstance()->getConnection();
     }
 
-    // Felhasználó keresése az userID azonosító alapján
-    public function userFinder ($username) {
-        $stmt = $this->db->prepare("SELECT * FROM user_table WHERE username = ? LIMIT 1");
-        $stmt->bind_param("i", $username);
+    // Felhasználó keresése felhasználónév alapján
+    public function findByUsername($loginUsername) {
+        $stmt = $this->db->prepare("SELECT * FROM user_table WHERE username = ?");
+        $stmt->bind_param("s", $loginUsername); // A "s" jelzi, hogy a paraméter típusa string
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc(); // Visszatérés a lekérdezés eredményével
+    }
+
+    // Jelszó ellenőrzése a felhasználónév alapján
+    public function verifyPassword($loginUsername, $loginPassword) {
+        $user = $this->findByUsername($loginUsername);
+        if ($user) {
+            return password_verify($loginPassword, $user['password']); // Jelszó ellenőrzése
+        }
+        return false;
+    }
+
+
+
+    public function getUserDataByUsername($username) {
+        $stmt = $this->db->prepare("SELECT * FROM user_table WHERE username = ?");
+        $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            return $result->fetch_assoc();
-        } else {
-            return null;
-        }
+        return $result->fetch_assoc(); // Visszatérítjük a lekérdezés eredményét
     }
+    
 
 
-    // Felhasználó jelszavának ellenőrzése
-    public function verifyPassword($username, $password) {
-        return password_verify($password, $username['password']);
-    }
-
-    // Új felhasználó regisztrálása
-    public function register($name, $email, $username, $password,) {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-        $stmt = $this->db->prepare("INSERT INTO user_table (name, email, username, password, ip_address) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $name, $email, $username, $hashed_password, );
-
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     //Szállítási adatok tárolása $addresses[] tömbbe.
     public function getUserShippingAddresses($userId) {

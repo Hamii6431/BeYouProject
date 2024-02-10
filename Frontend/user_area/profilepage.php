@@ -1,15 +1,10 @@
 
 
 <?php 
-session_start();
-// Ellenőrizzük, hogy a felhasználó be van-e jelentkezve ha nincs irányítjuk a loginpage.php-re.
-if (!isset($_SESSION['session_username'])) {
-    header('Location: loginpage.php');
-    exit();
-}
 
-require_once '../../Backend/includes/connect.php'; // Ha szükséges
-require_once '../../Backend/controllers/ProfileContentController.php'; // Ha szükséges
+
+require_once '../../Backend/includes/connect.php';
+require_once '../../Backend/controllers/ProfileContentController.php'; 
 
 
 echo $_SESSION['session_username']; //kiírjuk az aktív sessiont             -ideiglenes
@@ -43,7 +38,7 @@ include '../assets/header.php';
                             <img src="../../public/img/download.jpg" alt="">
                         </div>
                         <div class="container_profil_preview_name">
-                            <h5><?php echo $_SESSION['session_name']; ?></h5>
+                            <h5><?php echo $_SESSION['session_username']; ?></h5>
                         </div>
                     </div>
                 </div>

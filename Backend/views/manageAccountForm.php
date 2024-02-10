@@ -1,3 +1,4 @@
+
 <div class="surface_header">
     <div class="surface_header1">
         <h4>Manage Account</h4>
@@ -7,15 +8,16 @@
     </div>
 </div>
 <div class="surface_body">
-    <form action="/path/to/update/account" method="post">
-        <!-- Felhasználónév -->
+    <form action="/BeYou_web/Beyouproject/Backend/controllers/ProfileController.php" method="post">
+<!-- További mezők hasonlóan -->
+
         <div class="form-group">
             <input type="text" name="username" id="username" class="container_input" value="<?php echo $_SESSION['session_username']; ?>" required>
             <label for="username">Username</label>
         </div>
         <!-- Valódi név -->
         <div class="form-group">
-            <input type="text" name="real_name" id="real_name" class="container_input" value="<?php echo $_SESSION['session_name']; ?>" required>
+            <input type="text" name="name" class="container_input" value="<?php echo htmlspecialchars($_SESSION['user_name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
             <label for="real_name">Real Name</label>
         </div>
         <!-- E-mail -->
@@ -37,9 +39,9 @@
         <div class="form-group">
             <select name="gender" id="gender" class="container_input" required>
                 <option value="" disabled>Select your gender</option>
-                <option value="Female">Female</option>
-                <option value="Male" >Male</option>
-                <option value="Other" >Other</option>
+                <option value="Female" <?php echo (isset($_SESSION['session_gender']) && $_SESSION['session_gender'] == 'Female') ? 'selected' : ''; ?>>Female</option>
+                <option value="Male" <?php echo (isset($_SESSION['session_gender']) && $_SESSION['session_gender'] == 'Male') ? 'selected' : ''; ?>>Male</option>
+                <option value="Other" <?php echo (isset($_SESSION['session_gender']) && $_SESSION['session_gender'] == 'Other') ? 'selected' : ''; ?>>Other</option>
             </select>
             <label for="gender">Gender</label>
         </div>

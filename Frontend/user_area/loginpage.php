@@ -5,15 +5,15 @@ require_once '../../Backend/controllers/LoginController.php';
 require_once '../../Backend/controllers/RegistrationController.php';
 
 
-$loginController = new LoginController($con);
-$registrationController = new RegistrationController($con);
+$loginController = new LoginController($conn);
+$registrationController = new RegistrationController($conn);
 
 // Bejelentkezési adatok elküldési a loginControllernek
 if (isset($_POST['user_login'])) {
-    $username = $_POST['login_username'];
-    $password = $_POST['login_password'];
+    $loginUsername = $_POST['login_username'];
+    $loginPassword = $_POST['login_password'];
 
-    $loginController->login($username, $password);
+    $loginController->login($loginUsername, $loginPassword);
     // A login metódus már kezeli az átirányítást vagy hibaüzenetet, nincs szükség további ellenőrzésre itt
 }
 
