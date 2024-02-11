@@ -1,39 +1,29 @@
 <?php
+
+require_once __DIR__ . '/../includes/connect.php';
+
 class UserModel {
-    private $db; // Adatbázis kapcsolatot tároló változó
+    private $db;
 
     public function __construct() {
-        // Adatbázis kapcsolat létrehozása
         $this->db = Database::getInstance()->getConnection();
     }
-
-    // Felhasználó keresése felhasználónév alapján
-    public function findByUsername($loginUsername) {
-        $stmt = $this->db->prepare("SELECT * FROM user_table WHERE username = ?");
-        $stmt->bind_param("s", $loginUsername); // A "s" jelzi, hogy a paraméter típusa string
-        $stmt->execute();
-        return $stmt->get_result()->fetch_assoc(); // Visszatérés a lekérdezés eredményével
-    }
-
-    // Jelszó ellenőrzése a felhasználónév alapján
-    public function verifyPassword($loginUsername, $loginPassword) {
-        $user = $this->findByUsername($loginUsername);
-        if ($user) {
-            return password_verify($loginPassword, $user['password']); // Jelszó ellenőrzése
-        }
-        return false;
-    }
-
-
 
     public function getUserDataByUsername($username) {
         $stmt = $this->db->prepare("SELECT * FROM user_table WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_assoc(); // Visszatérítjük a lekérdezés eredményét
+        return $stmt->get_result()->fetch_assoc();
     }
-    
+
+    public function verifyPassword($loginUsername, $loginPassword) {
+        $user = $this->getUserDataByUsername($loginUsername);
+        if ($user) {
+            return password_verify($loginPassword, $user['password']);
+        }
+        return false;
+    }
+
 
 
 
@@ -53,6 +43,13 @@ class UserModel {
             ];
         }
         return $addresses;
+    }
+    
+
+    public function updateUserData($userId, $name, $email, $phone_number, $birthdate, $gender) {
+        $stmt = $this->db->prepare("UPDATE user_table SET name = ?, email = ?, phone_number = ?, birthdate = ?, gender = ? WHERE user_ID = ?");
+        $stmt->bind_param("sssssi", $name, $email, $phone_number, $birthdate, $gender, $userId);
+        return $stmt->execute();
     }
     
 }

@@ -38,15 +38,15 @@ include '../assets/header.php';
                             <img src="../../public/img/download.jpg" alt="">
                         </div>
                         <div class="container_profil_preview_name">
-                            <h5><?php echo $_SESSION['session_username']; ?></h5>
+                            <h5><?php echo $_SESSION['session_name']; ?></h5>
                         </div>
                     </div>
                 </div>
                 <div class="container_menu">
                     <!-- Menüpontok -->
                     <div class="container_menuitem" onclick="fetchContent('accountMenuItem')">Account</div>
-                    <div class="container_menuitem" onclick="fetchContent('manageAccountMenuItem')">Manage Account</div>
-                    <div class="container_menuitem" onclick="fetchContent('manageShippingForm')">Shipping</div>
+                    <div class="container_menuitem" onclick="fetchContent('manageAccountForm')">Manage Account</div>
+                    <div class="container_menuitem" onclick="fetchContent('manageShippingForm')">Manage Shipping</div>
                     <div class="container_menuitem" onclick="fetchContent('myOrdersMenuItem')">My Orders</div>
                 </div>
             </div>

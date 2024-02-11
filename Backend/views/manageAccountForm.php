@@ -1,5 +1,6 @@
 
-<div class="surface_header">
+
+<div class="surface_primary_header">
     <div class="surface_header1">
         <h4>Manage Account</h4>
     </div>
@@ -7,32 +8,27 @@
         <p>Personal Information</p>
     </div>
 </div>
-<div class="surface_body">
+<div class="surface_primary_body">
     <form action="/BeYou_web/Beyouproject/Backend/controllers/ProfileController.php" method="post">
-<!-- További mezők hasonlóan -->
 
-        <div class="form-group">
-            <input type="text" name="username" id="username" class="container_input" value="<?php echo $_SESSION['session_username']; ?>" required>
-            <label for="username">Username</label>
-        </div>
         <!-- Valódi név -->
         <div class="form-group">
-            <input type="text" name="name" class="container_input" value="<?php echo htmlspecialchars($_SESSION['user_name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
+            <input type="text" name="name" id="name" class="container_input" value="<?php echo htmlspecialchars($_SESSION['session_name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
             <label for="real_name">Real Name</label>
         </div>
         <!-- E-mail -->
         <div class="form-group">
-            <input type="email" name="email" id="email" class="container_input" value="<?php echo $_SESSION['session_email']; ?>" required>
+            <input type="email" name="email" id="email" class="container_input" value="<?php echo htmlspecialchars($_SESSION['session_email'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
             <label for="email">Email</label>
         </div>
         <!-- Telefonszám -->
         <div class="form-group">
-            <input type="tel" name="phone_number" id="phone_number" class="container_input" value="<?php echo $_SESSION['session_phone_number']; ?>" required>
+            <input type="tel" name="phone_number" id="phone_number" class="container_input" value="<?php echo htmlspecialchars($_SESSION['session_phone_number'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
             <label for="phone_number">Phone Number</label>
         </div>
         <!-- Születésnap -->
         <div class="form-group">
-            <input type="date" name="birthdate" id="birthdate" class="container_input" value="<?php echo $_SESSION['session_birthdate']; ?>" required>
+            <input type="date" name="birthdate" id="birthdate" class="container_input" value="<?php echo htmlspecialchars($_SESSION['session_birthdate'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
             <label for="birthdate">Birthdate</label>
         </div>
         <!-- Nem -->
