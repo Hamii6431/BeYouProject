@@ -1,14 +1,16 @@
 <?php
-
+//Adatbázis kapcsolat importálása
 require_once __DIR__ . '/../includes/connect.php';
 
 class UserModel {
     private $db;
 
+    //Adatbázis kapcsolat létrehozása
     public function __construct() {
         $this->db = Database::getInstance()->getConnection();
     }
 
+    //Felhasználói adatok lekérdezése username alapján.
     public function getUserDataByUsername($username) {
         $stmt = $this->db->prepare("SELECT * FROM user_table WHERE username = ?");
         $stmt->bind_param("s", $username);
@@ -16,6 +18,7 @@ class UserModel {
         return $stmt->get_result()->fetch_assoc();
     }
 
+    //Jelszó kezelése bejelentkezéshez.
     public function verifyPassword($loginUsername, $loginPassword) {
         $user = $this->getUserDataByUsername($loginUsername);
         if ($user) {
@@ -46,6 +49,8 @@ class UserModel {
     }
     
 
+    //Felhasználói adatok frissítése
+    //profilpage.php --> profileContentController.php --> manageAccountForm.php
     public function updateUserData($userId, $name, $email, $phone_number, $birthdate, $gender) {
         $stmt = $this->db->prepare("UPDATE user_table SET name = ?, email = ?, phone_number = ?, birthdate = ?, gender = ? WHERE user_ID = ?");
         $stmt->bind_param("sssssi", $name, $email, $phone_number, $birthdate, $gender, $userId);

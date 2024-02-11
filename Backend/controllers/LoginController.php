@@ -1,7 +1,8 @@
 <?php
-
+//userModel importálása.
 require_once __DIR__ . '/../models/UserModel.php';
 
+//LoginController létrehozása
 class LoginController {
     private $userModel;
 
@@ -9,10 +10,14 @@ class LoginController {
         $this->userModel = new UserModel();
     }
 
+    //Bejelentkezési logika.
     public function login($loginUsername, $loginPassword) {
+        //Adatok egyezőségének vizsgálata.
         if ($this->userModel->verifyPassword($loginUsername, $loginPassword)) {
+            //Amennyiben megfelelnek a bejelentkezési adatok az adatbázisban lévő felhasználói adatokkal elindítjuk a sessiont.
             session_start();
             $userData = $this->userModel->getUserDataByUsername($loginUsername);
+            //Felhasználó adatainak tárolása a sessionben.
             if ($userData) {
                 $_SESSION['session_username'] = $userData['username'];
                 $_SESSION['session_user_id'] = $userData['user_ID'];
@@ -26,13 +31,15 @@ class LoginController {
                 header("Location: ../../Frontend/user_area/profilepage.php");
                 exit();
             } else {
-                echo "<script>alert('User data fetch failed. Please try again.')</script>";
+                //Exit
             }
         } else {
+            //Felhasználó értesítése a hibás bejelentkezésről.
             echo "<script>alert('Invalid username or password. Please try again.')</script>";
         }
     }
 
+    //Kijelentkezés funkció bejelentkezési oldalra átirányítással.
     public function logout() {
         session_start();
         session_unset();
