@@ -7,6 +7,10 @@ $dbInstance = Database::getInstance();
 $dbConnection = $dbInstance->getConnection();
 $userModel = new UserModel($dbConnection);
 
+$userId = $_SESSION['session_user_id'];
+$addresses = $userModel->getUserShippingAddresses($userId);
+
+
 
 
 if (isset($_GET['menuItemId'])) {
@@ -14,7 +18,7 @@ if (isset($_GET['menuItemId'])) {
 
     switch ($menuItemId) {
         case 'accountMenuItem':
-            // Account page content
+            include __DIR__ . '/../views/accountMenuItem.php'; // Adjust the path as necessary
             break;
         
         case 'manageAccountForm':
@@ -25,6 +29,11 @@ if (isset($_GET['menuItemId'])) {
         case 'manageShippingForm':
             // Display form for managing shipping addresses
             include __DIR__ . '/../views/manageShippingForm.php'; // Adjust the path as necessary
+            break;
+
+        case 'manageShippingForm':
+            // Display form for managing shipping addresses
+            include __DIR__ . '/../views/ordersMenuItem.php'; // Adjust the path as necessary
             break;
         
         default:

@@ -19,13 +19,17 @@ class LoginController {
             $userData = $this->userModel->getUserDataByUsername($loginUsername);
             //Felhasználó adatainak tárolása a sessionben.
             if ($userData) {
-                $_SESSION['session_username'] = $userData['username'];
                 $_SESSION['session_user_id'] = $userData['user_ID'];
+                $_SESSION['session_username'] = $userData['username'];
                 $_SESSION['session_name'] = $userData['name'];
                 $_SESSION['session_gender'] = $userData['gender'];
                 $_SESSION['session_birthdate'] = $userData['birthdate'];
                 $_SESSION['session_email'] = $userData['email'];
                 $_SESSION['session_phone_number'] = $userData['phone_number'];
+                
+                // Itt hívjuk meg a szállítási címek lekérdezését
+                $shippingAddresses = $this->userModel->getUserShippingAddresses($userData['user_ID']);
+                $_SESSION['session_shipping_addresses'] = $shippingAddresses;
                 
                 // Átirányítás a profil oldalra
                 header("Location: ../../Frontend/user_area/profilepage.php");

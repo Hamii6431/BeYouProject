@@ -1,37 +1,37 @@
-<div class="surface_header">
+<div class="surface_primary_header">
     <div class="surface_header1">
-        <h4>Shipping Addresses</h4>
+        <h4>Manage Your Shipping Addresses</h4>
     </div>
     <div class="surface_header2">
-        <p>Manage your shipping addresses</p>
+        <p>Shipping Information</p>
     </div>
 </div>
-<div class="surface_body">
-    <!-- Egyszerű form az új cím hozzáadására -->
-    <form action="/path/to/update/shipping" method="post">
+
+<div class="surface_primary_body">
+<?php foreach ($addresses as $address): ?>
+    <form action="/BeYou_web/Beyouproject/Backend/controllers/ShippingController.php" method="post">
+        <input type="hidden" name="address_ID" value="<?php echo $address['address_ID']; ?>">
         <div class="form-group">
-            <input type="text" name="name" id="name" class="container_input"  required>
-            <label for="real_name">Real Name</label>
-        </div>
-        <div class="form-group">
-            <input type="text" name="country" id="country" class="container_input" value="<?php echo htmlspecialchars($address['country'], ENT_QUOTES, 'UTF-8'); ?>" required>
-            <input type="text" name="country" id="country" class="container_input" placeholder="Country" required>
+            <input type="text" name="country" id="country" class="container_input" value="<?php echo $address['country']; ?>" required>
             <label for="country">Country</label>
         </div>
         <div class="form-group">
-            <input type="text" name="postal_code" id="postal_code" class="container_input" placeholder="Postal Code" required>
-            <label for="postal_code">Postal Code</label>
+            <input type="text" name="postal_code" id="postal_code" class="container_input" value="<?php echo $address['postal_code']; ?>" required>
+            <label for="postal_code">Postal code</label>
         </div>
         <div class="form-group">
-            <input type="text" name="city" id="city" class="container_input" placeholder="City" required>
+            <input type="text" name="city" id="city" class="container_input" value="<?php echo $address['city']; ?>" required>
             <label for="city">City</label>
         </div>
         <div class="form-group">
-            <input type="text" name="street_address" id="street_address" class="container_input" placeholder="Street Address" required>
-            <label for="street_address">Street Address</label>
+            <input type="text" name="street_address" id="street_address" class="container_input" value="<?php echo $address['street_address']; ?>" required>
+            <label for="street_address">Street address</label>
         </div>
-        <button class="sample_button_reverse" type="submit" name="add_shipping_address">Add Address</button>
+        <button class="sample_button_reverse" type="submit" name="update_address">Update Addresses</button>
+
     </form>
-
-
+<?php endforeach; ?>
 </div>
+
+</body>
+</html>

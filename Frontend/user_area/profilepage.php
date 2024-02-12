@@ -47,7 +47,7 @@ include '../assets/header.php';
                     <div class="container_menuitem" onclick="fetchContent('accountMenuItem')">Account</div>
                     <div class="container_menuitem" onclick="fetchContent('manageAccountForm')">Manage Account</div>
                     <div class="container_menuitem" onclick="fetchContent('manageShippingForm')">Manage Shipping</div>
-                    <div class="container_menuitem" onclick="fetchContent('myOrdersMenuItem')">My Orders</div>
+                    <div class="container_menuitem" onclick="fetchContent('ordersMenuItem')">My Orders</div>
                 </div>
             </div>
             <div class="col-lg-9 col-12">
