@@ -1,57 +1,38 @@
 <?php
-require_once 'Database.php';
+require_once __DIR__ . '/../includes/connect.php';
 
 class ProductModel {
-    private $db;
+    protected $db;
 
-    public function __construct() {
-        $this->db = Database::getInstance()->getConnection();
+    public function __construct($db) {
+        $this->db = $db;
     }
 
-    public function getFilteredProducts($types, $colors, $materials) {
+    public function getFilteredProducts($types = [], $colors = [], $materials = []) {
         $conditions = [];
         $params = [];
-        $typesQuery = $colorsQuery = $materialsQuery = "";
 
         if (!empty($types)) {
-            $typesQuery = "type_ID IN (" . str_repeat('?,', count($types) - 1) . '?)';
-            $conditions[] = $typesQuery;
+            $conditions[] = "type_ID IN (" . implode(',', array_fill(0, count($types), '?')) . ")";
             $params = array_merge($params, $types);
         }
-
         if (!empty($colors)) {
-            $colorsQuery = "color_ID IN (" . str_repeat('?,', count($colors) - 1) . '?)';
-            $conditions[] = $colorsQuery;
+            $conditions[] = "color_ID IN (" . implode(',', array_fill(0, count($colors), '?')) . ")";
             $params = array_merge($params, $colors);
         }
-
         if (!empty($materials)) {
-            $materialsQuery = "material_ID IN (" . str_repeat('?,', count($materials) - 1) . '?)';
-            $conditions[] = $materialsQuery;
+            $conditions[] = "material_ID IN (" . implode(',', array_fill(0, count($materials), '?')) . ")";
             $params = array_merge($params, $materials);
         }
 
-        $query = "SELECT * FROM products";
-        if (!empty($conditions)) {
-            $query .= " WHERE " . implode(" AND ", $conditions);
+        $sql = "SELECT * FROM products";
+        if ($conditions) {
+            $sql .= " WHERE " . implode(' AND ', $conditions);
         }
 
-        $stmt = $this->db->prepare($query);
-
-        if ($stmt) {
-            if (!empty($params)) {
-                $stmt->bind_param(str_repeat('i', count($params)), ...$params);
-            }
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $products = [];
-            while ($row = $result->fetch_assoc()) {
-                $products[] = $row;
-            }
-            $stmt->close();
-            return $products;
-        }
-        return [];
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 ?>

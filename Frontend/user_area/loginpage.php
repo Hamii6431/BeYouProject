@@ -4,27 +4,25 @@ require_once '../../Backend/includes/connect.php';
 require_once '../../Backend/controllers/LoginController.php';
 require_once '../../Backend/controllers/RegistrationController.php';
 
+$loginController = new LoginController();
 
-$loginController = new LoginController($conn);
-$registrationController = new RegistrationController($conn);
-
-// Bejelentkezési adatok elküldési a loginControllernek
 if (isset($_POST['user_login'])) {
     $loginUsername = $_POST['login_username'];
     $loginPassword = $_POST['login_password'];
 
-    $loginController->login($loginUsername, $loginPassword);
-    // A login metódus már kezeli az átirányítást vagy hibaüzenetet, nincs szükség további ellenőrzésre itt
-}
+    $result = $loginController->login($loginUsername, $loginPassword);
 
-if (isset($_POST['user_register'])) {
-    // Regisztrációs adatok megszerzése
-    $registration_result = $registrationController->register($username, $name, $user_email, $user_password, $user_password_again);
-    
-    //A felhasználóval a regisztráció állapotát a 
+    if ($result['type'] === 'user') {
+        // Felhasználói bejelentkezés sikeres
+        header("Location: ../../Frontend/user_area/profilepage.php");
+    } elseif ($result['type'] === 'admin') {
+        // Admin bejelentkezés sikeres
+        header("Location: ../../Frontend/admin_area/index.php");
+    } else {
+        echo "<script>alert('Invalid username or password. Please try again.')</script>";
+    }
 }
 ?>
-
 
 
 <!DOCTYPE html>

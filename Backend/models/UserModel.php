@@ -1,15 +1,14 @@
 <?php
 require_once __DIR__ . '/../includes/connect.php';
+require_once __DIR__ . '/../models/AdminModel.php'; // AdminModel importálása
 
 class UserModel {
     private $db;
 
-    // Database connection initialization
     public function __construct() {
         $this->db = Database::getInstance()->getConnection();
     }
 
-    // Fetch user data by username
     public function getUserDataByUsername($username) {
         $stmt = $this->db->prepare("SELECT * FROM user_table WHERE username = ?");
         $stmt->bind_param("s", $username);
@@ -17,15 +16,21 @@ class UserModel {
         return $stmt->get_result()->fetch_assoc();
     }
 
-    // Verify user password for login
     public function verifyPassword($loginUsername, $loginPassword) {
         $user = $this->getUserDataByUsername($loginUsername);
-        if ($user) {
-            return password_verify($loginPassword, $user['password']);
+        if ($user && password_verify($loginPassword, $user['password'])) {
+            return ['type' => 'user', 'data' => $user];
         }
+
+        // Admin bejelentkezési logika
+        $adminModel = new AdminModel();
+        $admin = $adminModel->getAdminDataByUsername($loginUsername);
+        if ($admin && password_verify($loginPassword, $admin['password'])) {
+            return ['type' => 'admin', 'data' => $admin];
+        }
+
         return false;
     }
-
 
 
     // Update user data

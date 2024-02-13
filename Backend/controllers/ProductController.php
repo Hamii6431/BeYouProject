@@ -1,20 +1,22 @@
 <?php
-require_once 'ProductModel.php';
+require_once __DIR__ . '/../models/ProductModel.php';
+require_once __DIR__ . '/../includes/connect.php';
 
 class ProductController {
     private $model;
 
     public function __construct() {
-        $this->model = new ProductModel();
+        $dbInstance = Database::getInstance();
+        $dbConnection = $dbInstance->getConnection();
+        $this->model = new ProductModel($dbConnection);
     }
 
-    public function filterProducts() {
-        $types = isset($_GET['types']) ? $_GET['types'] : [];
-        $colors = isset($_GET['colors']) ? $_GET['colors'] : [];
-        $materials = isset($_GET['materials']) ? $_GET['materials'] : [];
+    public function handleRequest() {
+        $types = $_POST['types'] ?? [];
+        $colors = $_POST['colors'] ?? [];
+        $materials = $_POST['materials'] ?? [];
 
         $products = $this->model->getFilteredProducts($types, $colors, $materials);
-        include 'views/products.php'; // Megjelenítjük a termékeket
+        require 'productsView.php'; // Betöltjük a nézetet a termékekkel
     }
 }
-?>

@@ -1,15 +1,10 @@
-<?php
-include('../includes/connect.php');
-session_start();
 
-// Ellenőrizzük, hogy be van-e jelentkezve egyáltalán valaki
-if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'admin') {
-    $admin_username = $_SESSION['admin_username'];
-} else {
-    // Ha nincs bejelentkezve admin, átirányítjuk a bejelentkező oldalra
-    header("location: /BeYou_web/Beyouproject/user_area/loginpage.php");
-    exit();
-}
+
+<?php 
+session_start();
+require_once '../../Backend/includes/connect.php';
+
+
 ?>
 
 <!DOCTYPE html>
@@ -103,7 +98,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'admin') {
             </div>
             <div class="col-6">
                 <div class="name_container">
-                    <h3>[<?php echo $admin_username; ?>]</h3>
+                    <h3>[<?php echo $_SESSION['admin_username']; ?>]</h3>
                 </div>
             </div>
         </div>
