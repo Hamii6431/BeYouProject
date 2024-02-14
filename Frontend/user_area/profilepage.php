@@ -1,8 +1,4 @@
-
-
 <?php 
-
-
 require_once '../../Backend/includes/connect.php';
 require_once '../../Backend/controllers/ProfileContentController.php'; 
 
