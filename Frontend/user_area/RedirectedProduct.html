@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirected Product</title>
+</head>
+<body>
+    <h1>Termék adatai</h1>
+    <div id="productDetails"></div>
+
+    <script>
+        // Az URL paramétereinek kiolvasása
+        const urlParams = new URLSearchParams(window.location.search);
+        const productID = urlParams.get('id');
+
+        // AJAX kérés a termék adatainak lekéréséhez
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "../product_api.php?id=" + productID, true);
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // Sikeres válasz esetén a termék adatainak megjelenítése
+                const productData = JSON.parse(xhr.responseText);
+                const productDetailsDiv = document.getElementById('productDetails');
+                productDetailsDiv.innerHTML = `
+                    <h2>${productData.product_name}</h2>
+                    <p>Ár: ${productData.price}</p>
+                    <p>Leírás: ${productData.description}</p>
+                    <!-- Egyéb termék adatok megjelenítése -->
+                `;
+            } else {
+                // Hiba esetén kezelés
+                console.error(xhr.responseText);
+            }
+        };
+
+        xhr.send();
+    </script>
+</body>
+</html>

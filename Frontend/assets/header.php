@@ -1,5 +1,5 @@
 <?php
-require_once '../../Backend/includes/connect.php';
+require_once '../../Backend/includes/Database.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,10 +23,10 @@ require_once '../../Backend/includes/connect.php';
                 <?php
                 if (isset($_SESSION['session_user_id'])) {
                     // Ha be van jelentkezve és a profil gombra kattint a felhasználó a profilpage.php oldalra továbbítjuk.
-                    echo '<a href="profilepage.php">';
+                    echo '<a href="RedirectedProduct.php">';
                 } else {
                     // Ha nincs bejelentkezve és a profil gombra kattint a felhasználó a lloginpage.php oldalra továbbítjuk.
-                    echo '<a href="loginpage.php">';
+                    echo '<a href="LoginPage.php">';
                 }
                 ?>
                     <span class="material-symbols-outlined iconstyle">
@@ -36,10 +36,10 @@ require_once '../../Backend/includes/connect.php';
                 <?php
                 if (isset($_SESSION['session_user_id'])) {
                     // Ha be van jelentkezve és a kosár gombra kattint a felhasználó a cartpage.php oldalra továbbítjuk.
-                    echo '<a href="cartpage.php">';
+                    echo '<a href="CartPage.php">';
                 } else {
                     // Ha nincs bejelentkezve és a kosár gombra kattint a felhasználó a loginpage.php oldalra továbbítjuk.
-                    echo '<a href="loginpage.php">';
+                    echo '<a href="LoginPage.php">';
                 }
                 ?>
                     <span class="material-symbols-outlined iconstyle">
@@ -50,7 +50,7 @@ require_once '../../Backend/includes/connect.php';
                 <?php
                 if (isset($_SESSION['session_user_id'])) {
                     // Ha be van jelentkezve és a logout gombra kattint a felhasználó a logout.php oldalra továbbítjuk.
-                    echo '<a href="logout.php">';
+                    echo '<a href="Logout.php">';
                 } else {
 
                 }
@@ -69,7 +69,7 @@ require_once '../../Backend/includes/connect.php';
                         <a href="#" class="header_nav-link">Home</a>
                     </li>
                     <li class="header_nav-item">
-                        <a href="products.php" class="header_nav-link">All products</a>
+                        <a href="Products.php" class="header_nav-link">All products</a>
                     </li>
                     <li class="header_nav-item">
                         <a href="rings.php" class="header_nav-link">Rings</a>

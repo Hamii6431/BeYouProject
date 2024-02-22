@@ -9,87 +9,100 @@ class ProductModel {
         $this->db = $dbInstance->getConnection();
     }
 
+    public function getAllProducts(){
+        $sql = "SELECT * FROM products";
+    }
     public function getFilteredProducts($types, $colors, $materials) {
-        $typesStr = implode(",", $types);
-        $colorsStr = implode(",", $colors);
-        $materialsStr = implode(",", $materials);
+        $sql = "SELECT * FROM products";
 
-        $sql = "SELECT * FROM products WHERE type_ID IN ($typesStr) AND color_ID IN ($colorsStr) AND material_ID IN ($materialsStr)";
-        // Hasonlóképpen, összeállítani a többi lekérdezést
+        if (!empty($types) || !empty($colors) || !empty($materials)) {
+            $sql .= " WHERE";
+            $conditions = [];
+
+            if (!empty($types)) {
+                $conditions[] = " type_ID IN (" . implode(",", $types) . ")";
+            }
+            if (!empty($colors)) {
+                $conditions[] = " color_ID IN (" . implode(",", $colors) . ")";
+            }
+            if (!empty($materials)) {
+                $conditions[] = " material_ID IN (" . implode(",", $materials) . ")";
+            }
+
+            $sql .= implode(" AND ", $conditions);
+        }
 
         $result = $this->db->query($sql);
         $filteredProducts = [];
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $filteredProducts[] = $row;
+                $filteredProducts[] = [
+                    'name' => $row['product_name'],
+                    'price' => $row['price'],
+                    'image' => $row['image'],
+                    'id' => $row['product_ID'],
+                    'type' => $row['type_ID'],
+                    'color' => $row['color_ID'],
+                    'material' => $row['material_ID'],
+                ];
             }
         }
 
         return $filteredProducts;
     }
-}
 
-class FilterModel {
-    private $db;
-
-    public function __construct() {
-        $dbInstance = Database::getInstance();
-        $this->db = $dbInstance->getConnection();
+    public function getMaterials() {
+        // Ide írd be a materials lekérdezést az adatbázisból
+        // Példa:
+        $sql = "SELECT * FROM materials";
+        $result = $this->db->query($sql);
+        $materials = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $materials[] = [
+                    'id' => $row['material_ID'],
+                    'name' => $row['material_Name']
+                ];
+            }
+        }
+        return $materials;
     }
 
-    public function getFilters() {
-        $materialsQuery = "SELECT * FROM materials";
-        $typesQuery = "SELECT * FROM types";
-        $colorsQuery = "SELECT * FROM colors";
-
-        $materialsResult = $this->db->query($materialsQuery);
-        $typesResult = $this->db->query($typesQuery);
-        $colorsResult = $this->db->query($colorsQuery);
-
-        $materials = $materialsResult->fetch_all(MYSQLI_ASSOC);
-        $types = $typesResult->fetch_all(MYSQLI_ASSOC);
-        $colors = $colorsResult->fetch_all(MYSQLI_ASSOC);
-
-        return [
-            'materials' => $materials,
-            'types' => $types,
-            'colors' => $colors
-        ];
-    }
-}
-
-class ProductController {
-    private $model;
-
-    public function __construct() {
-        $this->model = new ProductModel();
+    public function getTypes() {
+        // Ide írd be a types lekérdezést az adatbázisból
+        // Példa:
+        $sql = "SELECT * FROM types";
+        $result = $this->db->query($sql);
+        $types = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $types[] = [
+                    'id' => $row['type_ID'],
+                    'name' => $row['type_Name']
+                ];
+            }
+        }
+        return $types;
     }
 
-    public function index() {
-        $types = isset($_GET['types']) ? $_GET['types'] : [];
-        $colors = isset($_GET['colors']) ? $_GET['colors'] : [];
-        $materials = isset($_GET['materials']) ? $_GET['materials'] : [];
-
-        $filteredProducts = $this->model->getFilteredProducts($types, $colors, $materials);
-
-        header('Content-Type: application/json');
-        echo json_encode($filteredProducts);
-    }
-}
-
-class FilterController {
-    private $model;
-
-    public function __construct() {
-        $this->model = new FilterModel();
-    }
-
-    public function index() {
-        $filters = $this->model->getFilters();
-
-        header('Content-Type: application/json');
-        echo json_encode($filters);
+    public function getColors() {
+        // Ide írd be a colors lekérdezést az adatbázisból
+        // Példa:
+        $sql = "SELECT * FROM colors";
+        $result = $this->db->query($sql);
+        $colors = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $colors[] = [
+                    'id' => $row['color_ID'],
+                    'name' => $row['color_Name']
+                ];
+            }
+        }
+        return $colors;
     }
 }
+
+
 ?>

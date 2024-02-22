@@ -1,9 +1,7 @@
 <?php 
-require_once '../../Backend/includes/connect.php';
-require_once '../../Backend/controllers/ProfileContentController.php'; 
-
-
-echo $_SESSION['session_username']; //kiírjuk az aktív sessiont             -ideiglenes
+//require_once '../../Backend/includes/Database.php';
+//require_once '../../Backend/controllers/ProfileContentController.php'; 
+session_start();
 include '../assets/header.php';
 ?>
 
@@ -40,10 +38,10 @@ include '../assets/header.php';
                 </div>
                 <div class="container_menu">
                     <!-- Menüpontok -->
-                    <div class="container_menuitem" onclick="fetchContent('accountMenuItem')">Account</div>
-                    <div class="container_menuitem" onclick="fetchContent('manageAccountForm')">Manage Account</div>
-                    <div class="container_menuitem" onclick="fetchContent('manageShippingForm')">Manage Shipping</div>
-                    <div class="container_menuitem" onclick="fetchContent('ordersMenuItem')">My Orders</div>
+                    <div class="container_menuitem" >Account</div>
+                    <div class="container_menuitem" >Manage Account</div>
+                    <div class="container_menuitem" >Manage Shipping</div>
+                    <div class="container_menuitem" >My Orders</div>
                 </div>
             </div>
             <div class="col-lg-9 col-12">
@@ -57,12 +55,8 @@ include '../assets/header.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="../../public/user_area/js/profile.js"></script>
     <script>
-        function fetchContent(menuItemId) {
-            fetch(`../../Backend/controllers/ProfileContentController.php?menuItemId=${menuItemId}`)
-                .then(response => response.text())
-                .then(html => document.getElementById('profileContainer').innerHTML = html)
-                .catch(error => console.error('Error loading the content:', error));
-        }
+
+        
     </script>
 </body>
 </html>

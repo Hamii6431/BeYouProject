@@ -1,42 +1,44 @@
 <?php
 require_once __DIR__ . '/../models/UserModel.php';
 
+// Ellenőrizzük, hogy a POST kérés érkezett-e és AJAX kérés-e
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+    // Ellenőrizzük, hogy minden kötelező mezőt kitöltöttek-e
+    if (isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password_again']) && isset($_POST['terms'])) {
+        // Mezők értékeinek mentése változókba
+        $first_name = $_POST['first_name'];
+        $last_name = $_POST['last_name'];
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $password_again = $_POST['password_again'];
 
-class RegistrationController {
-    private $userModel;
+        // UserModel példányosítása
+        $userModel = new UserModel();
 
-    public function __construct($db) {
-        $this->userModel = new UserModel($db);
-    }
-
-    public function register($username, $name, $user_email, $user_password, $user_password_again,) {
-        // Üres mezők ellenőrzése és jelszó egyezőségének ellenőrzése
-        // Username foglaltságának ellenőrzése
-        // Felhasználó regisztrálása, ha minden ellenőrzés sikeres
-
-        // Példakód, amely a fenti logikát tartalmazza:
-        if (empty($username) || empty($name) || empty($user_email) || empty($user_password) || empty($user_password_again)) {
-            return 'Please fill in all fields.';
-        }
-
-        //Jelszó egyezés ellenőrzése
-        if ($user_password != $user_password_again) {
-            return 'Passwords do not match.';
-        }
-
-        // Felhasználónév foglaltságának ellenőrzése
-        if ($this->userModel->userFinder($username)) {
-            return 'Username is already taken.';
-        }
-
-        //Jelszó hashelés majd az adatok feltöltése az adatbázisba végül közöljük a felhasználóval a regisztráció állapotát
-        $hashed_password = password_hash($user_password, PASSWORD_DEFAULT);
-        if ($this->userModel->register($name, $user_email, $username, $hashed_password)) {
-            return 'Registration successful.';
+        // Ellenőrizzük, hogy a jelszavak egyeznek-e
+        if ($userModel->passwordsMatch($password, $password_again)) {
+            // Regisztráljuk a felhasználót
+            $registrationResult = $userModel->registerUser($first_name, $last_name, $username, $email, $password);
+            // Ellenőrizzük a regisztráció eredményét
+            if ($registrationResult === "Registration successful.") {
+                // Sikeres regisztráció esetén további teendők, például átirányítás vagy üzenet megjelenítése
+                echo "<script>alert('Registration successful.');</script>";
+                // Ide írd be a további teendőket, például átirányítást
+            } else {
+                // Sikertelen regisztráció esetén hibaüzenet megjelenítése
+                echo "<script>alert('$registrationResult');</script>";
+            }
         } else {
-            return 'Registration failed.';
+            // Ha a jelszavak nem egyeznek, hibaüzenet megjelenítése
+            echo "<script>alert('Passwords do not match.');</script>";
         }
+    } else {
+        // Ha nem minden kötelező mezőt töltöttek ki, hibaüzenet küldése
+        echo "Hiányzó mezők!";
     }
+} else {
+    // Ha nem POST kérés érkezett vagy nem AJAX kérés, hibaüzenet küldése
+    echo "Érvénytelen kérés!";
 }
-
 ?>

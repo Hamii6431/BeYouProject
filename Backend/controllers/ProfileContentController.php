@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/../models/UserModel.php';
-require_once __DIR__ . '/../includes/connect.php';
+require_once __DIR__ . '/../includes/Database.php';
 
 $dbInstance = Database::getInstance();
 $dbConnection = $dbInstance->getConnection();

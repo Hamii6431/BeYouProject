@@ -1,0 +1,244 @@
+
+
+.banner-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.banner-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+.custombutton{
+    width: 100%;
+    height: 2.5rem;
+    background-color:white;
+    border:1px solid lightgray;
+    text-align: left;
+}
+.sort-text{
+    text-align: left;
+    width: 100%;
+}
+.sort-icon{
+    text-align: right;
+    width: 100%;
+}
+.box-1{
+    border:2px solid green;
+
+}
+
+.li_filter{
+    list-style: none;
+    margin-top: 0.25rem;
+}
+
+.ul_filter{
+    padding: 0;
+}
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    margin-bottom: 1em;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    height: 1.5em;
+    width: 1.5em;
+    background-color: white;
+    border: 2px solid rgb(42, 42, 42);
+    border-radius: 0;
+    cursor: pointer;
+    display: flex;
+    outline: none;
+    align-items: center;
+    justify-content: center;
+}
+
+label {
+    color: black;
+    font-size: 1em;
+    cursor: pointer;
+    margin-left: 0.5em;
+}
+
+input[type="checkbox"]:after {
+    font-family: "Font awesome 6 Free";
+    content: "\f00c";
+    font-weight: 600;
+    font-size: 1em;
+    color: #ffffff;
+    display: none;
+}
+
+input[type="checkbox"]:hover {
+    background-color: white;
+}
+
+input[type="checkbox"]:checked {
+    background-color: rgb(31,31,31);
+}
+
+input[type="checkbox"]:checked:after {
+    display: block;
+}
+
+button {
+border: none;
+background: none;
+padding: 0;
+font: inherit;
+cursor: pointer;
+outline: inherit;
+display: inline-flex;
+align-items: center;
+margin:0;
+}
+
+.material-filter {
+cursor: pointer;
+position: relative;
+display: inline-flex;
+align-items: center;
+}
+
+.outer-circle {
+width: 30px;
+height: 30px;
+border: 2px solid #B5B5B5;
+border-radius: 50%;
+position: relative;
+}
+
+.inner-circle {
+width: 100%;
+height: 100%;
+border-radius: 50%;
+position: absolute;
+top: 0;
+left: 0;
+transition: background-color 0.3s ease;
+}
+
+.text {
+margin-left: 0.5em;
+font-size: 16px;
+color: #333; /* Változtathatsz a szöveg színén */
+}
+
+.hover-frame {
+width: calc(100% + 8px);
+height: calc(100% + 8px);
+border: 2px solid transparent;
+border-radius: 50%;
+position: absolute;
+top: -4px;
+left: -4px;
+transition: border-color 0.3s ease;
+}
+
+.material-filter:hover .hover-frame {
+border-color: #000000; /* Változtathatsz a hover keretének színén */
+}
+
+.material-filter.active .hover-frame {
+border-color: #000000; /* Változtathatsz az aktív állapot keretének színén */
+}
+
+#innercolor1{
+background-color: black;
+}
+#innercolor2{
+background-color: #FFFF00;
+}
+#innercolor3{
+background-color: #F00F00;
+}
+#innercolor4{
+background-color: #FE249A;
+}
+#innercolor5{
+background-color: #0070D2;
+}
+
+
+.productbox {
+padding: 15px;
+margin-bottom: 20px;
+}
+
+.disp_productimg img {
+max-width: 100%;
+height: auto;
+}
+
+.disp_productname p {
+font-size: 14px;
+margin: 0;
+color:#27251F;
+}
+
+.disp_productprice p {
+font-size: 16px;
+margin: 0;
+margin-top: 5px;
+color:#27251F;
+}
+
+
+
+        .btn_add_cart {
+            width: 100%;
+            background-color: #27251F;
+            color: white;
+            justify-content: center;
+            height: 50px;
+        }
+
+        .btn_add_cart:hover {
+            transition: 0.3s;
+            background-color: #FFCAD4;
+            color: black;
+        }
+
+        .product_images img {
+            display: inline-block;
+            width: 47%;
+            margin: 1%;
+        }
+
+        .primary_container {
+            padding-left:5% !important;
+            padding-right:5% !important;
+        }
+        .product_card{
+            padding:0% !important;
+        }
+        .productbox{
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .description_and_details_btn {
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .description_and_details_box {
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .description {
+            width: 100%;
+        }

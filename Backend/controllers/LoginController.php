@@ -1,85 +1,49 @@
 <?php
-require_once __DIR__ . '/../models/UserModel.php';
-require_once __DIR__ . '/../models/AdminModel.php';
+session_start(); // Session indítása
 
-class LoginController {
-    private $userModel;
-    private $adminModel;
+//Ha érkezett adat a post kérésből elindítjuk a bejelentkezést
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Ellenőrizzük hogy a login_username és a login_password változókba érkezett e adat.
+    if (isset($_POST['login_username'], $_POST['login_password'])) {
+        $loginUsername = $_POST['login_username'];
+        $loginPassword = $_POST['login_password'];
 
-    public function __construct() {
-        $this->userModel = new UserModel();
-        $this->adminModel = new AdminModel();
-    }
-
-    public function login($loginUsername, $loginPassword) {
-        session_start();
-
-        if ($this->attemptAdminLogin($loginUsername, $loginPassword)) {
-            return;
-        }
-
-        if ($this->attemptUserLogin($loginUsername, $loginPassword)) {
-            return;
-        }
-
-        $this->notifyLoginFailure();
-    }
-
-    private function attemptAdminLogin($username, $password) {
-        if ($this->adminModel->verifyAdminPassword($username, $password)) {
-            $adminData = $this->adminModel->getAdminDataByUsername($username);
-            if ($adminData) {
-                $this->initializeAdminSession($adminData);
+        //Meghívjuk a UserModel.php fájlt a bejelentkezési funkciók eléréséhez.
+        require_once '../../Backend/models/UserModel.php';
+        $userModel = new UserModel();
+        $loginResult = $userModel->verifyPassword($loginUsername, $loginPassword);
+        if ($loginResult) {
+            // Sikeres bejelentkezés esetén a felhasználó vagy admin adatainak tárolása session változókba majd továbbítás a megfelelő oldalra.
+            if ($loginResult['type'] === 'user') {
+                $_SESSION['user_id'] = $loginResult['data']['user_id'];
+                $_SESSION['user_username'] = $loginResult['data']['username'];
+                $_SESSION['user_email'] = $loginResult['data']['email'];
+                $_SESSION['user_firstname'] = $loginResult['data']['first_name'];
+                $_SESSION['user_lastname'] = $loginResult['data']['last_name'];
+                
+                // Átirányítás a felhasználó profil oldalára
+                header("Location: ../../Frontend/user_area/ProfilePage.php");
+                exit();
+            } elseif ($loginResult['type'] === 'admin') {
+                $_SESSION['admin_id'] = $loginResult['data']['admin_id'];
+                $_SESSION['admin_username'] = $loginResult['data']['admin_username'];
+                $_SESSION['admin_email'] = $loginResult['data']['admin_email'];
+                $_SESSION['admin_firstname'] = $loginResult['data']['admin_first_name'];
+                $_SESSION['admin_lastname'] = $loginResult['data']['admin_last_name'];
+                
+                // Átirányítás az admin felületre
                 header("Location: ../../Frontend/admin_area/index.php");
                 exit();
             }
-            return true;
+        } else {
+            // Sikertelen bejelentkezés esetén visszairányítás a bejelentkezési oldalra
+            header("Location: ../../Frontend/user_area/loginpage.php?error=invalid_login");
+            exit();
         }
-        return false;
-    }
-
-    private function attemptUserLogin($username, $password) {
-        if ($this->userModel->verifyPassword($username, $password)) {
-            $userData = $this->userModel->getUserDataByUsername($username);
-            if ($userData) {
-                $this->initializeUserSession($userData);
-                header("Location: ../../Frontend/user_area/profilepage.php");
-                exit();
-            }
-            return true;
-        }
-        return false;
-    }
-
-    private function initializeAdminSession($adminData) {
-        $_SESSION['admin_user_id'] = $adminData['admin_ID'];
-        $_SESSION['admin_username'] = $adminData['admin_username'];
-        $_SESSION['admin_name'] = $adminData['admin_name'];
-        // További admin adatok tárolása szükség szerint
-    }
-
-    private function initializeUserSession($userData) {
-        $_SESSION['session_user_id'] = $userData['user_ID'];
-        $_SESSION['session_username'] = $userData['username'];
-        $_SESSION['session_name'] = $userData['name'];
-        $_SESSION['session_gender'] = $userData['gender'];
-        $_SESSION['session_birthdate'] = $userData['birthdate'];
-        $_SESSION['session_email'] = $userData['email'];
-        $_SESSION['session_phone_number'] = $userData['phone_number'];
-        
-        $shippingAddresses = $this->userModel->getUserShippingAddresses($userData['user_ID']);
-        $_SESSION['session_shipping_addresses'] = $shippingAddresses;
-    }
-
-    private function notifyLoginFailure() {
-        echo "<script>alert('Invalid username or password. Please try again.')</script>";
-    }
-
-    public function logout() {
-        session_start();
-        session_unset();
-        session_destroy();
-        header("Location: ../../Frontend/loginpage.php");
-        exit();
     }
 }
+
+// Ha nem POST kérés érkezett, vagy hiányoznak az adatok, akkor visszairányítás a bejelentkezési oldalra
+header("Location: ../../Frontend/loginpage.php");
+exit();
+?>

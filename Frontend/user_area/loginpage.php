@@ -1,29 +1,8 @@
 <?php
 include '../assets/header.php';
-require_once '../../Backend/includes/connect.php';
-require_once '../../Backend/controllers/LoginController.php';
-require_once '../../Backend/controllers/RegistrationController.php';
+require_once '../../Backend/includes/database.php';
 
-$loginController = new LoginController();
-
-if (isset($_POST['user_login'])) {
-    $loginUsername = $_POST['login_username'];
-    $loginPassword = $_POST['login_password'];
-
-    $result = $loginController->login($loginUsername, $loginPassword);
-
-    if ($result['type'] === 'user') {
-        // Felhasználói bejelentkezés sikeres
-        header("Location: ../../Frontend/user_area/profilepage.php");
-    } elseif ($result['type'] === 'admin') {
-        // Admin bejelentkezés sikeres
-        header("Location: ../../Frontend/admin_area/index.php");
-    } else {
-        echo "<script>alert('Invalid username or password. Please try again.')</script>";
-    }
-}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +32,7 @@ if (isset($_POST['user_login'])) {
         <div class="row">
             <div class="col-12 col-lg-5">
                 <div class="secondary_div">
-                    <!-- Bejelentkezési űrlap -->
+                    <!-- Bejelentkezési és regisztrációs menüpontok-->
                     <div class="container_tab_items">
                         <div class="tab_pill_item" role="presentation">
                             <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" href="#pills-login" role="tab"
@@ -69,7 +48,8 @@ if (isset($_POST['user_login'])) {
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
                             <!-- Bejelentkezési űrlap tartalma -->
-                            <form method="POST" action="loginpage.php" class="orderform">
+                            <form id="loginForm" method="POST" action="loginpage.php" class="orderform">
+                                <!-- Bejelentkezési űrlap tartalma -->
                                 <div class="form-group">
                                     <input type="text" name="login_username" id="login_username" class="container_input" placeholder=" " required>
                                     <label for="login_username">Enter your username *</label>
@@ -79,59 +59,49 @@ if (isset($_POST['user_login'])) {
                                     <input type="password" name="login_password" id="login_password" class="" placeholder=" " required>
                                     <label for="login_password">Enter your password *</label>
                                 </div>
-                                
                                 <div class="form-group">
                                     <p>* The required fields must be filled out. Without feedback, we cannot process your request.</p>
                                 </div>
-
-                                <button class="sample_button" type="submit" name="user_login">LOGIN</button>
+                                <button class="sample_button" type="submit">LOGIN</button>
 
                             </form>
 
                         </div>
 
-                        <!-- Regisztrációs űrlap tartalma -->
                         <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-                            <form action="loginpage.php#pills-login" method="post" class="orderform">
-                                <!-- Felhasználónév -->
+                            <!-- Regisztrációs űrlap -->
+                            <form id="registrationForm" method="POST" action="RegistrationController.php" class="orderform">
+                                <div class="form-group">
+                                    <input type="text" name="first_name" id="first_name" class="container_input" placeholder=" " autocomplete="off" required="required">
+                                    <label for="first_name">Enter your first name *</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="last_name" id="last_name" class="container_input" placeholder=" " autocomplete="off" required="required">
+                                    <label for="last_name">Enter your last name *</label>
+                                </div>
                                 <div class="form-group">
                                     <input type="text" name="username" id="username" class="container_input" placeholder=" " autocomplete="off" required="required">
                                     <label for="username">Enter your username *</label>
                                 </div>
-
-                                <!-- Rendes név -->
                                 <div class="form-group">
-                                    <input type="text" name="name" id="name" class="container_input" placeholder=" " autocomplete="off" required="required">
-                                    <label for="name">Enter your full name *</label>
+                                    <input type="email" name="email" id="email" class="container_input" placeholder=" " autocomplete="off" required="required">
+                                    <label for="email">Enter your email address *</label>
                                 </div>
-
-                                <!-- E-mail cím -->
                                 <div class="form-group">
-                                    <input type="email" name="user_email" id="user_email" class="container_input" placeholder=" " autocomplete="off" required="required">
-                                    <label for="user_email">Enter your email address *</label>
+                                    <input type="password" name="password" id="password" class="container_input" placeholder=" " required="required">
+                                    <label for="password">Enter your password *</label>
                                 </div>
-
-                                <!-- Jelszó -->
                                 <div class="form-group">
-                                    <input type="password" name="user_password" id="user_password" class="container_input" placeholder=" " required="required">
-                                    <label for="user_password">Enter your password *</label>
+                                    <input type="password" name="password_again" id="password_again" class="container_input" placeholder=" " required="required">
+                                    <label for="password_again">Enter your password again *</label>
                                 </div>
-
-                                <!-- Jelszó újra -->
-                                <div class="form-group">
-                                    <input type="password" name="user_password_again" id="user_password_again" class="container_input" placeholder=" " required="required">
-                                    <label for="user_password_again">Enter your password again *</label>
-                                </div>
-
                                 <div class="container_terms">
                                     <div class="wrapper">
-                                        <input type="checkbox" name="" value="">
-                                        <label><p class="m-0"href="termsandconditions.php">Terms and conditions *</p></label>  <!--Módosítani-->
-                                    </div> 
+                                        <input type="checkbox" name="terms" id="terms" value="accepted" required>
+                                        <label><p class="m-0">Terms and conditions *</p></label>
+                                    </div>
                                     <p>* The required fields must be filled out. Without feedback, we cannot process your request.</p>
                                 </div>
-
-                                <!-- Regisztrációs gomb -->
                                 <div class="form-group">
                                     <button class="sample_button" type="submit" name="user_register">REGISTER</button>
                                     <p id="have_account">Already have an account?</p>
@@ -139,6 +109,8 @@ if (isset($_POST['user_login'])) {
                                 </div>
                             </form>
                         </div>
+
+
 
                     </div>
                     
@@ -159,13 +131,13 @@ if (isset($_POST['user_login'])) {
                         <hr>
                         <form method="POST" action="" class="orderform">
                                 <div class="form-group">
-                                    <input type="text" name="login_username" id="login_username" class="" placeholder=" " required>
-                                    <label for="login_username">Order number *</label>
+                                    <input type="text" name="" id="" class="" placeholder=" " required>
+                                    <label for="">Order number *</label>
                                 </div>
                                 <!-- Password input -->
                                 <div class="form-group">
-                                    <input type="password" name="login_password" id="login_password" class="" placeholder=" " required>
-                                    <label for="login_password">Order email address *</label>
+                                    <input type="" name="" id="" class="" placeholder=" " required>
+                                    <label for="">Order email address *</label>
                                 </div>
                                 
                                 <button class="sample_button_reverse" type="submit" name="">STATUS CHECK</button>
@@ -176,12 +148,60 @@ if (isset($_POST['user_login'])) {
             </div>
         </div>
     </div>
-    <!--Funkció a login és register űrlap közötti váltáshoz. -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
     <script>
+        //Bejelentkezési űrlap elküldése AJAX kéréssel
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Az alapértelmezett űrlap elküldésének megakadályozása
+        const formData = new FormData(this);
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '../../Backend/controllers/LoginController.php', true);
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Sikeres kérés esetén átirányítás
+                window.location.href = xhr.responseURL;
+            } else if (xhr.status === 302) {
+                console.error('A kérés átirányítást kapott.');
+            } else {
+                console.error('Hiba történt a kérés során.');
+            }
+        };
+        xhr.send(formData);
+        });
+
+        //Regisztrációs űrlap elküldése AJAX kéréssel
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Az alapértelmezett űrlap elküldésének megakadályozása
+
+        // Űrlap adatainak gyűjtése
+        const formData = new FormData(this);
+
+        // AJAX kérés konfigurálása
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '../../Backend/controllers/RegistrationController.php', true); // Módosítás: közvetlenül a PHP fájlra mutatunk
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); // Fejléc hozzáadása az AJAX kéréshez
+
+        // AJAX kérés küldése
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Sikeres kérés esetén kezelheted a választ itt
+                console.log(xhr.responseText);
+                alert(xhr.responseText); // Például megjelenítheted egy alertboxban
+            } else {
+                // Sikertelen kérés esetén kezelheted a hibát itt
+                console.error('Hiba történt a kérés során.');
+            }
+        };
+
+        // AJAX kérés küldése
+        xhr.send(formData);
+    });
+
+
+        //Bejelentkezés és regisztrációs űrlap közötti váltás
         const loginTab = document.getElementById('tab-login');
         const registerTab = document.getElementById('tab-register');
         const loginForm = document.getElementById('pills-login');
