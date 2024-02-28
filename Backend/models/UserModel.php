@@ -69,7 +69,7 @@ class UserModel {
         session_start();
         session_unset();
         session_destroy();
-        header("Location: ../../Frontend/loginpage.php");
+        header("Location: ../../Frontend/loginpage.html");
         exit();
     }
 

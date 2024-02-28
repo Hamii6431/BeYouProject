@@ -37,13 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } else {
             // Sikertelen bejelentkezés esetén visszairányítás a bejelentkezési oldalra
-            header("Location: ../../Frontend/user_area/loginpage.php?error=invalid_login");
+            header("Location: ../../Frontend/user_area/loginpage.html?error=invalid_login");
             exit();
         }
     }
 }
 
 // Ha nem POST kérés érkezett, vagy hiányoznak az adatok, akkor visszairányítás a bejelentkezési oldalra
-header("Location: ../../Frontend/loginpage.php");
+header("Location: ../../Frontend/user_area/LoginPage.html");
 exit();
 ?>

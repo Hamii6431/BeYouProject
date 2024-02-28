@@ -1,7 +1,10 @@
-
 <?php
 require_once __DIR__ . '/../models/ProductModel.php';
-require_once __DIR__ . '/../includes/connect.php';
+
+
+// Adatbázis kapcsolat előkészítése
+$dbInstance = Database::getInstance();
+$dbConnection = $dbInstance->getConnection();
 
 class ProductController {
     private $model;
@@ -22,18 +25,7 @@ class ProductController {
     }
 }
 
-class FilterController {
-    private $model;
-
-    public function __construct() {
-        $this->model = new FilterModel();
-    }
-
-    public function index() {
-        $filters = $this->model->getFilters();
-
-        header('Content-Type: application/json');
-        echo json_encode($filters);
-    }
-}
+// ProductController példány létrehozása és index metódus meghívása
+$productController = new ProductController();
+$productController->index();
 ?>
