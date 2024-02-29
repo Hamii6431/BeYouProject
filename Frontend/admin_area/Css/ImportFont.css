@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'CustomFont';
+    src: url('../../fonts/Optima_medium.woff') format('woff');
+}
+* {
+    font-family: 'CustomFont', sans-serif;
+}

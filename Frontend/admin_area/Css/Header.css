@@ -1,0 +1,87 @@
+/* Globális beállítások */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Fő fejléc stílusok */
+.header-container {
+    padding-left: 100px;
+    padding-right: 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 5px solid pink; /* Alsó határ */
+}
+
+.logo-image {
+    height: 60px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.icon-logout {
+    transform: scale(1.2); /* Ikon méretezése */
+    color: #D0D1D2; /* Ikon színe */
+}
+
+.header-right {
+    display: flex;
+    align-items: center; /* Elemek középre igazítása */
+    gap: 20px; /* Elemek közötti távolság */
+}
+
+/* Általános fejléc és menü stílusok */
+.header-nav-item {
+    list-style: none;
+}
+
+.header-nav-link {
+    color: black;
+    text-decoration: none;
+    transition: 0.1s ease; /* Színátmenet animáció */
+}
+
+.header-nav-link:hover {
+    border-bottom: 3px solid pink; /* Hover állapotban lévő menüpont aláhúzása */
+}
+
+/* Fejléc adaptív (responsive) stílusai */
+@media (max-width: 1280px) {
+    .header-container {
+        padding-left: 70px;
+        padding-right: 90px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .header-container {
+        padding-left: 0px;
+        padding-right: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        margin: 0;
+        padding-left: 40px;
+        padding-right: 20px;
+    }
+    .header-logo {
+        text-align: center;
+        margin: 0 auto;
+        flex-grow: 1;
+    }
+    .header-right {
+        margin-left: auto;
+    }
+    .header-hamburger {
+        display: block;
+    }
+    .header-nav-menu {
+        flex-direction: column;
+        background-color: white;
+        text-align: center;
+    }
+}

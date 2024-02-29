@@ -1,0 +1,76 @@
+/* Alap keret stílusok a tartalomhoz */
+.main-container {
+    margin-top: 1.5rem;
+}
+
+/* Profil kép és admin név megjelenítése */
+.logo-image {
+    max-width: 180px; /* Logó maximális szélessége */
+}
+
+.admin-name-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 20px; /* Fentről távolság */
+    margin-bottom: 20px; /* Lentől távolság */
+}
+
+/* Menüpontok stílusai */
+.menu-item {
+    margin-bottom: 10px; /* Menüpontok közötti távolság */
+}
+
+.menu-item .active, .menu-item:hover {
+    border-bottom: 2px solid pink; /* Aktív vagy hover állapotban lévő menü aláhúzása */
+    color: gray; /* Szöveg színe */
+}
+
+/* Oldalsó menü stílusok */
+.sidebar-menu {
+    border-right: 3px solid pink; /* Jobb oldali határ az oldalsó menühöz */
+}
+
+/* Válaszoló stílusok az oldalsó menühöz mobil nézetben */
+@media (max-width: 768px) {
+    .menu-item {
+        text-align: center; /* Középre igazítás mobil nézetben */
+        margin-bottom: 10px; /* Távolság a menüpontok között */
+    }
+}
+
+
+
+.profile-preview{
+    display:flex;
+    justify-content: center;
+}
+
+
+.profile-preview-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+.profile-image-container {
+    width: 10rem;
+    height: 10rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+.profile-image-container img {
+  display: inline;
+  margin: 0 auto;
+  margin-left: -25%; 
+  height: 100%;
+  width: auto;
+}
+
+.profile-name{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}

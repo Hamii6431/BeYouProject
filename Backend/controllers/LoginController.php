@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['admin_lastname'] = $loginResult['data']['admin_last_name'];
                 
                 // Átirányítás az admin felületre
-                header("Location: ../../Frontend/admin_area/index.php");
+                header("Location: ../../Frontend/admin_area/AdminPage.php");
                 exit();
             }
         } else {

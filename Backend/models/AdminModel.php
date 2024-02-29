@@ -16,13 +16,5 @@ class AdminModel {
         return $stmt->get_result()->fetch_assoc();
     }
 
-    // Admin jelszó ellenőrzése
-    public function verifyAdminPassword($loginUsername, $loginPassword) {
-        $admin = $this->getAdminDataByUsername($loginUsername);
-        if ($admin) {
-            return password_verify($loginPassword, $admin['admin_password']);
-        }
-        return false;
-    }
 }
 ?>

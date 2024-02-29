@@ -20,21 +20,22 @@ class UserModel {
 
     // Felhasználó bejelentkezésének ellenőrzése
     public function verifyPassword($loginUsername, $loginPassword) {
-        //Felhasználónév találat esetén megnézzük hogy a kapott jelszó hashe megegyezik e az adatbázisban lévő hash-el.
+        //Felhasználónév találat esetén megnézzük hogy a kapott jelszó megfelel-e
         $user = $this->getUserDataByUsername($loginUsername);
         if ($user && password_verify($loginPassword, $user['password'])) {
             return ['type' => 'user', 'data' => $user];
         }
 
-        //Admin felhasználónév találat esetén megnézzük hogy a kapott jelszó hashe megegyezik e az adatbázisban lévő hash-el.
+        //Admin felhasználónév találat esetén megnézzük hogy a kapott jelszó megfelel-e
         $adminModel = new AdminModel();
         $admin = $adminModel->getAdminDataByUsername($loginUsername);
-        if ($admin && password_verify($loginPassword, $admin['password'])) {
+        if ($admin && password_verify($loginPassword, $admin['admin_password'])) {
             return ['type' => 'admin', 'data' => $admin];
         }
 
         return false;
     }
+
 
     // Felhasználó adatainak lekérése felhasználónév alapján
     public function getUserDataByUsername($username) {
