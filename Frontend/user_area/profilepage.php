@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter&family=Roboto+Slab:wght@200;300;600&display=swap" rel="stylesheet">
 
     <!-- CSS linkek -->
-    <link rel="stylesheet" href="css/Header.css">
+    <link rel="stylesheet" href="css/Header2.css">
     <link rel="stylesheet" href="css/ProfilePage.css">
     <link rel="stylesheet" href="css/ImportFont.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
@@ -22,116 +25,106 @@
 </head>
 
 <body>
+<nav class="container-navbar">
+    <!-- Logo -->
+    <div class="logo">
+        <img src="../../public/img/PngLogo.png" alt="Logo">
+    </div>
+    <!-- Navigációs menü -->
+    <div class="navigation-menu">
+        <!-- Menüpontok -->
+        <div class="navigation-menu-item"><a href="Home.html">Home</a></div>
+        <div class="navigation-menu-item"><a href="Products.html">All products</a></div>
+        <div class="navigation-menu-item"><a href="Rings.html">Rings</a></div>
+        <div class="navigation-menu-item"><a href="Bracelets.html">Bracelets</a></div>
+        <div class="navigation-menu-item"><a href="Necklaces.html">Necklaces</a></div>
+    </div>
 
-    <!-- Header rész -->
-    <header>
-        <div class="header_headerdiv1">
-            <div class="header_headerlogo">
-                <img class="header_img" src="../../public/img/Logo.png" alt="">
+    <!-- Ikonok a felhasználói interakciókhoz -->
+    <div class="icon-container">
+        <form id="personForm" action="#" method="POST">
+            <button type="button" class="icon-button" id="personIcon">
+                <span class="material-symbols-outlined iconstyle">person</span>
+            </button>
+            <button type="button" class="icon-button" id="shoppingBagIcon">
+                <span class="material-symbols-outlined iconstyle">shopping_bag</span>
+            </button>
+            <button type="button" class="icon-button" id="logoutIcon">
+                <span class="material-symbols-outlined iconstyle">logout</span>
+            </button>
+        </form>
+    </div>
+</nav>
+
+<div class="container-for">
+    <div class="container-profile-menu">
+        <div class="profile-name-image">
+            <div class="preview-image">
+                <img src="../../public/img/download.jpg" alt="">
             </div>
-            <div class="header_headericons">
-                <!-- Form az űrlap elküldéséhez -->
-                <form id="personForm" action="#" method="POST">
-                    <button type="button" id="personIcon">
-                        <span class="material-symbols-outlined iconstyle">person</span>
-                    </button>
-                    <button type="button" id="shoppingBagIcon">
-                        <span class="material-symbols-outlined iconstyle">shopping_bag</span>
-                    </button>
-                    <button type="button" id="logoutIcon">
-                        <span class="material-symbols-outlined iconstyle">logout</span>
-                    </button>
-                </form>
-                <!-- További ikonok -->
-            </div>
+            <h5 class="profile-name"></h5>
         </div>
-
-        <div class="header_headerdiv2">
-            <nav class="header_navbar">
-                <ul class="header_nav-menu">
-                    <li class="header_nav-item">
-                        <a href="#" class="header_nav-link">Home</a>
-                    </li>
-                    <li class="header_nav-item">
-                        <a href="Products.html" class="header_nav-link">All products</a>
-                    </li>
-                    <li class="header_nav-item">
-                        <a href="rings.php" class="header_nav-link">Rings</a>
-                    </li>
-                    <li class="header_nav-item">
-                        <a href="bracelets.php" class="header_nav-link">Bracelets</a>
-                    </li>
-                    <li class="header_nav-item">
-                        <a href="necklaces.php" class="header_nav-link">Necklaces</a>
-                    </li>
-                </ul>
-                <div class="header_hamburger">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-            </nav>
-        </div>
-    </header>
-
-    <div class="container container_primary">
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="container_profil_preview">
-                    <div class="container_profil_vertical">
-                        <div class="container_profil_preview_image">
-                            <img src="../../public/img/download.jpg" alt="">
-                        </div>
-                        <div class="container_profil_preview_name">
-                            <h5></h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="container_menu">
-                    <!-- Menüpontok -->
-                    <div class="container_menuitem" id="accountMenuItem">Account</div>
-                    <div class="container_menuitem" id="manageAccountForm">Manage Account</div>
-                    <div class="container_menuitem" id="manageShippingForm">Manage Shipping</div>
-                    <div class="container_menuitem" id="ordersMenuItem">My Orders</div>
-                </div>
-            </div>
-            <div class="col-lg-9 col-12">
-                <div class="container_surface" id="profileContainer">
-                    <!-- Az oldal tartalmát amit kiválasztottunk a menüpontokkal ide töltjük be.-->
-                </div>
-            </div>
+        <div class="container-menu">
+            <!-- Menüpontok -->
+            <div class="container-menuitem" id="accountMenuItem">Account</div>
+            <div class="container-menuitem" id="manageAccountForm">Manage Account</div>
+            <div class="container-menuitem" id="manageShippingForm">Manage Shipping</div>
+            <div class="container-menuitem" id="ordersMenuItem">My Orders</div>
         </div>
     </div>
+    <div class="container-surface" id="profileContainer">
+        <!-- Profil tartalom helye -->
+    </div>
+</div>
 
     <!-- JavaScript linkek -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="Js/ProfileManager.js"></script>
-    <script src="Js/Header.js"></script>
+    <script src="Js/Navbar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script>
-        // Az oldal betöltésekor futtatott függvény
-        window.onload = function() {
-            // Felhasználó nevének beállítása
-            getUserNameByUserId(<?php echo $_SESSION['user_id']; ?>);
-        }
 
-        // Felhasználónév lekérésének függvénye AJAX használatával
-        function getUserNameByUserId(userId) {
-            $.ajax({
-                type: 'POST',
-                url: '../../Backend/models/UserModel.php', // Az elérési út a PHP fájlhoz, amely lekéri a felhasználó teljes nevét
-                data: { userId: userId },
-                success: function(response) {
-                    // Sikeres válasz esetén a felhasználó nevének beállítása
-                    var userName = document.querySelector('.container_profil_preview_name h5');
-                    userName.innerText = response;
-                },
-                error: function(xhr, status, error) {
-                    // Hibakezelés
-                    console.error(error);
-                }
-            });
+$(document).ready(function() {
+    // Kattintás eseménykezelő hozzáadása a menüpontokhoz
+    $('.container-menuitem').click(function() {
+        var menuItemId = $(this).attr('id'); // Kiválasztott menüpont azonosítója
+        loadContent(menuItemId); // Tartalom betöltése AJAX kéréssel
+    });
+
+    // Felhasználó nevének betöltése
+    loadFullName(<?php echo json_encode($_SESSION['user_id']); ?>);
+});
+
+function loadContent(menuItemId) {
+    $.ajax({
+        type: 'POST',
+        url: '../../Backend/controllers/ProfileContentController.php', // A vezérlő elérési útvonala
+        data: { menuItemId: menuItemId }, // Küldendő adatok
+        success: function(response) {
+            $('#profileContainer').html(response); // Az AJAX válasz beillesztése a profil konténerbe
+        },
+        error: function(xhr, status, error) {
+            console.error("Hiba történt: " + xhr.responseText);
         }
+    });
+}
+
+function loadFullName(userId) {
+    $.ajax({
+        type: 'POST',
+        url: '../../Backend/models/UserModel.php', // Az elérési út a PHP fájlhoz, amely lekéri a felhasználó nevét
+        data: { userId: userId },
+        success: function(response) {
+            $('.profile-name').text(response.trim()); // A válasz beállítása a profil névhez
+        },
+        error: function(xhr, status, error) {
+            console.error("Hiba: " + error);
+        }
+    });
+}
+</script>
+
+
     </script>
 </body>
 </html>

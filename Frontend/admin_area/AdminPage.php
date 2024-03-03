@@ -1,3 +1,7 @@
+<?php 
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,44 +14,39 @@
     <link rel="stylesheet" href="css/Header.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-<header>
-    <div class="header-container">
-        <div class="header-logo">
-            <img class="logo-image" src="../../public/img/Logo.png" alt="">
-        </div>
-        <div class="header-right">
-            <div class="admin-name-container">
 
-            </div>
-            <div class="admin-actions">
-                <span class="material-symbols-outlined icon-logout">logout</span>
-            </div>
+<body>
+
+
+
+<div class="container-for">
+    <div class="container-menu">
+        <div class="menu-logo">
+            <img src="../../public/img/PngLogo.png" alt="Logo">
         </div>
+        <!-- Menüpontok -->
+        <div class="container-menuitem" id="accountMenuItem">Dashboard</div>
+        <div class="container-menuitem" id="manageAccountForm">Analytics</div>
+        <div class="container-menuitem" id="manageShippingForm">Manage Products</div>
+        <div class="container-menuitem" id="ordersMenuItem">Manage Users</div>
+        <div class="container-menuitem" id="ordersMenuItem">Manage Orders</div>
     </div>
-</header>
 
-<div class="container main-container">
-    <div class="row">
-        <div class="col-lg-3">
-            <div class="sidebar-menu">
-                <div class="menu-item" id="accountMenuItem">Account</div>
-                <div class="menu-item" id="manageAccountForm">Manage Account</div>
-                <div class="menu-item" id="manageShippingForm">Manage Shipping</div>
-                <div class="menu-item" id="ordersMenuItem">My Orders</div>
-            </div>
-        </div>
-        <div class="col-lg-9 col-12">
-            <div class="content-container" id="profileContainer">
-                <!-- Content loaded dynamically -->
-            </div>
-        </div>
+    <div class="container-surface" id="adminContainer">
+
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript linkek -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="Js/Navbar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+    </script>
 </body>
 </html>

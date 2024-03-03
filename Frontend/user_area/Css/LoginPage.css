@@ -1,55 +1,91 @@
-
-.container_primary_text{
-    display:flex;
-    justify-content: center;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-.container_vertical{
-    height: 60%;   
-    border-left: 1px solid #27251F;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%); 
+/* Fő tartalmi részek stílusai */
+.container-for {
+    background-image: url('../../../public/img/stock-stone2.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    gap:5rem;
+    padding-top: 20vh;
+    padding-left: 10rem;
+    padding-right: 10rem;
+    height:110vh;
 }
-
-.container_tab_items{
+.container-left, .container-right{
     display:flex;
+    flex-direction: column;
+    width:50%;
+}
+.container-login-register,.container-orderstat{
+    background-color: #C5CCDA;
+    border-radius: 16px;
+    padding: 1rem 2.5rem 2rem 2.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.container-tab-items, .container-orderstat-header{
+    display: flex;
     justify-content: space-between;
-    margin-bottom: 1rem;
+    gap:1rem;
+    margin-bottom: 2rem;
+}
+.tab-pill-item{
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border-bottom: 2px solid #888;
+    background-color: rgba(156, 189, 224, 0.5);
+    border-radius: 16px;
+    transition: 1s;
+}
+.tab-pill-item:hover{
+    background-color: rgba(184, 218, 255, 0.5);
 }
 
-.tab_pill_item{
-    border-bottom: 2px solid gray;
-    width:49%;
-    text-decoration: none;
-    display:flex;
-    justify-content: center;
+.container-orderstat-header {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    margin-bottom: 1rem;
+    border-bottom: 3px solid gray;
 }
+
+.container-orderstat-header h3 {
+    margin: 0; /* Eltávolítja az alapértelmezett margót */
+    padding: 0; /* Eltávolítja az alapértelmezett paddingot */
+}
+
+
 
 
 .form-group {
 position: relative;
-margin-bottom: 1rem;
+margin-bottom: 1.5rem;
 }
-
-
 .form-group input {
 width: 100%;
 padding: 10px;
 padding-top: 15px;
 box-sizing: border-box;
+height: 3.5rem;
+font-size: 16px;
 }
-
 .form-group label {
-
 position: absolute;
-top: 0;
+top: 3px;
 left: 5px;
-font-size: 12px;
+font-size: 14px;
 color: #888; /* Példa: szürke szín a kisebb fontmérethez */
 transition: all 0.3s;
+margin-left: 0.5em;
+cursor: pointer;
+}
+.container-terms-checkbox{
+    display:flex;
+    align-items: center;
 }
 
 
@@ -60,42 +96,34 @@ padding: 0;
 font: inherit;
 cursor: pointer;
 outline: inherit;
-display: inline-flex;
+display: flex;
 align-items: center;
+justify-content: center;
 margin:0;
 width: 100%;
-
-justify-content: center;
 height: 50px;
-
 }
-.sample_button{
+.sample-button{
 background-color: #27251F;
 color: white;
 margin-bottom: 0.5rem;
 }
-.sample_button:hover {
+.sample-button:hover {
 transition: 0.3s;
 background-color: #000000;
 color: white;
 }
-.sample_button_reverse{
+.sample-button-reverse{
 background-color: white;
 color: black;
 border:1px solid black;
 }
-.sample_button_reverse:hover{
+.sample-button-reverse:hover{
 transition: 0.3s;
 background-color: #000000;
 color: white;
 }
 
-
-.wrapper {
-width: 100%;
-display: flex;
-margin-bottom: 1rem;
-}
 
 input[type="checkbox"] {
 appearance: none;
@@ -112,12 +140,7 @@ align-items: center;
 justify-content: center;
 }
 
-label {
-color: black;
-font-size: 1em;
-cursor: pointer;
-margin-left: 0.5em;
-}
+
 
 input[type="checkbox"]:after {
 font-family: "Font awesome 6 Free";
@@ -127,92 +150,18 @@ font-size: 1em;
 color: #ffffff;
 display: none;
 }
-
 input[type="checkbox"]:hover {
 background-color: white;
 }
-
 input[type="checkbox"]:checked {
 background-color: rgb(31,31,31);
 }
-
 input[type="checkbox"]:checked:after {
 display: block;
 }
-.nav-link.active{
-color: aqua !important;
-}
+
+
+
 #have_account{
 margin-bottom: 0.5rem;
 }
-/*
-<div class="secondary_div">
-                    <!-- Bejelentkezési űrlap -->
-                    <ul class="tab_pills" id="ex1" role="tablist">
-                        <li class="tab_pill_item" role="presentation">
-                            <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" href="#pills-login" role="tab"
-                                aria-controls="pills-login" aria-selected="true">LOGIN</a>
-                        </li>
-                        <li class="tab_pill_item" role="presentation">
-                            <a class="nav-link" id="tab-register" data-mdb-toggle="pill" href="#pills-register" role="tab"
-                                aria-controls="pills-register" aria-selected="false">REGISTER</a>
-                        </li>
-                    </ul>
-
-                    <div class="tab-content">
-                        <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-                            <!-- Bejelentkezési űrlap tartalma -->
-                            <form method="POST" action="loginpage.php" class="orderform">
-                                <div class="form-group mb-4">
-                                    <label for="login_username">Username</label>
-                                    <input type="text" name="login_username" id="login_username" class="form-control"
-                                        placeholder="Enter your username" required>
-                                </div>
-                                <!-- Password input -->
-                                <div class="form-group mb-4">
-                                    <label for="login_password">Password</label>
-                                    <input type="password" name="login_password" id="login_password" class="form-control"
-                                        placeholder="Enter your password" required>
-                                </div>
-
-                                <button type="submit" name="user_login" class="btn btn-block mb-3">Login</button>
-
-                            </form>
-                        </div>
-
-                        <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-                            <!-- Regisztrációs űrlap tartalma -->
-                            <form action="../../Backend/user_area/user_registration.php" method="post">
-                                <!-- Felhasználónév -->
-                                <div class="form-outline mb-4">
-                                    <label for="username" class="form-label">
-                                        Username
-                                    </label>
-                                    <input type="text" name="username" id="username" class="form-control"
-                                        placeholder="Enter your username" autocomplete="off" required="required">
-                                </div>
-
-                                <!-- Rendes név -->
-                                <div class="form-outline mb-4">
-                                    <label for="name" class="form-label">
-                                        Full name
-                                    </label>
-                                    <input type="text" name="name" id="name" class="form-control"
-                                        placeholder="Enter your full name" autocomplete="off" required="required">
-                                </div>
-
-                                <!-- ... (a többi regisztrációs űrlap mező itt helyezkedik el) ... -->
-
-                                <!-- Regisztrációs gomb -->
-                                <div class="form-outline mb-4">
-                                    <input type="submit" name="user_register" class="btn btn-block mb-3" value="Register">
-                                    <p>Already have an account? <button class="btn btn-block mb-3" id="backToLoginButton"
-                                            class="btn btn-primary">
-                                            Back to login
-                                        </button></p>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                */

@@ -70,15 +70,15 @@ document.addEventListener('DOMContentLoaded', function() {
         productsContainer.innerHTML = ''; // Clear previous products
         products.forEach(product => {
             productsContainer.innerHTML += `
-                            <div class="productbox" data-type="${product.type}" data-color="${product.color}" data-material="${product.material}" onclick="redirectToProduct(${product.id})">
-                                <div class="disp_productimg">
+                            <div class="product-box" data-type="${product.type}" data-color="${product.color}" data-material="${product.material}" onclick="redirectToProduct(${product.id})">
+                                <div class="product-box-img">
                                     <img src="../../public/product_images/${product.image}" alt="${product.name}">
                                 </div>
-                                <div class="disp_productdata mt-2">
-                                    <div class="disp_productname">
+                                <div class="product-box-data">
+                                    <div class="product-name">
                                         <p>${product.name}</p>
                                     </div>
-                                    <div class="disp_productprice">
+                                    <div class="product-price">
                                         <p>${product.price} Ft</p>
                                     </div>
                                     <button class="buy-button" onclick="addToCart(${product.id})">Buy</button>
