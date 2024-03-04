@@ -91,5 +91,5 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function redirectToProduct(productID) {
-    window.location.href = 'RedirectedProduct.html?id=' + productID;
+    window.location.href = 'RedirectedProduct.php?id=' + productID;
 }

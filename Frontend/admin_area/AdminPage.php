@@ -18,21 +18,20 @@ session_start();
 <body>
 
 
-<body>
-
-
 
 <div class="container-for">
     <div class="container-menu">
-        <div class="menu-logo">
+        <div class="container-menu-logo">
             <img src="../../public/img/PngLogo.png" alt="Logo">
         </div>
-        <!-- Menüpontok -->
-        <div class="container-menuitem" id="accountMenuItem">Dashboard</div>
-        <div class="container-menuitem" id="manageAccountForm">Analytics</div>
-        <div class="container-menuitem" id="manageShippingForm">Manage Products</div>
-        <div class="container-menuitem" id="ordersMenuItem">Manage Users</div>
-        <div class="container-menuitem" id="ordersMenuItem">Manage Orders</div>
+        <div class="container-menuitems">
+            <div class="container-menuitem" id="dashboardMenuitem">Dashboard</div>
+            <div class="container-menuitem" id="analyticsMenuitem">Analytics</div>
+            <div class="container-menuitem" id="manageProductsMenuitem">Manage Products</div>
+            <div class="container-menuitem" id="manageProductsDetailsMenuitem">Manage Product Details</div>
+            <div class="container-menuitem" id="manageUsersMenuitem">Manage Users</div>
+            <div class="container-menuitem" id="manageOrdersMenuitem">Manage Orders</div>
+        </div>
     </div>
 
     <div class="container-surface" id="adminContainer">
@@ -44,6 +43,7 @@ session_start();
     <!-- JavaScript linkek -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="Js/Navbar.js"></script>
+    <script src="Js/AdminPage.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 

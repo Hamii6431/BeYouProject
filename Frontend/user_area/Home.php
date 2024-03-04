@@ -1,4 +1,6 @@
-
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,8 +23,8 @@
         <!-- Navigációs menü -->
         <div class="navigation-menu">
             <!-- Menüpontok -->
-            <div class="navigation-menu-item"><a href="Home.html">Home</a></div>
-            <div class="navigation-menu-item"><a href="Products.html">All products</a></div>
+            <div class="navigation-menu-item"><a href="Home.php">Home</a></div>
+            <div class="navigation-menu-item"><a href="Products.php">All products</a></div>
             <div class="navigation-menu-item"><a href="Rings.html">Rings</a></div>
             <div class="navigation-menu-item"><a href="Bracelets.html">Bracelets</a></div>
             <div class="navigation-menu-item"><a href="Necklaces.html">Necklaces</a></div>

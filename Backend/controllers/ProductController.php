@@ -1,16 +1,16 @@
 <?php
 require_once __DIR__ . '/../models/ProductModel.php';
-
-
-// Adatbázis kapcsolat előkészítése
-$dbInstance = Database::getInstance();
-$dbConnection = $dbInstance->getConnection();
+require_once __DIR__ . '/../includes/Database.php'; // Feltételezve, hogy van egy Database osztályod
 
 class ProductController {
     private $model;
 
     public function __construct() {
-        $this->model = new ProductModel();
+        // Adatbázis kapcsolat előkészítése
+        $dbInstance = Database::getInstance();
+        $dbConnection = $dbInstance->getConnection();
+
+        $this->model = new ProductModel($dbConnection);
     }
 
     public function index() {
@@ -23,9 +23,35 @@ class ProductController {
         header('Content-Type: application/json');
         echo json_encode($filteredProducts);
     }
+
+    // Új metódus a termék részleteinek lekérésére az ID alapján
+    public function getProductDetails() {
+        $productId = isset($_GET['productId']) ? $_GET['productId'] : null;
+        if ($productId) {
+            $productDetails = $this->model->getProductById($productId);
+
+            if ($productDetails) {
+                header('Content-Type: application/json');
+                echo json_encode($productDetails);
+            } else {
+                http_response_code(404);
+                echo json_encode(['error' => 'Product not found']);
+            }
+        } else {
+            http_response_code(400);
+            echo json_encode(['error' => 'Missing product ID']);
+        }
+    }
 }
 
-// ProductController példány létrehozása és index metódus meghívása
+// ProductController példány létrehozása
 $productController = new ProductController();
-$productController->index();
+
+// Meghatározzuk, melyik metódust kell meghívni az URL alapján
+if (isset($_GET['action']) && $_GET['action'] == 'getProductDetails') {
+    $productController->getProductDetails();
+} else {
+    $productController->index();
+}
+
 ?>

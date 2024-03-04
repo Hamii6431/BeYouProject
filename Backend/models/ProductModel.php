@@ -9,6 +9,18 @@ class ProductModel {
         $dbInstance = Database::getInstance();
         $this->db = $dbInstance->getConnection();
     }
+    
+    public function getProductById($productId) {
+        $stmt = $this->db->prepare("SELECT * FROM products WHERE product_id = ?");
+        $stmt->bind_param("i", $productId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc(); // Visszaadja a termék adatait asszociatív tömbként
+        } else {
+            return null; // Nincs ilyen termék
+        }
+    }
 
     public function getAllProducts(){
         $sql = "SELECT * FROM products";

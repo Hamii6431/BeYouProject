@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/../models/SessionModel.php';
 
 class SessionController {
@@ -9,30 +8,36 @@ class SessionController {
         $this->model = new SessionModel();
     }
 
-    public function handleRequest() {
-        if ($_POST['action'] == 'checkSessionAjax') {
-            $this->checkSessionAjax();
-        } elseif ($_POST['action'] == 'logout') {
-            $this->logout();
-        }
-    }
-
-    private function checkSessionAjax() {
-        header('Content-Type: application/json');
+    public function checkSessionAjax() {
         $isLoggedIn = $this->model->isUserLoggedIn();
         echo json_encode(['isLoggedIn' => $isLoggedIn]);
         exit();
     }
 
-    private function logout() {
+    public function logout() {
         session_start();
         session_unset();
         session_destroy();
+        echo json_encode(['redirectUrl' => '../user_area/Logout.html']); // Módosítva .php-ról .html-re
         exit();
+    }
+
+    public function handleRequest() {
+        $action = $_POST['action'] ?? '';
+        switch ($action) {
+            case 'checkSessionAjax':
+                $this->checkSessionAjax();
+                break;
+            case 'logout':
+                $this->logout();
+                break;
+            default:
+                echo json_encode(['error' => 'Invalid action']);
+                break;
+        }
     }
 }
 
 $controller = new SessionController();
 $controller->handleRequest();
-
 ?>

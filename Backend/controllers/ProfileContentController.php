@@ -23,8 +23,8 @@ $shippingData = $userModel->getUserShippingDataByUserID($userId);
 $fullName = $userData['first_name'] . ' ' . $userData['last_name'];
 
 // Ha van 'menuItemId' paraméter az URL-ben
-if (isset($_GET['menuItemId'])) {
-    $menuItemId = $_GET['menuItemId'];
+if (isset($_POST['menuItemId'])) {
+    $menuItemId = $_POST['menuItemId'];
 
     // A 'menuItemId' alapján megjelenítjük a megfelelő tartalmat
     switch ($menuItemId) {
@@ -53,8 +53,7 @@ if (isset($_GET['menuItemId'])) {
             break;
     }
 } else {
-    // Ha nincs 'menuItemId' paraméter az URL-ben, akkor visszaküldjük a felhasználó teljes nevét
-    echo $fullName;
+    
 }
 ?>
 

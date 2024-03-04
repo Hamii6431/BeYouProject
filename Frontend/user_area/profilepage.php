@@ -34,7 +34,7 @@ session_start();
     <div class="navigation-menu">
         <!-- Menüpontok -->
         <div class="navigation-menu-item"><a href="Home.html">Home</a></div>
-        <div class="navigation-menu-item"><a href="Products.html">All products</a></div>
+        <div class="navigation-menu-item"><a href="Products.php">All products</a></div>
         <div class="navigation-menu-item"><a href="Rings.html">Rings</a></div>
         <div class="navigation-menu-item"><a href="Bracelets.html">Bracelets</a></div>
         <div class="navigation-menu-item"><a href="Necklaces.html">Necklaces</a></div>
@@ -71,6 +71,7 @@ session_start();
             <div class="container-menuitem" id="manageShippingForm">Manage Shipping</div>
             <div class="container-menuitem" id="ordersMenuItem">My Orders</div>
         </div>
+
     </div>
     <div class="container-surface" id="profileContainer">
         <!-- Profil tartalom helye -->
@@ -82,49 +83,6 @@ session_start();
     <script src="Js/ProfileManager.js"></script>
     <script src="Js/Navbar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script>
 
-$(document).ready(function() {
-    // Kattintás eseménykezelő hozzáadása a menüpontokhoz
-    $('.container-menuitem').click(function() {
-        var menuItemId = $(this).attr('id'); // Kiválasztott menüpont azonosítója
-        loadContent(menuItemId); // Tartalom betöltése AJAX kéréssel
-    });
-
-    // Felhasználó nevének betöltése
-    loadFullName(<?php echo json_encode($_SESSION['user_id']); ?>);
-});
-
-function loadContent(menuItemId) {
-    $.ajax({
-        type: 'POST',
-        url: '../../Backend/controllers/ProfileContentController.php', // A vezérlő elérési útvonala
-        data: { menuItemId: menuItemId }, // Küldendő adatok
-        success: function(response) {
-            $('#profileContainer').html(response); // Az AJAX válasz beillesztése a profil konténerbe
-        },
-        error: function(xhr, status, error) {
-            console.error("Hiba történt: " + xhr.responseText);
-        }
-    });
-}
-
-function loadFullName(userId) {
-    $.ajax({
-        type: 'POST',
-        url: '../../Backend/models/UserModel.php', // Az elérési út a PHP fájlhoz, amely lekéri a felhasználó nevét
-        data: { userId: userId },
-        success: function(response) {
-            $('.profile-name').text(response.trim()); // A válasz beállítása a profil névhez
-        },
-        error: function(xhr, status, error) {
-            console.error("Hiba: " + error);
-        }
-    });
-}
-</script>
-
-
-    </script>
 </body>
 </html>
