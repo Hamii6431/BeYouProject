@@ -1,28 +1,5 @@
 <?php 
-include '../assets/header.php';
 
-// Ellenőrizze, hogy van-e érvényes termékazonosító
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $productID = $_GET['id'];
-
-    // Lekérdezés a kiválasztott termék adataira
-    $product_query = "SELECT * FROM products WHERE product_ID = $productID";
-    $product_query_run = mysqli_query($con, $product_query);
-
-    if (mysqli_num_rows($product_query_run) > 0) {
-        $product_data = mysqli_fetch_assoc($product_query_run);
-        $productName = $product_data['product_name'];
-        $productDescription = $product_data['description'];
-        $productPrice = $product_data['price'];
-        $productImage = $product_data['image'];
-    } else {
-        echo "Product not found!";
-        exit;
-    }
-} else {
-    echo "Invalid product ID!";
-    exit;
-}
 ?>
 
 <!DOCTYPE html>

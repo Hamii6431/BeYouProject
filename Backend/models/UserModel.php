@@ -14,7 +14,8 @@ class UserModel {
         $this->db = Database::getInstance()->getConnection();
     }
 
-
+//getUserDataByUsername
+//getUserDataByUserID
 //////////////////////////////////////////////////////////////BEJELENTKEZÉS///////////////////////////////////////////////
 
 

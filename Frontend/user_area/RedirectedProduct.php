@@ -1,15 +1,20 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirected Product</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/Header2.css">
     <link rel="stylesheet" href="css/RedirectedProduct.css">
+    <link rel="stylesheet" href="css/Navbar.css">
     <link rel="stylesheet" href="css/ImportFont.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
 </head>
 <style>
     .container-for {
@@ -69,6 +74,7 @@
     }
 </style>
 <body>
+    <!-- Navigációs sáv -->
     <nav class="container-navbar">
         <!-- Logo -->
         <div class="logo">
@@ -83,6 +89,7 @@
             <div class="navigation-menu-item"><a href="Bracelets.html">Bracelets</a></div>
             <div class="navigation-menu-item"><a href="Necklaces.html">Necklaces</a></div>
         </div>
+
         <!-- Ikonok a felhasználói interakciókhoz -->
         <div class="icon-container">
             <form id="personForm" action="#" method="POST">
@@ -112,28 +119,49 @@
         </div>
     </div>
 
-    <script src="Js/Navbar.js"></script>
-    <script>
-        // Az URL-ből kiszedjük a productId paramétert
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const productId = urlParams.get('id');
-        
+
+<script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const productId = urlParams.get('id');
+    
+    if (productId) {
+        fetch('../../Backend/controllers/ProductController.php?action=getProductDetails&productId=' + productId)
+            .then(response => response.json())
+            .then(product => {
+                document.querySelector('.container-product-image img').src = "../../public/product_images/" + product.default_image_url;
+                document.querySelector('.container-product-details h1').innerText = product.product_name;
+                document.querySelector('.container-product-details p').innerText = product.description;
+                document.querySelector('.container-product-details h2').innerText = product.price + " Ft";
+            })
+            .catch(error => console.error('Error:', error));
+    } else {
+        console.error('No product ID provided');
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('.buy-button').addEventListener('click', function() {
+        const productId = new URLSearchParams(window.location.search).get('id');
         if (productId) {
-            fetch('../../Backend/controllers/ProductController.php?action=getProductDetails&productId=' + productId)
-                .then(response => response.json())
-                .then(product => {
-                    document.querySelector('.container-product-image img').src = "../../public/product_images/" + product.default_image_url;
-                    document.querySelector('.container-product-details h1').innerText = product.product_name;
-                    document.querySelector('.container-product-details p').innerText = product.description;
-                    document.querySelector('.container-product-details h2').innerText = product.price + " Ft";
-                    // Itt a kosárhoz adás gombnak is be kell állítani az onclick eseményt
-                })
-                .catch(error => console.error('Error:', error));
-        } else {
-            console.error('No product ID provided');
+            fetch('../../backend/controllers/CartController.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: `action=addToCart&product_id=${productId}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === 'success') {
+                    alert('Product added to cart successfully!');
+                } else {
+                    alert('Failed to add product to cart: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
         }
-        </script>
+    });
+});
+</script>
         
 </body>
 </html>

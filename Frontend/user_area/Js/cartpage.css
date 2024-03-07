@@ -1,4 +1,11 @@
+@font-face {
+    font-family: 'CustomFont';
+    src: url('../user_area/fonts/Optima\ Medium.woff') format('woff');
+}
 
+body {
+    font-family: 'CustomFont', sans-serif;
+}
 
 button {
     border: none;
@@ -65,7 +72,12 @@ button {
     display:flex;
     justify-content: space-between;
 }
+.cart_item_data_1{
 
+}
+
+.cart_item_data_2{
+}
 
 
 .btn_place_order {
@@ -91,29 +103,11 @@ button {
 
 .quantity_controls {
     display: flex;
-    align-items: center;
-}
 
-.quantity_btn {
-    background-color: #27251F;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
 }
+...............
 
-.quantity_btn:hover {
-    transition: 0.3s;
-    background-color: #FFCAD4;
-    color: black;
-}
-
-.quantity_input {
-    width: 50px;
-    text-align: center;
-    height:34px;
-}
-
+..........
 .update_quantity_btn {
     background-color: #27251F;
     color: white;

@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user_email'] = $loginResult['data']['email'];
                 $_SESSION['user_firstname'] = $loginResult['data']['first_name'];
                 $_SESSION['user_lastname'] = $loginResult['data']['last_name'];
+                $_SESSION['logged_in'] = true;
                 
                 // Átirányítás a felhasználó profil oldalára
                 header("Location: ../../Frontend/user_area/ProfilePage.php");
