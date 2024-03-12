@@ -19,7 +19,6 @@ session_start();
     <link rel="stylesheet" href="css/ImportFont.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
@@ -57,33 +56,35 @@ session_start();
         </div>
     </nav>
 
-<div class="container-for">
-    <div class="container-profile-menu">
-        <div class="profile-name-image">
-            <div class="preview-image">
-                <img src="../../public/img/download.jpg" alt="">
+    
+    <div class="container-for">
+        <div class="row justify-content-center">
+            <div class="col-lg-3 col-md-6">
+                <div class="profile-name-image mb-3">
+                    <div class="preview-image">
+                        <img src="../../public/img/download.jpg" alt="">
+                    </div>
+                    <h5 class="profile-name"></h5>
+                </div>
+                <div class="container-menu">
+                    <!-- Menüpontok -->
+                    <div class="container-menuitem" id="accountMenuItem">Account</div>
+                    <div class="container-menuitem" id="manageAccountForm">Manage Account</div>
+                    <div class="container-menuitem" id="manageShippingForm">Manage Shipping</div>
+                    <div class="container-menuitem" id="ordersMenuItem">My Orders</div>
+                </div>
             </div>
-            <h5 class="profile-name"></h5>
+            <div class="container-surface col-lg-9 col-md-6" id="profileContainer">
+                <!-- Profil tartalom helye -->
+                <h2>Profil Tartalom</h2>
+            </div>
         </div>
-        <div class="container-menu">
-            <!-- Menüpontok -->
-            <div class="container-menuitem" id="accountMenuItem">Account</div>
-            <div class="container-menuitem" id="manageAccountForm">Manage Account</div>
-            <div class="container-menuitem" id="manageShippingForm">Manage Shipping</div>
-            <div class="container-menuitem" id="ordersMenuItem">My Orders</div>
-        </div>
-
     </div>
-    <div class="container-surface" id="profileContainer">
-        <!-- Profil tartalom helye -->
-    </div>
-</div>
 
     <!-- JavaScript linkek -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="Js/ProfileManager.js"></script>
     <script src="Js/Navbar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
 </body>
 </html>

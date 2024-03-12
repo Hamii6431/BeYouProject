@@ -13,7 +13,6 @@ body, html {
 
 
 
-
 /* Fő tartalmi részek stílusai */
 .container-for, .container-for-cards, .container-for-content {
     display: flex; 
@@ -22,11 +21,12 @@ body, html {
 }
 
 .container-for {
-    /*background-image: url('../../../public/img/18340727-f838-424c-a206-bb4dd68e7c45.webp');*/
+    background-image: linear-gradient(45deg, rgb(203,219,229) 0%, rgb(203,219,229) 32%,rgba(171,171,171, 0.0392156862745098) 32%, rgba(171,171,171, 0.0392156862745098) 100%),linear-gradient(0deg, rgba(173,173,173, 0.0392156862745098) 0%, rgba(173,173,173, 0.0392156862745098) 40%,rgba(55,55,55, 0.0392156862745098) 40%, rgba(55,55,55, 0.0392156862745098) 100%),linear-gradient(157.5deg, rgba(173,173,173, 0.0392156862745098) 0%, rgba(173,173,173, 0.0392156862745098) 52%,rgb(179,202,222) 52%, rgb(179,202,222) 100%),linear-gradient(157.5deg, rgb(179,202,222) 0%, rgb(179,202,222) 11%,rgb(181,201,218) 11%, rgb(181,201,218) 100%),linear-gradient(90deg, rgb(155,209,225),rgb(77,174,204));
     justify-content: center; /* Vízszintesen középre igazítás */
     flex-direction: column; /* Elemek függőleges rendezése */
     min-height: 85vh; /* A content minimális magassága */
     max-height: 100vh; /* A content maximális magassága */
+    background-color: #DADCE2;
 }
 
 .container-for-cards {
@@ -41,7 +41,7 @@ body, html {
     display: flex; /* Flexbox használata a tartalmak elrendezésére */
     padding-top: 5vh;
     padding-bottom: 5vh;
-    background-color: #ededed;
+    background-color: #B2BCC6;
     justify-content: space-between;
     gap: 50px;
     height: 50vh; /* A tartalom konténer magassága */
@@ -82,16 +82,16 @@ body, html {
 .collection h1{
     font-size: 230%;
     margin-bottom:1rem;
-    color:#4E3E33;
+    color:black;
 }
 .collection p{
     margin-bottom:2rem;
-    color:#F2F3EE;
+    color:#545E67;
 }
 .collection button{
     padding: 15px 25px;
-    background-color:#FDD2D0 ;
-    color: #5B5B5B;
+    background-color: #F8FAF7;
+    color: #3A4049;
     font-weight:bold;
     border: none;
     cursor: pointer;
@@ -110,13 +110,21 @@ body, html {
 .box-for-cards{
     height:35vh;
     width:32%;
-    background-image: url('../../../public/img/minimalistic-card.png');
     background-repeat: no-repeat;
     background-size: cover;
     display:flex;
     justify-content: space-between;
     align-items: center;
     transition:0.3s;
+}
+#CARD1{
+    background-image: url('../../../public/img/stock-stone.png');
+}
+#CARD2{
+    background-image: url('../../../public/img/desk-jew.png');
+}
+#CARD3{
+    background-image: url('../../../public/img/stock-stone.png');
 }
 .box-for-cards:hover{
     opacity: 0.9;
@@ -156,4 +164,27 @@ body, html {
 }
 .card-image-side img{
     width:100%;
+}
+
+
+
+
+
+
+
+
+
+@media (max-width: 1200px) {
+    .container-for {
+    padding-top: 15vh;
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
+}
+@media (max-width: 576px) {
+    .container-for {
+    padding-top: 15vh;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
 }

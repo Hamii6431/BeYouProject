@@ -4,12 +4,11 @@
     /*background-image: url('../../../public/img/stock-stone2.png');*/
     background-size: cover;
     background-repeat: no-repeat;
-    display: flex;
-    gap:2rem;
     padding-top: 15vh;
     padding-left: 10rem;
     padding-right: 10rem;
-    height:110vh;
+    height: fit-content;
+    min-height: 70vh;
 }
 .form-group {
 position: relative;
@@ -33,46 +32,10 @@ transition: all 0.3s;
 margin-left: 0.5em;
 cursor: pointer;
 }
-.container-terms-checkbox{
-    display:flex;
-    align-items: center;
-}
 
 
-button {
-border: none;
-background: none;
-padding: 0;
-font: inherit;
-cursor: pointer;
-outline: inherit;
-display: flex;
-align-items: center;
-justify-content: center;
-margin:0;
-width: 100%;
-height: 50px;
-}
-.sample-button{
-background-color: #27251F;
-color: white;
-margin-bottom: 0.5rem;
-}
-.sample-button:hover {
-transition: 0.3s;
-background-color: #000000;
-color: white;
-}
-.sample-button-reverse{
-background-color: white;
-color: black;
-border:1px solid black;
-}
-.sample-button-reverse:hover{
-transition: 0.3s;
-background-color: #000000;
-color: white;
-}
+
+
 
 
 
@@ -80,7 +43,7 @@ color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 35%;
+
 }
 
 .profile-name-image {
@@ -139,18 +102,17 @@ color: white;
 
 .container-surface {
     display:block;
-    width:100%;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     background-color: rgba(194, 210, 227, 0.5);
     border-radius: 16px;
     transition: 1s;
-    padding: 1rem 1.25rem 1rem 1.25rem;
-    height:75vh;
-    max-height: 75vh;
+    padding: 2rem 2.5rem 2rem 2.5rem;
+    height:fit-content;
+
 }
 
 .surface_header1 {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .surface_header2 {
@@ -168,12 +130,7 @@ color: white;
     gap: 5px 15px;
 }
 
-.form-group {
-    flex: 1 1 calc(50% - 20px);
-    /* Két elem egymás mellett, egy sorban, 20px rés a két elem között */
-    position: relative;
-    margin-bottom: 1rem;
-}
+
 
 .form-group input,
 .form-group select {
@@ -188,7 +145,7 @@ color: white;
     top: 0;
     left: 10px;
     font-size: 12px;
-    color: #888;
+    color: #3A4049;
     transition: all 0.3s;
 }
 
@@ -199,14 +156,12 @@ padding: 0;
 font: inherit;
 cursor: pointer;
 outline: inherit;
-display: inline-flex;
+display: flex;
 align-items: center;
+justify-content: center;
 margin:0;
 width: 100%;
-
-justify-content: center;
 height: 50px;
-
 }
 .sample_button{
 background-color: #27251F;
@@ -229,8 +184,20 @@ background-color: #000000;
 color: white;
 }
 
-@media(max-width: 768px) {
-.container_surface{
-    padding-top: 2rem;
+
+
+@media (max-width: 1200px) {
+    .container-for {
+    padding-top: 15vh;
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
+}
+
+@media (max-width: 576px) {
+    .container-for {
+    padding-top: 15vh;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 }

@@ -49,7 +49,7 @@ button {
 /*Rendelés összegzése */
 .cart-summary{
     background-color: #F5F5F5;
-    border-top: 5px solid #FFCAD4;
+    border-top: 5px solid #8C959F;
     height: fit-content;
     padding-top: 25px;
 }
@@ -58,7 +58,7 @@ button {
 .cart-items-head, .summary-head{
     display: flex;
     justify-content: space-between;
-    border-bottom: 2px solid gray;
+    border-bottom: 2px solid #8C959F;
     padding-bottom: 0.5rem;
 }
 
@@ -93,7 +93,6 @@ button {
     height: 10px;
 }
 .quantity-control {
-    border: 1px solid #ccc;
     padding: 5px 10px; /* Kis térköz */
     cursor: pointer; /* Kattintható stílus */
 }
@@ -107,7 +106,7 @@ button {
 
 /*Rendelés összegzése */
 .summary-subtotal, .summary-total {
-    border-bottom: 2px solid gray;
+    border-bottom: 2px solid #8C959F;
     padding:1rem 0rem 1rem 0rem;
     display:flex;
     justify-content: space-between;
@@ -129,6 +128,27 @@ background-color: #000000;
 color: white;
 }
 
+/*Mennyiség gomb stílusok*/
+.quantity_btn {
+    background-color: #27251F;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    height:40px;
+    width:30px;
+}
+.quantity_btn:hover {
+    transition: 0.3s;
+    background-color: #FFCAD4;
+    color: black;
+}
+.quantity_input {
+    width: 50px;
+    text-align: center;
+    height:40px;
+}
+
 
 
 @media (max-width: 1200px) {
@@ -137,10 +157,15 @@ color: white;
     padding-left: 5rem;
     padding-right: 5rem;
 }
+.cart-items-body{
+        margin-bottom:  1rem;
+    }
 }
 
 
+
 @media (max-width: 768px) {
+
     .item-box {
         flex-direction: column;
         align-items: stretch;
@@ -179,35 +204,6 @@ color: white;
 }
 
 
-
-
-
-
-
-
-
-
-.quantity_btn {
-    background-color: #27251F;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    height:40px;
-    width:30px;
-}
-
-.quantity_btn:hover {
-    transition: 0.3s;
-    background-color: #FFCAD4;
-    color: black;
-}
-
-.quantity_input {
-    width: 50px;
-    text-align: center;
-    height:40px;
-}
 </style>
 
     <!-- Navigációs sáv -->
@@ -247,7 +243,7 @@ color: white;
         <div class="cart-items col-lg-8 col-md-12">
             <div class="cart-items-head">
                 <h2>Shopping Cart</h2>
-                <h2 id="cartItemCount">X Items</h2>
+                <h2 id="cartItemCount"></h2>
             </div>
             <div class="cart-items-body">
                 <!--Ide töltődik be a kosár tartalma.-->
@@ -259,17 +255,17 @@ color: white;
             </div>
             <div class="summary-subtotal">
                 <div class="subtotal-text">
-                    <h5>Subtotal (X Products)</h5>
+                    <h5>Subtotal</h5>
                     <p>Shipping</p>
                 </div>
                 <div class="subtotal-price">
-                    <h5>$312.00</h5>
+                    <h5></h5>
                     <p>$0.00</p>
                 </div>
             </div>
             <div class="summary-total">
-                <h4>Total price</h4>
-                <h4>$312.00</h4>
+                <h4>Total Price</h4> 
+                <h4 id='totalPrice'>$312.00</h4>
             </div>
             <div class="summary-button">
                 <button class="sample-button">Place order</button>
@@ -281,12 +277,21 @@ color: white;
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="Js/Navbar.js"></script>
 <script>
+//Az oldal betöltésénél a termékek megjelenítése.
 document.addEventListener("DOMContentLoaded", function() {
+    displayCartItems();
+});
+
+//Kosárban lévő termékek megjelenítése.
+function displayCartItems() {
     fetch('../../Backend/controllers/CartController.php?action=displayCartItems')
     .then(response => response.json())
     .then(data => {
         if(data.status === 'success') {
+
             const cartItemsContainer = document.querySelector('.cart-items-body');
+            cartItemsContainer.innerHTML = ''; // Kosár tartalmának törlése
+
             data.cartItems.forEach(item => {
                 const itemBox = document.createElement('div');
                 itemBox.className = 'item-box';
@@ -298,30 +303,107 @@ document.addEventListener("DOMContentLoaded", function() {
                         <h5>${item.product_name}</h5>
                         <p>$${item.price}</p>
                     </div>
-                    <div class="box-quantintity">
+                    <div class="box-quantity">
                         <div class="quantity-change">
-                            <button class="quantity_btn" onclick="updateQuantity(${item.product_ID}, -1)">-</button>
-                                <input class="quantity_input" id="quantityInput_${item.product_ID}" type="text" value="${item.quantity}" disabled>
-                            <button class="quantity_btn" onclick="updateQuantity(${item.product_ID}, 1)">+</button>
+                            <button class="quantity_btn" onclick="updateQuantity(${item.product_id}, -1)">-</button>
+                            <input class="quantity_input" id="quantityInput_${item.product_id}" type="text" value="${item.quantity}" disabled>
+                            <button class="quantity_btn" onclick="updateQuantity(${item.product_id}, 1)">+</button>
                         </div>
                         <div class="quantity-remove">
-                            <button class="delete-button" data-product-id="${item.product_ID}">Delete</button>
+                            <button class="delete-button" data-product-id="${item.product_id}" onclick="deleteCartItem(${item.product_id})">Delete</button>
                         </div>
                     </div>
                     <div class="box-subtotal">
-                        <h5>Total: $${item.quantity * item.price}</h5>
+                        <h5>Total: $${(item.quantity * item.price).toFixed(2)}</h5>
                     </div>
-
                 `;
                 cartItemsContainer.appendChild(itemBox);
             });
+
+            //Termék mennyiség a kosárba kijelzése az összesítésnél.
+            const subtotaltext = document.querySelector('.subtotal-text h5');
+            const totalQuantity = data.cartItems.reduce((total, item) => total + item.quantity, 0);
+            subtotaltext.textContent = `Subtotal (${totalQuantity} Products)`;
+            // Az összegek frissítése
+            updateSummary(data.cartItems);
         } else {
             console.error(data.message);
         }
     })
     .catch(error => console.error('Error:', error));
-});
+}
 
+//Részösszeg kiszámítása
+function calculateSubtotal(cartItems) {
+    return cartItems.reduce((total, item) => total + item.quantity * item.price, 0);
+}
+
+//Termék mennyiség hozzáadása,elvétele a kosárból.
+function updateQuantity(productId, change) {
+    const currentQuantityInput = document.getElementById(`quantityInput_${productId}`);
+    let newQuantity = parseInt(currentQuantityInput.value) + change;
+
+
+    newQuantity = Math.max(newQuantity, 0);
+
+    fetch('../../Backend/controllers/CartController.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `action=updateQuantityInCart&product_id=${productId}&new_quantity=${newQuantity}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.status === 'success') {
+            console.log('Quantity updated successfully');
+            // Frissítse a kosár megjelenítését
+            displayCartItems();
+        } else {
+            console.error(data.message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
+//Termék törlése funkció
+function deleteCartItem(productId) {
+    fetch('../../Backend/controllers/CartController.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `action=deleteCartItem&product_id=${productId}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.status === 'success') {
+            console.log('Product deleted successfully');
+            // Frissítse a kosár megjelenítését
+            displayCartItems();
+        } else {
+            console.error(data.message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
+
+function updateSummary(cartItems) {
+    const shippingCost = cartItems.length > 0 ? 5.00 : 0; // Szállítási költség csak akkor, ha van termék a kosárban
+    const subtotal = calculateSubtotal(cartItems);
+    const total = subtotal > 0 ? subtotal + shippingCost : 0; // Összesítés szállítási költséggel, ha van termék
+
+    const subtotalElement = document.querySelector('.summary-subtotal .subtotal-price h5');
+    const shippingElement = document.querySelector('.summary-subtotal .subtotal-price p');
+    const totalElement = document.querySelector('.summary-total h4#totalPrice');
+
+    subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+    shippingElement.textContent = subtotal > 0 ? `$${shippingCost.toFixed(2)}` : '';
+    totalElement.textContent = `$${total.toFixed(2)}`;
+}
 
 
 </script>

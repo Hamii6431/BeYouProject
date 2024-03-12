@@ -20,6 +20,7 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     
     </head>
 
@@ -58,35 +59,37 @@ session_start();
     </nav>
 
 <div class="container-for">
-    <div class="container-filters">
-        <div class="type_header">
-            <h4>Filters</h4>
+    <div class="row">
+        <div class="container-filters col-lg-3 col-md-3 col-sm-3">
+            <div class="type_header">
+                <h4>Filters</h4>
+            </div>
+            <form id="filterForm">
+                <div class="filter">
+                    <h3>Types:</h3>
+                    <div class="type_filter">
+                        <!-- Típusok dinamikus betöltése -->
+                    </div>
+                </div>
+                <hr>
+                <div class="filter">
+                    <h3>Colours:</h3>
+                    <div class="color_filter">
+                        <!-- Színek dinamikus betöltése -->
+                    </div>
+                </div>
+                <hr>
+                <div class="filter">
+                    <h3>Materials:</h3>
+                    <div class="material_filter">
+                        <!-- Anyagok dinamikus betöltése -->
+                    </div>
+                </div>
+            </form>
         </div>
-        <form id="filterForm">
-            <div class="filter">
-                <h3>Types:</h3>
-                <div class="type_filter">
-                    <!-- Típusok dinamikus betöltése -->
-                </div>
-            </div>
-            <hr>
-            <div class="filter">
-                <h3>Colours:</h3>
-                <div class="color_filter">
-                    <!-- Színek dinamikus betöltése -->
-                </div>
-            </div>
-            <hr>
-            <div class="filter">
-                <h3>Materials:</h3>
-                <div class="material_filter">
-                    <!-- Anyagok dinamikus betöltése -->
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="container-products" id="productDisplay">
-        
+        <div class="container-products col-lg-9 col-md-9 col-sm-9" id="productDisplay">
+            
+        </div>
     </div>
 </div>
 

@@ -27,7 +27,7 @@ class CartController {
             }
         }
     }
-
+    
     // POST kérések kezelése
     public function handlePostRequest() {
         if (isset($_POST['action'])) {
@@ -35,26 +35,14 @@ class CartController {
                 case 'addToCart':
                     $this->addToCart();
                     break;
-                // Itt jöhetnek további POST esetek kezelése
-                default:
-                    echo json_encode(['status' => 'error', 'message' => 'Invalid POST action']);
-                    break;
-            }
-        }
-    }
-
-    // DELETE kérések kezelése
-    public function handleDeleteRequest() {
-        parse_str(file_get_contents("php://input"), $_DELETE);
-
-        if (isset($_DELETE['action'])) {
-            switch ($_DELETE['action']) {
                 case 'deleteCartItem':
                     $this->deleteCartItem();
                     break;
-                // Itt jöhetnek további DELETE esetek kezelése
+                case 'updateQuantityInCart':
+                    $this->updateQuantityInCart();
+                    break;
                 default:
-                    echo json_encode(['status' => 'error', 'message' => 'Invalid DELETE action']);
+                    echo json_encode(['status' => 'error', 'message' => 'Invalid POST action']);
                     break;
             }
         }
@@ -86,10 +74,26 @@ class CartController {
         }
     }
 
+    private function updateQuantityInCart() {
+        if ($this->sessionModel->isUserLoggedIn()) {
+            $userId = $_SESSION['user_id'];
+            $productId = $_POST['product_id'] ?? null;
+            $newQuantity = $_POST['new_quantity'] ?? 1;
+
+            if ($productId && $this->cartModel->updateQuantityInCart($userId, $productId, $newQuantity)) {
+                echo json_encode(['status' => 'success']);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Failed to update quantity in cart']);
+            }
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'User not logged in']);
+        }
+    }
+
     private function deleteCartItem() {
         if ($this->sessionModel->isUserLoggedIn()) {
             $userId = $_SESSION['user_id'];
-            $productId = $_DELETE['product_id'] ?? null;
+            $productId = $_POST['product_id'] ?? null;
 
             if ($productId && $this->cartModel->deleteCartItem($userId, $productId)) {
                 echo json_encode(['status' => 'success']);
@@ -103,13 +107,10 @@ class CartController {
 }
 
 $controller = new CartController();
-
 // A kéréstípustól függően hívjuk meg a megfelelő metódust
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $controller->handleGetRequest();
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $controller->handlePostRequest();
-} else if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    $controller->handleDeleteRequest();
 }
 ?>

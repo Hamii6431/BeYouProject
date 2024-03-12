@@ -52,4 +52,15 @@ class CartModel {
         return $stmt->execute();
     }
     
+    
+    public function updateQuantityInCart($userId, $productId, $newQuantity) {
+        $updateStmt = $this->db->prepare("UPDATE carts SET quantity = ? WHERE user_id = ? AND product_id = ?");
+        $updateStmt->bind_param("iii", $newQuantity, $userId, $productId);
+        return $updateStmt->execute();
+    }
 }
+
+
+
+
+

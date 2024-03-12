@@ -1,0 +1,12 @@
+Teszt felhasználók regisztrációs adatai:
+
+User:
+
+Vezetéknév:	TestFirstname
+Keresztnév:	TestLastname
+Felhasználónév:	TestUser
+E-mail cím:	testuser@gmail.com
+Jelszó:		TestPW
+
+Admin:
+

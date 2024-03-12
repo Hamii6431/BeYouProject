@@ -72,6 +72,29 @@ session_start();
         align-items: center;
         margin:0;
     }
+
+
+
+    @media (max-width: 1200px) {
+    .container-for {
+    padding-top: 15vh;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    }
+
+}
+@media (max-width: 768px) {
+
+
+}
+@media (max-width: 576px) {
+    .container-for {
+    padding-top: 15vh;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+}
 </style>
 <body>
     <!-- Navigációs sáv -->
@@ -107,10 +130,10 @@ session_start();
     </nav>
     <div class="container-for">
         <div class="row">
-            <div class="container-product-image col-lg-6 col-md-12">
+            <div class="container-product-image col-lg-6 col-md-6 col-sm-12">
                 <img src="">
             </div>
-            <div class="container-product-details col-lg-6 col-md-12">
+            <div class="container-product-details col-lg-6 col-md-6 col-sm-12">
                 <h1></h1>
                 <p></p>
                 <h2></h2>
