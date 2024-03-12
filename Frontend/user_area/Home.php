@@ -111,16 +111,22 @@ session_start();
 
 /* Stílusok kisebb képernyőkhöz */
 @media (max-width: 933px) {
-    .container-navbar {
-
-    }
-
-
     .hamburger-menu {
         display: block;
         cursor: pointer;
         font-size: 30px;
         user-select: none;
+    }
+    .hamburger-menu.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger-menu.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger-menu.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
     }
 
     .navigation-menu {
@@ -161,7 +167,19 @@ session_start();
 
 
 
+
+
+.bar{
+    display:block;
+    width:25px;
+    height: 3px;
+    margin:5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: black;
+}
 </style>
+
 <body>
 <nav class="container-navbar">
     <!-- Logo -->
@@ -170,8 +188,11 @@ session_start();
     </div>
 
     <!-- Hamburger menü ikon -->
-    
-    <div class="hamburger-menu" onclick="toggleMenu()">☰</div>
+    <div class="hamburger-menu" onclick="toggleMenu()">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
 
     <!-- Navigációs menü -->
     <div class="navigation-menu">
@@ -268,5 +289,15 @@ session_start();
     <!-- JavaScript kód -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="Js/Navbar.js"></script>
+    <script>
+function toggleMenu() {
+    const hamburgerMenu = document.querySelector(".hamburger-menu");
+    const navigationMenu = document.querySelector(".navigation-menu");
+    hamburgerMenu.classList.toggle("active");
+    navigationMenu.classList.toggle("active");
+}
+</script>
+
+
 </body>
 </html>
