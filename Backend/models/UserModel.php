@@ -53,7 +53,7 @@ class UserModel {
         return $stmt->get_result()->fetch_assoc();
     }
     
-    // Felhasználónév lekérdezése az adatbázisból az azonosító alapján
+    // Firstname & Lastname lekérése az adatbázisból majd összefűzése a teljes névvé.
     public function getUserFullName($userId) {
         $stmt = $this->db->prepare("SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM users WHERE user_id = ?");
         $stmt->bind_param("i", $userId);
@@ -65,6 +65,12 @@ class UserModel {
         } else {
             return "Unknown";
         }
+    }
+
+    //Felhasználó bejelentkezettségének ellenőrzése
+    public function isUserLoggedIn() {
+        // Ellenőrizzük, hogy a 'logged_in' session változó létezik-e és igaz értékű-e
+        return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
     }
     //Felhasználó kijelentkeztetése és továbbítása a bejelentkezési oldalra.
     public function logout() {
@@ -87,7 +93,7 @@ class UserModel {
         return $result->num_rows > 0;
     }
 
-    // Email cím egyezőségének ellenőrzése
+    // Email cím foglaltságának ellenőrzése
     public function isEmailTaken($email) {
         $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);
@@ -115,7 +121,7 @@ class UserModel {
     }
 
 
-    // Jelszavak egyezőségének ellenőrzése
+    // Jelszavak egyezőségének ellenőrzése.
     public function passwordsMatch($password, $password_again) {
         return $password === $password_again;
     }
@@ -146,7 +152,7 @@ class UserModel {
     }
 
 
-//////////////////////////////////////////////////////////////              ///////////////////////////////////////////////
+//////////////////////////////////////////////////////////////Szállítási adatok///////////////////////////////////////////////
 
 public function getUserShippingDataByUserID($userId) {
     $stmt = $this->db->prepare("SELECT * FROM shipping_addresses WHERE user_id = ?");
@@ -185,12 +191,9 @@ public function getUserShippingDataByUserID($userId) {
         return $stmt->execute();
     }
     
-    public function updateShippingAddress($addressId, $userId, $phoneNumber, $country, $postalCode, $city, $streetAddress) {
-        $stmt = $this->db->prepare("UPDATE shipping_addresses SET phone_number = ?, country = ?, postal_code = ?, city = ?, street_address = ? WHERE address_id = ? AND user_id = ?");
-        $stmt->bind_param("sssssii", $phoneNumber, $country, $postalCode, $city, $streetAddress, $addressId, $userId);
-        return $stmt->execute();
-    }
-    
+
+//////////////////////////////////////////////////////////////Felhasználói & Szállítási adatok frissítése////////////////////////////////////////
+
 
     // Felhasználó adatainak frissítése az adatbázisban
     public function updateUserData($userId, $first_name, $last_name, $email) {
@@ -205,6 +208,15 @@ public function getUserShippingDataByUserID($userId) {
             return false; // Sikertelen frissítés
         }
     }
+
+    // Felhasználó szállítási adatainak frissítése az adatbázisban
+    public function updateShippingAddress($addressId, $userId, $phoneNumber, $country, $postalCode, $city, $streetAddress) {
+        $stmt = $this->db->prepare("UPDATE shipping_addresses SET phone_number = ?, country = ?, postal_code = ?, city = ?, street_address = ? WHERE address_id = ? AND user_id = ?");
+        $stmt->bind_param("sssssii", $phoneNumber, $country, $postalCode, $city, $streetAddress, $addressId, $userId);
+        return $stmt->execute();
+    }
+    
+
 
 
 }

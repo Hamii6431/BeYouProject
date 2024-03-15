@@ -26,24 +26,30 @@ session_start();
 
 <body>
     
-    <!-- Navigációs sáv -->
-    <nav class="container-navbar">
-        <!-- Logo -->
-        <div class="logo">
-            <img src="../../public/img/PngLogo.png" alt="Logo">
-        </div>
-        <!-- Navigációs menü -->
-        <div class="navigation-menu">
-            <!-- Menüpontok -->
-            <div class="navigation-menu-item"><a href="Home.php">Home</a></div>
-            <div class="navigation-menu-item"><a href="Products.php">All products</a></div>
-            <div class="navigation-menu-item"><a href="Rings.html">Rings</a></div>
-            <div class="navigation-menu-item"><a href="Bracelets.html">Bracelets</a></div>
-            <div class="navigation-menu-item"><a href="Necklaces.html">Necklaces</a></div>
-        </div>
+<nav class="container-navbar">
+    <!-- Logo -->
+    <div class="logo">
+        <img src="../../public/img/PngLogo.png" alt="Logo">
+    </div>
 
-        <!-- Ikonok a felhasználói interakciókhoz -->
-        <div class="icon-container">
+    <!-- Hamburger menü ikon -->
+    <div class="hamburger-menu" onclick="toggleMenu()">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+
+    <!-- Navigációs menü -->
+    <div class="navigation-menu">
+        <div class="navigation-menu-item"><a href="Home.php">Home</a></div>
+        <div class="navigation-menu-item"><a href="Products.php">All products</a></div>
+        <div class="navigation-menu-item"><a href="Rings.html">Rings</a></div>
+        <div class="navigation-menu-item"><a href="Bracelets.html">Bracelets</a></div>
+        <div class="navigation-menu-item"><a href="Necklaces.html">Necklaces</a></div>
+    </div>
+
+    <!-- Ikonok a felhasználói interakciókhoz -->
+    <div class="icon-container">
             <form id="personForm" action="#" method="POST">
                 <button type="button" class="icon-button" id="personIcon">
                     <span class="material-symbols-outlined iconstyle">person</span>
@@ -56,7 +62,7 @@ session_start();
                 </button>
             </form>
         </div>
-    </nav>
+</nav>
 
 <div class="container-for">
     <div class="row">

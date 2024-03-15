@@ -1,11 +1,11 @@
 <?php
-require_once __DIR__ . '/../models/SessionModel.php';
+require_once __DIR__ . '/../models/UserModel.php';
 session_start();
 class SessionController {
     private $model;
 
     public function __construct() {
-        $this->model = new SessionModel();
+        $this->model = new UserModel();
     }
 
     public function checkSessionAjax() {

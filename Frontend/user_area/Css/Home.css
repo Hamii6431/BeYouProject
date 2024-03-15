@@ -32,9 +32,11 @@ body, html {
 .container-for-cards {
     display: flex;
     justify-content: space-between;
+    gap:1rem;
     align-items: center;
     min-height: 45vh;
     max-height: 45vh;
+
 }
 
 .container-for-content {
@@ -116,54 +118,20 @@ body, html {
     justify-content: space-between;
     align-items: center;
     transition:0.3s;
+    border-radius: 1rem;
+    box-shadow: 0px 2px 4px 2px rgba(0,0,0,0.1);
 }
 #CARD1{
-    background-image: url('../../../public/img/stock-stone.png');
+    background-color: #CAE4F4;
 }
 #CARD2{
-    background-image: url('../../../public/img/desk-jew.png');
+    background-color: #CAE4F4;
 }
 #CARD3{
-    background-image: url('../../../public/img/stock-stone.png');
+    background-color: #CAE4F4;
 }
 .box-for-cards:hover{
     opacity: 0.9;
-}
-
-/*Kártya szöveges oldala*/
-.card-text-side{
-    height: 100%;
-    width:100%;
-    display: flex;
-    align-items: start;
-}
-.card-text-collection{
-    width:100%;
-    margin-top: 2rem;
-    margin-left: 1.5rem;
-}
-.card-text-collection h5{
-    margin:0;
-    margin-bottom: 0.25rem;
-    color:#55423A;
-}
-.card-text-collection h2{
-    margin:0;
-    margin-bottom: 0.5rem;
-    color:#414141;
-}
-
-/*Kártya képes oldala*/
-.card-image-side{
-    height: 100%;
-    width:100%;
-    display: flex;
-    align-items: end;
-    margin-right: 0.5rem;
-    margin-bottom: 1rem;
-}
-.card-image-side img{
-    width:100%;
 }
 
 

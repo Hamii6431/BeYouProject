@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/CartModel.php';
-require_once __DIR__ . '/../models/SessionModel.php';
+require_once __DIR__ . '/../models/UserModel.php';
 
 session_start();
 
@@ -10,7 +10,7 @@ class CartController {
 
     public function __construct() {
         $this->cartModel = new CartModel();
-        $this->sessionModel = new SessionModel();
+        $this->sessionModel = new UserModel();
     }
 
     // GET kérések kezelése
