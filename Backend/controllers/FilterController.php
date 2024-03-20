@@ -1,11 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/ProductModel.php';
 
-
-// Adatbázis kapcsolat előkészítése
-$dbInstance = Database::getInstance();
-$dbConnection = $dbInstance->getConnection();
-
 class FilterController {
     private $model;
 
@@ -20,12 +15,14 @@ class FilterController {
             'materials' => $this->model->getMaterials()
         ];
 
+        $this->sendJson($filters);
+    }
+
+    private function sendJson($data) {
         header('Content-Type: application/json');
-        echo json_encode($filters);
+        echo json_encode($data);
     }
 }
 
-// FilterController példány létrehozása és index metódus meghívása
 $filterController = new FilterController();
 $filterController->index();
-?>

@@ -13,6 +13,7 @@ class ProductController {
         $this->model = new ProductModel($dbConnection);
     }
 
+    //Szűrők lekérése
     public function index() {
         $types = isset($_GET['types']) ? $_GET['types'] : [];
         $colors = isset($_GET['colors']) ? $_GET['colors'] : [];
@@ -24,7 +25,7 @@ class ProductController {
         echo json_encode($filteredProducts);
     }
 
-    // Új metódus a termék részleteinek lekérésére az ID alapján
+    // Termékek lekérése termék ID alapján.
     public function getProductDetails() {
         $productId = isset($_GET['productId']) ? $_GET['productId'] : null;
         if ($productId) {

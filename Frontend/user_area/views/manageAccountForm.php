@@ -1,4 +1,12 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
 
 <div class="surface_primary_header">
     <div class="surface_header1">
@@ -9,7 +17,7 @@
     </div>
 </div>
 <div class="surface_primary_body">
-    <form action="/BeYou_web/Beyouproject/Backend/controllers/ProfileController.php" method="post">
+    <form action="/BeYou_web/Beyouproject/Backend/controllers/ProfileController.php" method="POST">
 
         <!-- Valódi név firstname és lastname külön rendezve.! -->
         <!-- Felhasználónév -->
@@ -36,3 +44,7 @@
         <button class="sample_button_reverse" type="submit" name="update_account">Update Account</button>
     </form>
 </div>
+
+    
+</body>
+</html>

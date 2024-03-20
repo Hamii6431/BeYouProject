@@ -1,0 +1,31 @@
+.toast-container {
+    position: fixed;
+    top: 80px; 
+    left: 50%; 
+    transform: translateX(-50%);
+    z-index: 1050;
+    width: auto;
+    text-align: center; 
+}
+
+.toast {
+
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+
+}
+
+.toast.show {
+    background-color: #6ab1e0;
+    color: #3A4049;
+    border: 0px;
+    padding: 10px 20px;
+    margin-top: 9px;
+    border-radius: 0px 0px 5px 5px;
+    opacity: 1;
+    background-color: #E0E8F1;
+    display: inline-block; 
+    margin: 0 auto; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 105%;
+}

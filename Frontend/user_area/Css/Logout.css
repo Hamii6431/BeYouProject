@@ -7,10 +7,6 @@ body {
     margin: 0;
 }
 
-header {
-    width: 100%;
-    box-sizing: border-box; /* Hozzáadva a paddingot a szélességhez */
-}
 
 .tabla {
 width: 300px;
@@ -28,7 +24,7 @@ margin-top: 3rem;
 
 .kijelenkez a {
     display: block;
-    margin-bottom: 1rem; /* Tetszőleges margin a szöveg és a lakat között */
+    margin-bottom: 1rem;
 }
 
 .szimbolum {

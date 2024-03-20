@@ -6,6 +6,7 @@ $(document).ready(function() {
         loadContent(menuItemId);
     });
 
+    // Kiválasztott űrlap nevének elküldése
     function loadContent(menuItemId) {
         $.ajax({
             type: 'POST',
@@ -19,4 +20,7 @@ $(document).ready(function() {
             }
         });
     }
+
+    // Oldal betöltődésnél azonnal hívja meg a 'accountMenuItem' tartalmat
+    loadContent('accountMenuItem');
 });

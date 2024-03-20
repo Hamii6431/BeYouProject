@@ -1,7 +1,6 @@
 
 /* Fő tartalmi részek stílusai */
-.container-for {
-    /*background-image: url('../../../public/img/stock-stone2.png');*/
+.container-for-profilepage {
     background-size: cover;
     background-repeat: no-repeat;
     padding-top: 15vh;
@@ -10,32 +9,29 @@
     height: fit-content;
     min-height: 70vh;
 }
+/*Beviteli mezők stílusai*/
 .form-group {
-position: relative;
-margin-bottom: 1.5rem;
-}
-.form-group input {
-width: 100%;
-padding: 10px;
-padding-top: 15px;
-box-sizing: border-box;
-height: 3.5rem;
-font-size: 16px;
-}
-.form-group label {
-position: absolute;
-top: 3px;
-left: 5px;
-font-size: 14px;
-color: #888; /* Példa: szürke szín a kisebb fontmérethez */
-transition: all 0.3s;
-margin-left: 0.5em;
-cursor: pointer;
-}
-
-
-
-
+    position: relative;
+    margin-bottom: 1.5rem;
+    }
+    .form-group input {
+    width: 100%;
+    padding: 10px;
+    padding-top: 15px;
+    box-sizing: border-box;
+    height: 3.5rem;
+    font-size: 16px;
+    }
+    .form-group label {
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    font-size: 14px;
+    color: #888; /* Példa: szürke szín a kisebb fontmérethez */
+    transition: all 0.3s;
+    margin-left: 0.2rem;
+    cursor: pointer;
+    }
 
 
 
@@ -43,9 +39,7 @@ cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
-
 .profile-name-image {
     display: flex;
     flex-direction: column;
@@ -53,20 +47,17 @@ cursor: pointer;
     margin-bottom: 1rem;
     width:100%;
 }
-
 .preview-image {
     width: 10rem;
     height: 10rem;
     border-radius: 50%;
     overflow: hidden;
 }
-
 .preview-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-
 .profile-name {
     text-align: center;
     margin-top: 1rem;
@@ -83,7 +74,6 @@ cursor: pointer;
     transition: 1s;
     padding: 1rem 1.25rem 1rem 1.25rem;
 }
-
 .container-menuitem{
     display:flex;
     background-color: #F6F6F6;
@@ -93,12 +83,6 @@ cursor: pointer;
     padding:0.5rem;
     
 }
-
-
-
-
-
-
 
 .container-surface {
     display:block;
@@ -110,26 +94,21 @@ cursor: pointer;
     height:fit-content;
 
 }
-
 .surface_header1 {
     margin-bottom: 1.5rem;
 }
-
 .surface_header2 {
     border-bottom: 1px solid #D0D1D2;
     margin-bottom: 1rem;
 }
-
 .surface_header2 p {
     margin-bottom: 0;
 }
-
 .surface_body {
     display: flex;
     flex-wrap: wrap;
     gap: 5px 15px;
 }
-
 
 
 .form-group input,
@@ -139,7 +118,6 @@ cursor: pointer;
     padding-top: 15px;
     box-sizing: border-box;
 }
-
 .form-group label {
     position: absolute;
     top: 0;
@@ -187,17 +165,15 @@ color: white;
 
 
 @media (max-width: 1200px) {
-    .container-for {
-    padding-top: 15vh;
+    .container-for-profilepage{
     padding-left: 5rem;
     padding-right: 5rem;
 }
 }
-
 @media (max-width: 576px) {
-    .container-for {
-    padding-top: 15vh;
+    .container-for-profilepage{
     padding-left: 2rem;
     padding-right: 2rem;
 }
+
 }

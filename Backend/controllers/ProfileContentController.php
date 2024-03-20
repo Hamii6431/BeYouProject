@@ -1,60 +1,52 @@
-
 <?php
+
 session_start();
 require_once __DIR__ . '/../models/UserModel.php';
 require_once __DIR__ . '/../includes/Database.php';
 
-// Adatbázis kapcsolat létrehozása
-$dbInstance = Database::getInstance();
-$dbConnection = $dbInstance->getConnection();
+class ProfileContentController {
+    private $userModel;
 
-// UserModel példányosítása
-$userModel = new UserModel($dbConnection);
-
-// Felhasználó azonosítójának lekérése a munkamenetből
-$userId = $_SESSION['user_id'];
-
-// Felhasználó adatainak lekérése a UserModel segítségével
-$userData = $userModel->getUserDataByUserID($userId);
-// Felhasználó szállítási címeinek lekérése
-$shippingData = $userModel->getUserShippingDataByUserID($userId);
-
-// Teljes név összefűzése
-$fullName = $userData['first_name'] . ' ' . $userData['last_name'];
-
-// Ha van 'menuItemId' paraméter az URL-ben
-if (isset($_POST['menuItemId'])) {
-    $menuItemId = $_POST['menuItemId'];
-
-    // A 'menuItemId' alapján megjelenítjük a megfelelő tartalmat
-    switch ($menuItemId) {
-        case 'accountMenuItem':
-            // Felhasználói adatok űrlapjának megjelenítése
-            include __DIR__ . '/../../Frontend/user_area/views/accountMenuItem.php';
-            break;
-        
-        case 'manageAccountForm':
-            // Felhasználói fiók kezelési űrlapjának megjelenítése
-            include __DIR__ . '/../../Frontend/user_area/views/manageAccountForm.php';
-            break;
-        
-        case 'manageShippingForm':
-            // Szállítási adatok űrlapjának megjelenítése
-            include __DIR__ . '/../../Frontend/user_area/views/manageShippingForm.php';
-            break;
-
-        case 'ordersMenuItem':
-            // Rendelések megjelenítése
-            include __DIR__ . '/../../Frontend/user_area/views/ordersMenuItem.php';
-            break;
-        
-        default:
-            // Ha a 'menuItemId' nem megfelelő, akkor nem történik semmi
-            break;
+    public function __construct() {
+        $dbInstance = Database::getInstance();
+        $dbConnection = $dbInstance->getConnection();
+        $this->userModel = new UserModel($dbConnection);
     }
-} else {
-    
+
+    public function loadPage() {
+        $userId = $_SESSION['user_id'] ?? null;
+
+
+
+        $userData = $this->userModel->getUserDataByUserID($userId);
+        $shippingData = $this->userModel->getUserShippingDataByUserID($userId);
+
+        if (isset($_POST['menuItemId'])) {
+            $menuItemId = $_POST['menuItemId'];
+            $this->renderPage($menuItemId, $userData, $shippingData, $userId);
+        }
+    }
+
+    private function renderPage($menuItemId, $userData, $shippingData, $userId) {
+        switch ($menuItemId) {
+            case 'accountMenuItem':
+                include __DIR__ . '/../../Frontend/user_area/views/accountMenuItem.php';
+                break;
+            case 'manageAccountForm':
+                include __DIR__ . '/../../Frontend/user_area/views/manageAccountForm.php';
+                break;
+            case 'manageShippingForm':
+                include __DIR__ . '/../../Frontend/user_area/views/manageShippingForm.php';
+                break;
+            case 'ordersMenuItem':
+                include __DIR__ . '/../../Frontend/user_area/views/ordersMenuItem.php';
+                break;
+            default:
+                echo "Page not found.";
+                break;
+        }
+    }
 }
-?>
 
-
+$controller = new ProfileContentController();
+$controller->loadPage();

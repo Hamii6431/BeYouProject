@@ -1,115 +1,112 @@
-// Fetch and display cart items using AJAX
-/*
+// Az oldal betöltésénél a termékek megjelenítése a kosárban.
+document.addEventListener("DOMContentLoaded", function() {
+    displayCartItems();
+});
+
+// Kosárban lévő termékek megjelenítése.
 function displayCartItems() {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "../../Backend/user_area/get_cart_items.php", true);
+    // A kosár tartalmának lekérdezése a szerverről.
+    fetch('../../Backend/controllers/CartController.php?action=displayCartItems')
+    .then(response => response.json())
+    .then(data => {
+        if(data.status === 'success') {
+            const cartItemsContainer = document.querySelector('.cart-items-body');
+            cartItemsContainer.innerHTML = ''; // Kosár tartalmának törlése előtt.
 
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            var cartItemsContainer = document.getElementById('cartItemsContainer');
-            var cartItems = JSON.parse(xhr.responseText);
-
-            if (cartItems.length > 0) {
-                var itemCount = 0;
-                var totalAmount = 0;
-
-                cartItemsContainer.innerHTML = '<h3>Your Cart</h3>';
-                
-                cartItems.forEach(function(item) {
-                    var cartItemBox = document.createElement('div');
-                    cartItemBox.className = 'cart_items_display';
-                    cartItemBox.innerHTML = `
-                        <div class="cart_image_container">
-                            <img class="cart_item_image" src="../../public/product_images/${item.image}" alt="${item.product_name}">
+            // A kosárban lévő minden termék megjelenítése.
+            data.cartItems.forEach(item => {
+                const itemBox = document.createElement('div');
+                itemBox.className = 'item-box';
+                itemBox.innerHTML = `
+                    <div class="box-image">
+                        <img src="../../public/product_images/${item.default_image_url}" alt="Product Image">
+                    </div>
+                    <div class="box-name-price">
+                        <h5>${item.product_name}</h5>
+                        <p>$${item.price}</p>
+                    </div>
+                    <div class="box-quantity">
+                        <div class="quantity-change">
+                            <button class="quantity_btn" onclick="updateQuantity(${item.product_id}, -1)">-</button>
+                            <input class="quantity_input" id="quantityInput_${item.product_id}" type="text" value="${item.quantity}" disabled>
+                            <button class="quantity_btn" onclick="updateQuantity(${item.product_id}, 1)">+</button>
                         </div>
-                        <div class="cart_item_data">
-                            <div class="cart_item_data_1">
-                                <div class="cart_item_name">
-                                    <h5>${item.product_name}</h5>
-                                </div>
-                                <div class="cart_item_productdata">
-                                    <p>Product ID: ${item.product_ID}</p>
-                                    <p>Material: ${item.material}</p>
-                                    <p>Color: ${item.color}</p>
-                                </div>
-                            </div>
-                            <div class="cart_item_data_2">
-                                <div class="cart_item_price">
-                                    <p>Price: ${item.item_price} Ft</p>
-                                </div>
-                                <div class="quantity_form">
-                                    <div class="quantity_controls">
-                                        <button class="quantity_btn" onclick="updateQuantity(${item.product_ID}, -1)">-</button>
-                                        <input class="quantity_input" id="quantityInput_${item.product_ID}" type="text" value="${item.quantity}" disabled>
-                                        <button class="quantity_btn" onclick="updateQuantity(${item.product_ID}, 1)">+</button>
-                                    </div>
-                                </div>
-                                <div class="cart_item_remove">
-                                    <button onclick="removeItem(${item.product_ID})">Remove</button>
-                                </div>
-                            </div>
+                        <div class="quantity-remove">
+                            <button class="delete-button" data-product-id="${item.product_id}" onclick="deleteCartItem(${item.product_id})">Delete</button>
                         </div>
-                    `;
+                    </div>
+                    <div class="box-subtotal">
+                        <h5>Total: $${(item.quantity * item.price).toFixed(2)}</h5>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(itemBox);
+            });
 
-                    cartItemsContainer.appendChild(cartItemBox);
-
-                    itemCount += parseInt(item.quantity);
-                    totalAmount += parseFloat(item.item_price) * parseInt(item.quantity);
-                });
-
-                document.getElementById('cartItemCount').innerText = 'CART ' + itemCount + ' items';
-                document.getElementById('cartItemCountText').innerText = 'Final amount [' + itemCount + '] product';
-                document.getElementById('cartTotalPrice').innerText = '[' + totalAmount + '] Ft';
-            } else {
-                cartItemsContainer.innerHTML = '<p>Your shopping cart is empty.</p>';
-            }
+            // Az összegzés frissítése a kosárban lévő termékek alapján.
+            updateSummary(data.cartItems);
         } else {
-            console.error(xhr.responseText);
+            console.error(data.message);
         }
-    };
-
-    xhr.send();
+    })
+    .catch(error => console.error('Error:', error));
 }
 
-// Function to remove item from cart
-function removeItem(productID) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "../../Backend/user_area/remove_cart_item.php?id=" + productID, true);
+// Részösszeg kiszámítása a kosárban lévő termékek alapján.
+function calculateSubtotal(cartItems) {
+    return cartItems.reduce((total, item) => total + item.quantity * item.price, 0);
+}
 
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            // After removing item, refresh the displayed cart items
-            displayCartItems();
+// Termék mennyiségének frissítése a kosárban.
+function updateQuantity(productId, change) {
+    const currentQuantityInput = document.getElementById(`quantityInput_${productId}`);
+    let newQuantity = parseInt(currentQuantityInput.value) + change;
+    newQuantity = Math.max(newQuantity, 0); // Az új mennyiség nem lehet negatív.
+
+    // A mennyiség frissítésének elküldése a szerverre.
+    fetch('../../Backend/controllers/CartController.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `action=updateQuantityInCart&product_id=${productId}&new_quantity=${newQuantity}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.status === 'success') {
+            console.log('Quantity updated successfully');
+            displayCartItems(); // A kosár újratöltése.
         } else {
-            console.error(xhr.responseText);
+            console.error(data.message)
         }
-    };
-
-    xhr.send();
+    })
+    .catch(error => console.error('Error:', error));
 }
 
-// Function to update item quantity in cart
-function updateQuantity(productID, quantityChange) {
-    var quantityInput = document.getElementById('quantityInput_' + productID);
-    var newQuantity = parseInt(quantityInput.value) + quantityChange;
-
-    if (newQuantity >= 0) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "../../Backend/user_area/update_cart_quantity.php?id=" + productID + "&quantity=" + newQuantity, true);
-
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                // After updating quantity, refresh the displayed cart items
-                displayCartItems();
-            } else {
-                console.error(xhr.responseText);
-            }
-        };
-
-        xhr.send();
-    }
+// Termék törlése a kosárból.
+function deleteCartItem(productId) {
+    fetch('../../Backend/controllers/CartController.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `action=deleteCartItem&product_id=${productId}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.status === 'success') {
+            console.log('Product deleted successfully');
+            displayCartItems(); // A kosár újratöltése.
+        } else {
+            console.error(data.message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
 }
 
-// Call the function to display cart items
-displayCartItems();
-*/
+// Az összegzés frissítése a kosár tartalma alapján.
+function updateSummary(cartItems) {
+    const shippingCost = cartItems.length > 0 ? 5.00 : 0; // Szállítási költség csak akkor ha van termék a kosárban.
+    const subtotal = calculateSubtotal(cartItems);
+    const total = subtotal + shippingCost; // Összesített összeg szállítási költséggel.
+
+    // Az összegek megjelenítése az oldalon.
+    document.querySelector('.summary-subtotal .subtotal-price h5').textContent = `$${subtotal.toFixed(2)}`;
+    document.querySelector('.summary-subtotal .subtotal-price p').textContent = `$${shippingCost.toFixed(2)}`;
+    document.querySelector('#totalPrice').textContent = `$${total.toFixed(2)}`;
+}

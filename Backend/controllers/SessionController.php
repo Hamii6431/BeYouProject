@@ -8,12 +8,14 @@ class SessionController {
         $this->model = new UserModel();
     }
 
+    //Aktív session állapot vizsgálata
     public function checkSessionAjax() {
         $isLoggedIn = $this->model->isUserLoggedIn();
         echo json_encode(['isLoggedIn' => $isLoggedIn]);
         exit();
     }
 
+    //Kijelentkezés funkció
     public function logout() {
         session_unset();
         session_destroy();
@@ -21,6 +23,7 @@ class SessionController {
         exit();
     }
 
+    //Kiválasztjuk a megfelelő funkciót
     public function handleRequest() {
         $action = $_POST['action'] ?? '';
         switch ($action) {

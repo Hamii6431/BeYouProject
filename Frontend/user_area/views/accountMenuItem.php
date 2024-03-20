@@ -1,25 +1,14 @@
-<style>
-    .details_group_1 {
-        margin: 0;
-        color: #7E8D96;
-    }
-    .details_group_2 p {
-        color: #3A4049;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/AccountMenuItem.css">
+</head>
+<body>
     
-    .surface_primary_body {
-        display: flex;
-        justify-content: space-between;
-    }
 
-    .surface_primary_body_account {
-        width: 50%;
-    }
-
-    .surface_primary_body_shipping {
-        width: 50%;
-    }
-</style>
 <div class="surface_primary_header">
     <div class="surface_header1">
         <h4>My profile</h4>
@@ -65,3 +54,6 @@
         </div>
     </div>
 </div>
+
+</body>
+</html>

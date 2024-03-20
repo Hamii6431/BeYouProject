@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchFilters();
     fetchProducts();
 
+    //Szűrők lekérése
     function fetchFilters() {
         fetch('../../Backend/controllers/FilterController.php')
         .then(response => response.json())
@@ -11,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error fetching filters:', error));
     }
 
+    //Szűrők rendezése és megjelenítése
     function populateFilters(data) {
         const typeFilterContainer = document.querySelector('.type_filter');
         const colorFilterContainer = document.querySelector('.color_filter');
@@ -38,12 +40,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    //Aktív szűrő kiválasztása
     function getSelectedFilters() {
         const form = document.getElementById('filterForm');
         const formData = new FormData(form);
         const params = new URLSearchParams();
     
-        // Collecting selected filters
+ 
         formData.getAll('types').forEach(value => params.append('types[]', value));
         formData.getAll('colors').forEach(value => params.append('colors[]', value));
         formData.getAll('materials').forEach(value => params.append('materials[]', value));
@@ -51,10 +54,11 @@ document.addEventListener('DOMContentLoaded', function() {
         return params.toString();
     }    
 
-    // Event listener for filter changes
+
     document.getElementById('filterForm').addEventListener('change', fetchProducts);
 
 
+    //Termékek lekérése
     function fetchProducts() {
         const filters = getSelectedFilters();
         fetch('../../Backend/controllers/ProductController.php?' + filters)
@@ -65,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error fetching products:', error));
     }
 
+    //Termékek megjelenítése
     function displayProducts(products) {
         const productsContainer = document.getElementById('productDisplay');
         productsContainer.innerHTML = ''; // Clear previous products
@@ -79,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         <p>${product.name}</p>
                                     </div>
                                     <div class="product-price">
-                                        <p>${product.price} Ft</p>
+                                        <p>${product.price}$</p>
                                     </div>
                                     <button class="buy-button" onclick="addToCart(${product.id})">Buy</button>
                                 </div>
@@ -90,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 });
 
+//Továbbítás a kiválasztott termék oldalára
 function redirectToProduct(productID) {
     window.location.href = 'RedirectedProduct.php?id=' + productID;
 }

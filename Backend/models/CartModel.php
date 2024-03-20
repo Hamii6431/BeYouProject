@@ -5,9 +5,9 @@ require_once __DIR__ . '/../includes/Database.php';
 class CartModel {
     private $db;
 
+    // Konstruktor az adatbázis kapcsolathoz
     public function __construct() {
-        $dbInstance = Database::getInstance();
-        $this->db = $dbInstance->getConnection();
+        $this->db = Database::getInstance()->getConnection();
     }
 
     public function addOrUpdateProductInCart($userId, $productId, $quantity = 1) {

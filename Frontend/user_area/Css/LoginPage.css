@@ -5,16 +5,16 @@ body, html {
 }
 
 /* Fő tartalmi részek stílusai */
-.container-for {
+.container-for-loginpage {
     background-image: url('../../../public/img/stock-stone2.png');
     background-size: cover;
     background-repeat: no-repeat;
     display: flex;
     gap:5rem;
-    padding-top: 20vh;
+    padding-top: 140px;
     padding-left: 10rem;
     padding-right: 10rem;
-    height:110vh;
+    height: 140vh;
 }
 .container-left, .container-right{
     display:flex;
@@ -22,8 +22,8 @@ body, html {
     width:50%;
 }
 .container-login-register,.container-orderstat{
-    background-color: #C5CCDA;
-    border-radius: 16px;
+    background-color: #E0E8F1;
+    border-radius: 1rem;
     padding: 1rem 2.5rem 2rem 2.5rem;
     box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
@@ -38,7 +38,7 @@ body, html {
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     border-bottom: 2px solid #888;
     background-color: rgba(248,250,247, 1);
-    border-radius: 16px;
+    border-radius: 1rem;
     transition: 1s;
 }
 .tab-pill-item:hover{
@@ -60,7 +60,7 @@ body, html {
 
 
 
-
+/*Beviteli mezők stílusai*/
 .form-group {
 position: relative;
 margin-bottom: 1.5rem;
@@ -85,10 +85,12 @@ cursor: pointer;
 }
 .container-terms-checkbox{
     display:flex;
-    align-items: center;
+}
+.container-terms-checkbox label{
+    margin-left: 0.5rem;
 }
 
-
+/*Gombok stílusai*/
 button {
 border: none;
 background: none;
@@ -125,6 +127,7 @@ color: white;
 }
 
 
+/*Checkbox stílusok*/
 input[type="checkbox"] {
 appearance: none;
 -webkit-appearance: none;
@@ -139,9 +142,6 @@ outline: none;
 align-items: center;
 justify-content: center;
 }
-
-
-
 input[type="checkbox"]:after {
 font-family: "Font awesome 6 Free";
 content: "\f00c";
@@ -162,6 +162,16 @@ display: block;
 
 
 
-#have_account{
-margin-bottom: 0.5rem;
+@media (max-width: 1200px) {
+    .container-for-loginpage{
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
+}
+@media (max-width: 576px) {
+    .container-for-loginpage{
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
 }

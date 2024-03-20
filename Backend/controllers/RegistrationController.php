@@ -1,44 +1,59 @@
 <?php
+
 require_once __DIR__ . '/../models/UserModel.php';
 
-// Ellenőrizzük, hogy a POST kérés érkezett-e és AJAX kérés-e
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-    // Ellenőrizzük, hogy minden kötelező mezőt kitöltöttek-e
-    if (isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password_again']) && isset($_POST['terms'])) {
-        // Mezők értékeinek mentése változókba
+class RegistrationController {
+    private $userModel;
+
+    public function __construct() {
+        $this->userModel = new UserModel();
+    }
+
+    public function handleRegistration() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if ($this->allRequiredFieldsProvided()) {
+                $this->registerUser();
+            } else {
+                $this->sendResponse("Hiányzó mezők!", false);
+            }
+        } else {
+            $this->sendResponse("Érvénytelen kérés!", false);
+        }
+    }
+
+    private function isAjaxRequest() {
+        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+    }
+
+    private function allRequiredFieldsProvided() {
+        return isset($_POST['first_name'], $_POST['last_name'], $_POST['username'], $_POST['email'], $_POST['password'], $_POST['password_again'], $_POST['terms']);
+    }
+
+    private function registerUser() {
         $first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
         $username = $_POST['username'];
         $email = $_POST['email'];
         $password = $_POST['password'];
-        $password_again = $_POST['password_again'];
+        $passwordAgain = $_POST['password_again'];
 
-        // UserModel példányosítása
-        $userModel = new UserModel();
-
-        // Ellenőrizzük, hogy a jelszavak egyeznek-e
-        if ($userModel->passwordsMatch($password, $password_again)) {
-            // Regisztráljuk a felhasználót
-            $registrationResult = $userModel->registerUser($first_name, $last_name, $username, $email, $password);
-            // Ellenőrizzük a regisztráció eredményét
-            if ($registrationResult === "Registration successful.") {
-                // Sikeres regisztráció esetén további teendők, például átirányítás vagy üzenet megjelenítése
-                echo "<script>alert('Registration successful.');</script>";
-                // Ide írd be a további teendőket, például átirányítást
-            } else {
-                // Sikertelen regisztráció esetén hibaüzenet megjelenítése
-                echo "<script>alert('$registrationResult');</script>";
-            }
+        if ($this->userModel->passwordsMatch($password, $passwordAgain)) {
+            $registrationResult = $this->userModel->registerUser($first_name, $last_name, $username, $email, $password);
+            $this->sendResponse($registrationResult, $registrationResult === "Registration successful.");
         } else {
-            // Ha a jelszavak nem egyeznek, hibaüzenet megjelenítése
-            echo "<script>alert('Passwords do not match.');</script>";
+            $this->sendResponse("Passwords do not match.", false);
         }
-    } else {
-        // Ha nem minden kötelező mezőt töltöttek ki, hibaüzenet küldése
-        echo "Hiányzó mezők!";
     }
-} else {
-    // Ha nem POST kérés érkezett vagy nem AJAX kérés, hibaüzenet küldése
-    echo "Érvénytelen kérés!";
+
+    private function sendResponse($message, $isSuccess) {
+        $response = ['status' => $isSuccess ? 'success' : 'error', 'message' => $message];
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit();
+    }
 }
+
+$registrationController = new RegistrationController();
+$registrationController->handleRegistration();
+
 ?>
