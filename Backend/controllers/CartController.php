@@ -41,6 +41,10 @@ class CartController {
                 case 'updateQuantityInCart':
                     $this->updateQuantityInCart();
                     break;
+                case 'calculateCartSummary':
+                    $this->calculateCartSummary();
+                    break;
+                    
                 default:
                     echo json_encode(['status' => 'error', 'message' => 'Invalid POST action']);
                     break;
@@ -104,7 +108,38 @@ class CartController {
             echo json_encode(['status' => 'error', 'message' => 'User not logged in']);
         }
     }
+
+    private function calculateCartSummary() {
+        if ($this->sessionModel->isUserLoggedIn()) {
+            $userId = $_SESSION['user_id'];
+            $cartItems = $this->cartModel->getCartItemsByUserId($userId);
+            
+            // Subtotal kiszámítása
+            $subtotal = array_reduce($cartItems, function ($carry, $item) {
+                return $carry + ($item['quantity'] * $item['price']);
+            }, 0);
+    
+            // Szállítási költség kiszámítása
+            $shippingCost = $subtotal > 0 ? 5.00 : 0; // Például fix 5.00, ha van termék
+    
+            // Teljes összeg kiszámítása
+            $total = $subtotal + $shippingCost;
+    
+            // Adatok visszaküldése
+            echo json_encode([
+                'status' => 'success',
+                'subtotal' => $subtotal,
+                'shippingCost' => $shippingCost,
+                'total' => $total
+            ]);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'User not logged in']);
+        }
+    }
+    
+
 }
+
 
 $controller = new CartController();
 // A kéréstípustól függően hívjuk meg a megfelelő metódust

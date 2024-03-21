@@ -29,7 +29,7 @@
 
 .container-surface {
     display: block;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     background-color: rgba(194, 210, 227, 0.5);
     border-radius: 16px;
     transition: 1s;
@@ -37,11 +37,12 @@
     height: fit-content;
 }
 
-.sample-button{
+.sample-button {
     background-color: #27251F;
     color: white;
     margin-bottom: 2.5rem;
-    }
+}
+
 .sample-button:hover {
     transition: 0.3s;
     background-color: #000000;
@@ -63,68 +64,48 @@ button {
     height: 50px;
 }
 
-
-
-
-
-.cart-items, .cart-summary{
-    padding:30px 30px 0px 30px;
+.cart-items,
+.cart-summary {
+    padding: 30px;
 }
-/*Rendelés összegzése */
-.cart-summary{
+
+/* Rendelés összegzése */
+.cart-summary {
     background-color: #F5F5F5;
     border-top: 5px solid #8C959F;
     height: fit-content;
     padding-top: 25px;
 }
 
-/*Kosár tartalma és rendelés összegzése fejrészei */
-.cart-items-head, .summary-head{
+/* Kosár tartalma és rendelés összegzése fejrészei */
+.cart-items-head,
+.summary-head {
     display: flex;
     justify-content: space-between;
     border-bottom: 2px solid #8C959F;
     padding-bottom: 0.5rem;
 }
 
-/*Rendelés összegzése */
-.summary-subtotal, .summary-total {
+/* Rendelés összegzése */
+.summary-subtotal,
+.summary-total {
     border-bottom: 2px solid #8C959F;
-    padding:1rem 0rem 1rem 0rem;
-    display:flex;
+    padding: 1rem 0rem;
+    display: flex;
     justify-content: space-between;
 }
 
-
-/*Rendelés összegzése */
-.summary-subtotal, .summary-total {
-    border-bottom: 2px solid #8C959F;
-    padding:1rem 0rem 1rem 0rem;
-    display:flex;
-    justify-content: space-between;
-}
-.summary-subtotal, h5, p{
-    margin: 0;
-}
-.summary-total h4{
-    margin: 0;
-}
-
-
-
-
-
-/*Reszponzív stílusok*/
+/* Reszponzív stílusok */
 @media (max-width: 1200px) {
     .container-for-orderpage {
-    padding-left: 5rem;
-    padding-right: 5rem;
+        padding-left: 5rem;
+        padding-right: 5rem;
+    }
 }
-}
-
 
 @media (max-width: 576px) {
     .container-for-orderpage {
-    padding-left: 2rem;
-    padding-right: 2rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
     }
 }

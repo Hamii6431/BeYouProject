@@ -1,5 +1,4 @@
 <?php
-// Munkamenet indítása minden PHP oldalon szükséges, hogy hozzáférjünk a munkamenet változókhoz
 session_start();
 ?>
 
@@ -94,7 +93,6 @@ session_start();
             </div>
         </div>
         <!-- Rendelés összegzése -->
-<!-- Rendelés összegzése -->
         <div class="cart-summary col-lg-4 col-md-12">
             <div class="summary-head">
                 <h2>Order Overview</h2>
@@ -116,7 +114,6 @@ session_start();
             <div class="summary-button">
                 <button id="finishOrderButton" class="sample-button">Finish order</button>
             </div>
-
         </div>
     </div>
 </div>
@@ -126,7 +123,7 @@ session_start();
 <script src="Js/Navbar.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    displayCartItems();
+    fetchCartSummary();
     fetchShippingData();
 
     document.querySelector('#shippingForm').addEventListener('submit', function(event) {
@@ -141,6 +138,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(data => {
             if (data.success) {
                 alert('Address updated successfully.');
+                fetchShippingData(); // Újra lekérjük a szállítási adatokat, hogy frissüljenek a megjelenített adatok
             } else {
                 alert('Failed to update address. Please try again.');
             }
@@ -151,39 +149,40 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector('#finishOrderButton').addEventListener('click', finishOrder);
 });
 
+function fetchCartSummary() {
+    fetch('../../Backend/controllers/CartController.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'action=calculateCartSummary'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            updateCartSummaryDirectly(data.subtotal, data.shippingCost, data.total);
+        } else {
+            console.error('Failed to fetch cart summary:', data.message);
+        }
+    })
+    .catch(error => console.error('Error fetching cart summary:', error));
+}
+
 function finishOrder() {
-    // Ellenőrizze, hogy van-e termék a kosárban
     const totalPriceElement = document.getElementById('totalPrice');
     const totalPrice = parseFloat(totalPriceElement.textContent.replace('$', ''));
-    
-    // Ha a teljes ár 0 vagy annál kisebb, akkor nincs termék a kosárban
+
     if (totalPrice <= 0) {
         alert('There are no items in the cart. Please add items before finalizing your order.');
         return;
     }
 
-    // Szállítási adatok elküldése
-    const formData = new FormData(document.getElementById('shippingForm'));
-
-    fetch('../../Backend/controllers/ShippingController.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Shipping information updated successfully.');
-            // Most már elküldhetjük a rendelést is
-            sendOrder(totalPrice);
-        } else {
-            alert('Failed to update shipping information. Please try again.');
-        }
-    })
-    .catch(error => console.error('Error updating shipping information:', error));
+    // További logika, például a rendelési adatok elküldése a szerverre
+    // Ebben az esetben a szerveren kell kezelni a rendelés véglegesítését
+    sendOrder(totalPrice);
 }
 
 function sendOrder(totalPrice) {
-    // Van termék a kosárban, folytathatjuk a rendelés véglegesítését
     fetch('../../Backend/controllers/OrderController.php', {
         method: 'POST',
         headers: {
@@ -194,10 +193,11 @@ function sendOrder(totalPrice) {
     .then(response => response.json())
     .then(data => {
         if (data.status === 'success') {
-            alert('Your order has been placed successfully.');
-            // További tevékenységek, pl. oldal frissítése vagy átirányítás
+            alert(data.message); // Opcionális: sikeres üzenet megjelenítése
+            // Az átirányítás végrehajtása a válaszban kapott címre
+            window.location.href = data.redirect;
         } else {
-            alert(data.message); // A szerver által küldött hibaüzenet megjelenítése
+            alert(data.message); // Hibaüzenet megjelenítése
         }
     })
     .catch(error => {
@@ -206,51 +206,27 @@ function sendOrder(totalPrice) {
     });
 }
 
-function displayCartItems() {
-    fetch('../../Backend/controllers/CartController.php?action=displayCartItems')
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                const cartItems = data.cartItems;
-                updateCartSummary(cartItems);
-            } else {
-                console.error('Failed to fetch cart items:', data.message);
-            }
-        })
-        .catch(error => console.error('Error fetching cart items:', error));
-}
-
 function fetchShippingData() {
     fetch('../../Backend/controllers/ShippingController.php')
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                console.error('Error fetching shipping data:', data.error);
-            } else {
-                document.getElementById('phone_number').value = data.phone_number || '';
-                document.getElementById('country').value = data.country || '';
-                document.getElementById('postal_code').value = data.postal_code || '';
-                document.getElementById('city').value = data.city || '';
-                document.getElementById('street_address').value = data.street_address || '';
-            }
-        })
-        .catch(error => console.error('Error fetching shipping data:', error));
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            console.error('Error fetching shipping data:', data.error);
+        } else {
+            document.getElementById('phone_number').value = data.phone_number || '';
+            document.getElementById('country').value = data.country || '';
+            document.getElementById('postal_code').value = data.postal_code || '';
+            document.getElementById('city').value = data.city || '';
+            document.getElementById('street_address').value = data.street_address || '';
+        }
+    })
+    .catch(error => console.error('Error fetching shipping data:', error));
 }
 
-function updateCartSummary(cartItems) {
-    let subtotal = 0;
-    cartItems.forEach(item => {
-        subtotal += item.price * item.quantity;
-    });
-    
-    const shippingCost = subtotal > 0 ? 5 : 0;
-    subtotal += shippingCost;
-    
-    const total = subtotal + shippingCost;
-    
-    document.querySelector('.summary-subtotal .subtotal-price h5').textContent = '$' + subtotal.toFixed(2);
-    document.querySelector('.summary-subtotal .subtotal-price p').textContent = '$' + shippingCost.toFixed(2);
-    document.getElementById('totalPrice').textContent = '$' + total.toFixed(2);
+function updateCartSummaryDirectly(subtotal, shippingCost, total) {
+    document.querySelector('.summary-subtotal .subtotal-price h5').textContent = `$${subtotal.toFixed(2)}`;
+    document.querySelector('.summary-subtotal .subtotal-price p').textContent = `$${shippingCost.toFixed(2)}`;
+    document.getElementById('totalPrice').textContent = `$${total.toFixed(2)}`;
 }
 
 

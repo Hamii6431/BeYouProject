@@ -1,5 +1,4 @@
-
-/*Általános gombstílus*/
+/* Általános gombstílus */
 button {
     border: none;
     background: none;
@@ -10,12 +9,12 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin:0;
+    margin: 0;
     width: 100%;
     height: 50px;
 }
 
-/* Alap stílus az oldal méretére.*/
+/* Alap stílus az oldal méretére. */
 .container-for-cartpage {
     background-size: cover;
     background-repeat: no-repeat;
@@ -24,27 +23,30 @@ button {
     padding-right: 10rem;
 }
 
-/*Kosár tartalma és rendelés összegzése */
-.cart-items, .cart-summary{
-    padding:30px 30px 0px 30px;
+/* Kosár tartalma és rendelés összegzése */
+.cart-items,
+.cart-summary {
+    padding: 30px;
 }
-/*Rendelés összegzése */
-.cart-summary{
+
+/* Rendelés összegzése */
+.cart-summary {
     background-color: #F5F5F5;
     border-top: 5px solid #8C959F;
     height: fit-content;
     padding-top: 25px;
 }
 
-/*Kosár tartalma és rendelés összegzése fejrészei */
-.cart-items-head, .summary-head{
+/* Kosár tartalma és rendelés összegzése fejrészei */
+.cart-items-head,
+.summary-head {
     display: flex;
     justify-content: space-between;
     border-bottom: 2px solid #8C959F;
     padding-bottom: 0.5rem;
 }
 
-/*Kosárban lévő termék tároló doboza*/
+/* Kosárban lévő termék tároló doboza */
 .item-box {
     display: flex;
     justify-content: space-between;
@@ -54,122 +56,116 @@ button {
 }
 
 .box-image img {
-    width:150px; /* A kép méretének csökkentése, igazodva az új layout-hoz */
+    width: 150px; /* A kép méretének csökkentése, igazodva az új layout-hoz */
     height: auto;
     margin-right: 20px; /* Térköz a kép és a terméknév között */
 }
-.box-name-price{
+
+.box-name-price {
     flex-grow: 1;
 }
 
-
-.box-quantity, .box-subtotal {
+.box-quantity,
+.box-subtotal {
     text-align: right; /* Elemek jobbra igazítása */
 }
 
-
-.box-subtotal{
+.box-subtotal {
     display: flex;
     align-items: end;
     flex-direction: column;
     width: 100px;
 }
-/*Mennyiség változtató dobozok stílusai */
-.quantity-change{
+
+/* Mennyiség változtató dobozok stílusai */
+.quantity-change {
     display: flex;
 }
-.quantity-remove{
+
+.quantity-remove {
     height: 10px;
 }
+
 .quantity-control {
     padding: 5px 10px; 
     cursor: pointer; 
 }
+
 .quantity-input {
     width: 50px;
     text-align: center;
-    border: 1px 0px 1px 0px solid #eee;
+    border: 1px solid #eee;
 }
-/*Mennyiség gomb stílusok*/
+
+/* Mennyiség gomb stílusok */
 .quantity_btn {
     background-color: #27251F;
     color: white;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
-    height:40px;
-    width:30px;
+    height: 40px;
+    width: 30px;
 }
+
 .quantity_btn:hover {
     transition: 0.3s;
     background-color: #CAE4F4;
     color: black;
 }
+
 .quantity_input {
     width: 50px;
     text-align: center;
-    height:40px;
+    height: 40px;
 }
 
-
-
-/*Rendelés összegzése */
-.summary-subtotal, .summary-total {
+/* Rendelés összegzése */
+.summary-subtotal,
+.summary-total {
     border-bottom: 2px solid #8C959F;
-    padding:1rem 0rem 1rem 0rem;
-    display:flex;
+    padding: 1rem 0rem;
+    display: flex;
     justify-content: space-between;
 }
-.summary-subtotal, h5, p{
+
+.summary-subtotal,
+h5,
+p {
     margin: 0;
 }
-.summary-total h4{
+
+.summary-total h4 {
     margin: 0;
 }
-.sample-button{
-background-color: #27251F;
-color: white;
-margin-bottom: 2.5rem;
+
+.sample-button {
+    background-color: #27251F;
+    color: white;
+    margin-bottom: 2.5rem;
 }
+
 .sample-button:hover {
-transition: 0.3s;
-background-color: #000000;
-color: white;
+    transition: 0.3s;
+    background-color: #000000;
+    color: white;
 }
 
-
-
-
-/*Reszponzív stílusok*/
+/* Reszponzív stílusok */
 @media (max-width: 1200px) {
     .container-for-cartpage {
-    padding-left: 5rem;
-    padding-right: 5rem;
-}
-.cart-items-body{
-        margin-bottom:  1rem;
+        padding-left: 5rem;
+        padding-right: 5rem;
+    }
+    
+    .cart-items-body {
+        margin-bottom: 1rem;
     }
 }
-
 
 @media (max-width: 576px) {
     .container-for-cartpage {
-    padding-left: 2rem;
-    padding-right: 2rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

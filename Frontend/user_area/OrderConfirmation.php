@@ -57,20 +57,100 @@ session_start();
         <button type="button" class="icon-button logoutIcon"><span class="material-symbols-outlined iconstyle">logout</span></button>
     </div>
 
-    
+    <style>
+    .container-for-cartpage {
+        padding-top: 30vh;
+        padding-left: 10rem;
+        padding-right: 10rem;
+        text-align: center;
+        height: 100vh; /* Teljes képernyős magasság */
+
+    }
+    .collection{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .collection h1 {
+        font-weight: bold;
+        color:#3A4049;
+    }
+
+    .collection h5 {
+        color: #545E67;
+    }
+    .collection button {
+        font-weight:bold;
+        border-radius: 16px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        width: 200px; /* Gomb szélességének beállítása */
+        background-color: rgb(131, 165, 202);
+        color: #F8FAF7;
+        justify-content: center;
+        height: 50px;
+        border: none; /* A gomb keretének eltávolítása */
+        cursor: pointer; /* Mutató ikon a gomb felett */
+        font-size: 16px; /* Betűméret beállítása */
+        margin-top: 20px; /* Távolság a felső elemhez */
+    }
+
+
+
+
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.animated-check {
+    height: 5em;
+    width: 5em
+}
+
+.animated-check path {
+    fill: none;
+    stroke: rgb(131, 165, 202);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    stroke-width: 4;
+    stroke-dasharray: 23;
+    stroke-dashoffset: 23;
+    animation: draw 1s linear forwards;
+    stroke-linecap: round;
+    stroke-linejoin: round
+}
+
+@keyframes draw {
+    to {
+        stroke-dashoffset: 0
+    }
+}
+</style>
+
 </nav>
 
 <div class="container-for-cartpage">
     <div class="collection">
+    <div class="wrapper"> <svg class="animated-check" viewBox="0 0 24 24">
+        <path d="M4.1 12.7L9 17.6 20.3 6.3" fill="none" /> </svg>
+</div>
         <h1>Thank you for your order</h1>
         <h5>Your order has been placed and is being processed.</h5>
-        <button>Back to homepage</button>
+        <button onclick="redirectToHome()">Back to homepage</button>
     </div>
 </div>
 
 <!-- JavaScript és jQuery könyvtárak -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="Js/Navbar.js"></script>
+<script>
 
+function redirectToHome() {
+    window.location.href = 'Home.php';
+}
+
+</script>
 </body>
 </html>

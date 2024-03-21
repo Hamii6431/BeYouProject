@@ -89,7 +89,7 @@ session_start();
                 <h4 id='totalPrice'>$0.00</h4>
             </div>
             <div class="summary-button">
-                <button id="placeOrderButton" class="sample-button">Place order</button>
+                <button id="placeOrderButton" class="sample-button">Continue</button>
             </div>
         </div>
     </div>

@@ -31,7 +31,8 @@ class OrderController {
             }
 
             if ($this->cartModel->finalizeOrder($userId, $totalPrice, $shippingAddressId)) {
-                echo json_encode(['status' => 'success', 'message' => 'Order finalized successfully']);
+                // Sikeres rendelés esetén az átirányítás címét is visszaküldjük
+                echo json_encode(['status' => 'success', 'message' => 'Order finalized successfully', 'redirect' => 'OrderConfirmation.php']);
             } else {
                 echo json_encode(['status' => 'error', 'message' => 'Failed to finalize the order']);
             }

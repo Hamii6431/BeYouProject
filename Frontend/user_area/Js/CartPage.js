@@ -121,4 +121,4 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'Order.php'; // Ha be van jelentkezve, átirányítjuk az Order.php oldalra
         }
     );
-    });
+});
