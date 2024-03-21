@@ -8,12 +8,11 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart Page</title>
+    <title>Order Page</title>
     <!-- Stíluslapok linkelése -->
     <link rel="stylesheet" href="css/Navbar.css">
     <link rel="stylesheet" href="css/Toast.css">
     <link rel="stylesheet" href="css/ImportFont.css">
-    <link rel="stylesheet" href="css/Cartpage.css">
     <link rel="stylesheet" href="css/Order.css">
     <!-- Google Icons és Font Awesome ikonok -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
@@ -21,9 +20,7 @@ session_start();
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-<style>
 
-    </style>
 <body>
 
 <!-- Navigációs sáv -->
@@ -60,7 +57,7 @@ session_start();
     
 </nav>
 
-<div class="container-for-cartpage">
+<div class="container-for-orderpage">
     <div class="row">
         <!-- Kosár tartalma -->
         <div class="cart-items col-lg-8 col-md-12">
@@ -92,7 +89,7 @@ session_start();
                     
                     <input type="hidden" name="user_id" value="">
                     <input type="hidden" name="address_id" value="">
-                    <button type="submit" name="update_address" class="sample_button_reverse">Update Address</button>
+                    <button type="submit" name="update_address" class="sample-button">Update Address</button>
                 </form>
             </div>
         </div>
@@ -150,9 +147,65 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(error => console.error('Error updating address:', error));
     });
+
+    document.querySelector('#finishOrderButton').addEventListener('click', finishOrder);
 });
 
-// Kosár összegzése és megjelenítése
+function finishOrder() {
+    // Ellenőrizze, hogy van-e termék a kosárban
+    const totalPriceElement = document.getElementById('totalPrice');
+    const totalPrice = parseFloat(totalPriceElement.textContent.replace('$', ''));
+    
+    // Ha a teljes ár 0 vagy annál kisebb, akkor nincs termék a kosárban
+    if (totalPrice <= 0) {
+        alert('There are no items in the cart. Please add items before finalizing your order.');
+        return;
+    }
+
+    // Szállítási adatok elküldése
+    const formData = new FormData(document.getElementById('shippingForm'));
+
+    fetch('../../Backend/controllers/ShippingController.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Shipping information updated successfully.');
+            // Most már elküldhetjük a rendelést is
+            sendOrder(totalPrice);
+        } else {
+            alert('Failed to update shipping information. Please try again.');
+        }
+    })
+    .catch(error => console.error('Error updating shipping information:', error));
+}
+
+function sendOrder(totalPrice) {
+    // Van termék a kosárban, folytathatjuk a rendelés véglegesítését
+    fetch('../../Backend/controllers/OrderController.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `action=finalizeOrder&total_price=${totalPrice}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert('Your order has been placed successfully.');
+            // További tevékenységek, pl. oldal frissítése vagy átirányítás
+        } else {
+            alert(data.message); // A szerver által küldött hibaüzenet megjelenítése
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('There was an issue finalizing your order. Please try again.');
+    });
+}
+
 function displayCartItems() {
     fetch('../../Backend/controllers/CartController.php?action=displayCartItems')
         .then(response => response.json())
@@ -167,7 +220,6 @@ function displayCartItems() {
         .catch(error => console.error('Error fetching cart items:', error));
 }
 
-// Felhasználó szállítási adatainak lekérése és megjelenítése
 function fetchShippingData() {
     fetch('../../Backend/controllers/ShippingController.php')
         .then(response => response.json())
@@ -185,25 +237,21 @@ function fetchShippingData() {
         .catch(error => console.error('Error fetching shipping data:', error));
 }
 
-// Kosár összegzése frissítése
 function updateCartSummary(cartItems) {
     let subtotal = 0;
     cartItems.forEach(item => {
         subtotal += item.price * item.quantity;
     });
     
-    // Szállítási költség hozzáadása, ha a subtotal nagyobb mint 0
     const shippingCost = subtotal > 0 ? 5 : 0;
     subtotal += shippingCost;
     
-    const total = subtotal + shippingCost; // Total számítása a szállítási költséggel
+    const total = subtotal + shippingCost;
     
-    // Subtotal és Total frissítése az oldalon
     document.querySelector('.summary-subtotal .subtotal-price h5').textContent = '$' + subtotal.toFixed(2);
     document.querySelector('.summary-subtotal .subtotal-price p').textContent = '$' + shippingCost.toFixed(2);
-    document.getElementById('totalPrice').textContent = '$' + total.toFixed(2); // Total ár megjelenítése
+    document.getElementById('totalPrice').textContent = '$' + total.toFixed(2);
 }
-
 
 
 </script>
