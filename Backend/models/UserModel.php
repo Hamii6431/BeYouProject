@@ -123,6 +123,19 @@ class UserModel {
         return $addresses;
     }
 
+    public function isUserHaveAddress($userId) {
+        $stmt = $this->db->prepare("SELECT address_id FROM shipping_addresses WHERE user_id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc()['address_id'];
+        } else {
+            return false;
+        }
+    }
+    
+
     // Új szállítási cím létrehozása
     public function createShippingAddress($userId, $phoneNumber, $country, $postalCode, $city, $streetAddress) {
         $stmt = $this->db->prepare("INSERT INTO shipping_addresses (user_id, phone_number, country, postal_code, city, street_address) VALUES (?, ?, ?, ?, ?, ?)");

@@ -6,28 +6,30 @@ body, html {
 
 /* Fő tartalmi részek stílusai */
 .container-for-loginpage {
-    background-image: url('../../../public/img/stock-stone2.png');
+
     background-size: cover;
     background-repeat: no-repeat;
     display: flex;
+    justify-content: center;
     gap:5rem;
     padding-top: 140px;
     padding-left: 10rem;
     padding-right: 10rem;
     height: 140vh;
 }
-.container-left, .container-right{
+.container-login-register{
     display:flex;
     flex-direction: column;
     width:50%;
+    height: fit-content;
 }
-.container-login-register,.container-orderstat{
+.container-login-register{
     background-color: #E0E8F1;
     border-radius: 1rem;
     padding: 1rem 2.5rem 2rem 2.5rem;
     box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
-.container-tab-items, .container-orderstat-header{
+.container-tab-items{
     display: flex;
     justify-content: space-between;
     gap:1rem;
@@ -43,19 +45,6 @@ body, html {
 }
 .tab-pill-item:hover{
     background-color: rgba(184, 218, 255, 0.5);
-}
-
-.container-orderstat-header {
-    display: flex;
-    align-items: center;
-    height: 50px;
-    margin-bottom: 1rem;
-    border-bottom: 3px solid gray;
-}
-
-.container-orderstat-header h3 {
-    margin: 0; /* Eltávolítja az alapértelmezett margót */
-    padding: 0; /* Eltávolítja az alapértelmezett paddingot */
 }
 
 
@@ -167,11 +156,23 @@ display: block;
     padding-left: 5rem;
     padding-right: 5rem;
 }
+.container-login-register{
+    width:60%;
 }
+}
+
+@media (max-width: 973px) {
+    .container-login-register{
+        width:75%;
+    }
+}
+
 @media (max-width: 576px) {
     .container-for-loginpage{
     padding-left: 2rem;
     padding-right: 2rem;
 }
-
+.container-login-register{
+    width:100%;
+}
 }

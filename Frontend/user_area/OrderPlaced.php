@@ -1,28 +1,27 @@
+<?php
+// Munkamenet indítása minden PHP oldalon szükséges, hogy hozzáférjünk a munkamenet változókhoz
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <!-- CSS és külső források linkelése -->
+    <title>Cart Page</title>
+    <!-- Stíluslapok linkelése -->
     <link rel="stylesheet" href="css/Navbar.css">
     <link rel="stylesheet" href="css/Toast.css">
     <link rel="stylesheet" href="css/ImportFont.css">
-    <link rel="stylesheet" href="css/LoginPage.css">
-    
+    <link rel="stylesheet" href="css/Order.css">
 
+    <!-- Google Icons és Font Awesome ikonok -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-
 <body>
-<div id="toastContainer" class="toast-container"></div>
 
 <!-- Navigációs sáv -->
 <nav class="container-navbar">
@@ -57,25 +56,23 @@
 
     
 </nav>
-    <!-- Fő tartalom konténer -->
-    <div class="container-for-loginpage">
-        <div class="container-login-register">
-            <div class="container-tab-items">
-                <button class="tab-pill-item nav-link" id="tab-login">Login</button>
-                <button class="tab-pill-item nav-link" id="tab-register">Sign Up</button>
-            </div>
-            <div class="container-form-items" id="form-container">
-                <!-- Ide töltődnek be dinamikusan az űrlapok -->
-            </div>
-        </div>  
+
+<div class="container-for-cartpage">
+    <div class="row">
+        <!-- Kosár tartalma -->
+        <div class="col-lg-8 col-md-12">
+
+        </div>
+        <!-- Rendelés összegzése -->
+        <div class="col-lg-4 col-md-12">
+           
+        </div>
     </div>
+</div>
 
-    <!-- JavaScript és külső források -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
-    <script src="Js/Navbar.js"></script>
-    <script src="Js/LoginPage.js"></script>
-    <script src="Js/Toast.js"></script>
+<!-- JavaScript és jQuery könyvtárak -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="Js/Navbar.js"></script>
+<script src="Js/"></script>
 </body>
 </html>

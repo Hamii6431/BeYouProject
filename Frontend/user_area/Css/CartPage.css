@@ -1,3 +1,4 @@
+
 /*Általános gombstílus*/
 button {
     border: none;
@@ -45,26 +46,33 @@ button {
 
 /*Kosárban lévő termék tároló doboza*/
 .item-box {
-    margin-top:1rem;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    width: 100%;
+    padding: 10px 0; /* Kis térköz az elemek között */
 }
+
 .box-image img {
-    max-width: 140px;
+    width:150px; /* A kép méretének csökkentése, igazodva az új layout-hoz */
     height: auto;
+    margin-right: 20px; /* Térköz a kép és a terméknév között */
 }
 .box-name-price{
-    min-width: 50%;
-    max-width: 50%;
+    flex-grow: 1;
 }
-.box-name-price, .box-subtotal {
-    flex-grow: 1; 
+
+
+.box-quantity, .box-subtotal {
+    text-align: right; /* Elemek jobbra igazítása */
 }
+
+
 .box-subtotal{
     display: flex;
     align-items: end;
     flex-direction: column;
+    width: 100px;
 }
 /*Mennyiség változtató dobozok stílusai */
 .quantity-change{
@@ -80,7 +88,7 @@ button {
 .quantity-input {
     width: 50px;
     text-align: center;
-    border: 1px solid #eee;
+    border: 1px 0px 1px 0px solid #eee;
 }
 /*Mennyiség gomb stílusok*/
 .quantity_btn {
@@ -94,7 +102,7 @@ button {
 }
 .quantity_btn:hover {
     transition: 0.3s;
-    background-color: #FFCAD4;
+    background-color: #CAE4F4;
     color: black;
 }
 .quantity_input {
@@ -134,8 +142,7 @@ color: white;
 
 /*Reszponzív stílusok*/
 @media (max-width: 1200px) {
-    .container-for {
-    padding-top: 15vh;
+    .container-for-cartpage {
     padding-left: 5rem;
     padding-right: 5rem;
 }
@@ -145,43 +152,21 @@ color: white;
 }
 
 
-
-@media (max-width: 768px) {
-    .item-box {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .box-image, .box-name-price, .box-subtotal, .box-quantintity {
-        width: 100%; /* Kis kijelzőkön teljes szélesség */
-        text-align: center; /* Középre igazítás */
-        margin-bottom: 10px; /* Térköz az elemek között */
-    }
-    .quantity-change{
-        display: flex;
-        justify-content: center;
-    }
-
-    .box-name-price{
-    min-width: 100%;
-    max-width: 100%;
-    }
-
-    .box-subtotal{
-    display: block;
-    align-items: normal;
-    flex-direction: row;
-    }
-}
-
-
 @media (max-width: 576px) {
-    .container-for {
-    padding-top: 15vh;
+    .container-for-cartpage {
     padding-left: 2rem;
     padding-right: 2rem;
     }
 }
+
+
+
+
+
+
+
+
+
 
 
 

@@ -58,6 +58,38 @@ class CartModel {
         $updateStmt->bind_param("iii", $newQuantity, $userId, $productId);
         return $updateStmt->execute();
     }
+
+
+
+
+    // Új rendelés létrehozása és a kosár tartalmának áthelyezése
+public function finalizeOrder($userId, $totalPrice, $shippingAddressId) {
+    $this->db->begin_transaction();
+    try {
+        // Létrehozzuk a végleges rendelést
+        $stmt = $this->db->prepare("INSERT INTO final_orders (user_id, total_price, status, shipping_address_id) VALUES (?, ?, 'Processing', ?)");
+        $stmt->bind_param("idi", $userId, $totalPrice, $shippingAddressId);
+        $stmt->execute();
+        $finalOrderId = $this->db->insert_id;
+
+        // Áthelyezzük a kosár tartalmát a végleges rendelés tételekhez
+        $stmt = $this->db->prepare("INSERT INTO final_order_items (final_order_id, product_id, quantity, total_price) SELECT ?, product_id, quantity, (SELECT price FROM products WHERE product_id = carts.product_id) * quantity FROM carts WHERE user_id = ?");
+        $stmt->bind_param("ii", $finalOrderId, $userId);
+        $stmt->execute();
+
+        // Ürítjük a kosarat
+        $stmt = $this->db->prepare("DELETE FROM carts WHERE user_id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+
+        $this->db->commit();
+        return true;
+    } catch (Exception $e) {
+        $this->db->rollback();
+        return false;
+    }
+}
+
 }
 
 

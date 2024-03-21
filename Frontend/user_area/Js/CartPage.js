@@ -38,6 +38,7 @@ function displayCartItems() {
                     <div class="box-subtotal">
                         <h5>Total: $${(item.quantity * item.price).toFixed(2)}</h5>
                     </div>
+                </div>
                 `;
                 cartItemsContainer.appendChild(itemBox);
             });
@@ -101,8 +102,9 @@ function deleteCartItem(productId) {
 
 // Az összegzés frissítése a kosár tartalma alapján.
 function updateSummary(cartItems) {
-    const shippingCost = cartItems.length > 0 ? 5.00 : 0; // Szállítási költség csak akkor ha van termék a kosárban.
     const subtotal = calculateSubtotal(cartItems);
+    // Szállítási költség csak akkor, ha a subtotal több mint 0.
+    const shippingCost = subtotal > 0 ? 5.00 : 0;
     const total = subtotal + shippingCost; // Összesített összeg szállítási költséggel.
 
     // Az összegek megjelenítése az oldalon.
@@ -110,3 +112,13 @@ function updateSummary(cartItems) {
     document.querySelector('.summary-subtotal .subtotal-price p').textContent = `$${shippingCost.toFixed(2)}`;
     document.querySelector('#totalPrice').textContent = `$${total.toFixed(2)}`;
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const placeOrderButton = document.getElementById('placeOrderButton');
+    
+    placeOrderButton.addEventListener('click', function() {
+            window.location.href = 'Order.php'; // Ha be van jelentkezve, átirányítjuk az Order.php oldalra
+        }
+    );
+    });

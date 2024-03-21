@@ -9,34 +9,40 @@ class ShippingController {
     private $userModel;
 
     public function __construct() {
-        // Adatbázis kapcsolat létrehozása a konstruktorban
         $this->db = Database::getInstance()->getConnection();
         $this->userModel = new UserModel($this->db);
+    }
+
+    private function isGetRequest() {
+        return $_SERVER['REQUEST_METHOD'] == 'GET';
     }
 
     private function isPostRequest() {
         return $_SERVER['REQUEST_METHOD'] == 'POST';
     }
 
-    private function isValidUpdateAddressRequest() {
-        return isset($_POST['update_address']);
-    }
+
 
     private function collectAddressDataFromPost() {
+        $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
         return [
-            'userId' => $_POST['user_id'],
+            'userId' => $userId,
             'addressId' => $_POST['address_id'],
-            'phoneNumber' => $_POST['phone_number'],
-            'country' => $_POST['country'],
-            'postalCode' => $_POST['postal_code'],
-            'city' => $_POST['city'],
-            'streetAddress' => $_POST['street_address'],
+            'phoneNumber' => $_POST['phone_number'] ?? null,
+            'country' => $_POST['country'] ?? null,
+            'postalCode' => $_POST['postal_code'] ?? null,
+            'city' => $_POST['city'] ?? null,
+            'streetAddress' => $_POST['street_address'] ?? null,
         ];
     }
-
     private function updateOrCreateAddress($addressData) {
-        if (empty($addressData['addressId'])) {
-            return $this->userModel->createShippingAddress(
+        // Ellenőrizzük, hogy van-e már szállítási cím az adott felhasználóhoz
+        $existingAddressId = $this->userModel->isUserHaveAddress($addressData['userId']);
+    
+        if ($existingAddressId) {
+            // Ha van, akkor frissítjük a meglévő címet
+            return $this->userModel->updateShippingAddress(
+                $existingAddressId,
                 $addressData['userId'],
                 $addressData['phoneNumber'],
                 $addressData['country'],
@@ -45,8 +51,8 @@ class ShippingController {
                 $addressData['streetAddress']
             );
         } else {
-            return $this->userModel->updateShippingAddress(
-                $addressData['addressId'],
+            // Ha nincs, akkor új címet hozunk létre
+            return $this->userModel->createShippingAddress(
                 $addressData['userId'],
                 $addressData['phoneNumber'],
                 $addressData['country'],
@@ -56,28 +62,43 @@ class ShippingController {
             );
         }
     }
-
-    private function redirectToProfilePage() {
-        header("Location: ../../Frontend/user_area/profilepage.php");
-        exit();
-    }
+    
 
     public function handleRequest() {
-        if ($this->isPostRequest() && $this->isValidUpdateAddressRequest()) {
+        if ($this->isGetRequest()) {
+            $userId = $_SESSION['user_id'] ?? null;
+            if (!$userId) {
+                echo json_encode(['error' => 'User not authenticated']);
+                exit;
+            }
+    
+            $shippingData = $this->userModel->getUserShippingDataByUserID($userId);
+            echo json_encode($shippingData ?: ['error' => 'No shipping data found']);
+            exit;
+        }
+    
+        if ($this->isPostRequest()) {
+            // Ellenőrizzük, hogy minden szükséges adat megérkezett-e.
+            $requiredFields = ['phone_number', 'country', 'postal_code', 'city', 'street_address'];
+            foreach ($requiredFields as $field) {
+                if (empty($_POST[$field])) {
+                    echo json_encode(['error' => "Missing field: $field"]);
+                    exit;
+                }
+            }
+    
             $addressData = $this->collectAddressDataFromPost();
             $success = $this->updateOrCreateAddress($addressData);
-
-            if ($success) {
-                echo "<script>alert('Address updated successfully.');</script>";
-                $this->redirectToProfilePage();
-            } else {
-                echo "<script>alert('Failed to update address. Please try again.');</script>";
-            }
+    
+            echo json_encode(['success' => $success]);
+            exit;
         }
+    
+        echo json_encode(['error' => 'Invalid request']);
+        exit;
     }
 }
 
-// A ShippingController osztály példányosítása és a kérés kezelésének indítása
 $controller = new ShippingController();
 $controller->handleRequest();
 
