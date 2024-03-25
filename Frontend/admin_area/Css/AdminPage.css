@@ -7,7 +7,7 @@
     display: flex;
     gap:1rem;
     padding-top: 2vh;
-    padding-left: 5rem;
+    padding-left: 1rem;
     padding-right: 5rem;
     height:110vh;
 }
@@ -96,16 +96,157 @@
 }
 
 button {
-border: none;
-background: none;
-padding: 0;
-font: inherit;
-cursor: pointer;
-outline: inherit;
-display: inline-flex;
-align-items: center;
-margin:0;
-width: 100%;
-justify-content: center;
-height: 50px;
+    border: none;
+    background: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    display: inline-flex;
+    align-items: center;
+    margin:0;
+    width: 100%;
+    justify-content: center;
+    height: 50px;
 };
+
+.button:hover {
+    border-radius: 6px;
+    background-color: rgb(131, 165, 202);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.surface{
+    padding: 1rem;
+}
+.dashboard-cards{
+    display: flex;
+    justify-content: space-between;
+    gap:2rem;
+}
+.card{
+    display: flex;
+    border-radius: 6px;
+    gap:0.75rem;
+    width: 25%;
+    padding:1.5rem;
+    background-color: rgba(131, 165, 202, 0.5);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.card-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.card-text h2,.card-text h4{
+    margin:0;
+}
+.card-icon{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+.card-icon span{
+    font-size: 60px;
+}
+
+.dashboard-base{
+    display: flex;
+    justify-content: space-between;
+    gap:2rem;
+}
+
+.dashboard-base1{
+    display: flex;
+    justify-content: center;
+    gap:2rem;
+}
+
+.recent-payments, .recent-users, .recent-orders, .recent-products, .new-users{
+    border-radius: 6px;
+    margin-top: 3rem;
+    width:63%;
+    background-color: rgba(131, 165, 202, 0.5);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.recent-users, .recent-orders, .recent-products{
+    border-radius: 6px;
+    margin-top: 3rem;
+    width: 90%;
+    background-color: rgba(131, 165, 202, 0.5);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.recent-payments-header, .recent-users-header, .recent-orders-header, .recent-products-header, .new-users-header{
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid black;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    
+}
+table, th, td {
+    border: 1px solid black;
+    
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+.modal {
+justify-self: center;
+display: none; /* Alapból elrejtve */
+position: fixed;
+z-index: 1;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin-top: 2%; /* Csökkentettem az eredeti 15%-ról 5%-ra */
+    margin-left: 13%;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    border-radius: 6px;
+    background-color: rgb(131, 165, 202);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modalButton:hover {
+    border-radius: 6px;
+    background-color: rgb(131, 165, 202);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.modalButton2:hover {
+    border-radius: 6px;
+    background-color: rgba(156, 189, 224, 0.5);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}

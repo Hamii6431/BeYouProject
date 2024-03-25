@@ -1,39 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product</title>
-    <link rel="stylesheet" href="path_to_your_css_file"> <!-- Szükség szerint adj hozzá CSS fájlt -->
-</head>
+
 <body>
 
 <h1 class="text-center">Add Product</h1>
 
-<form action="your_action_page.php" method="POST" enctype="multipart/form-data">
+<form id="productForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
     <div class="form-group">
         <label for="product_name">Product Name:</label>
         <input type="text" name="product_name" id="product_name" required>
     </div>
 
     <div class="form-group">
-        <label for="product_price">Product Price:</label>
-        <input type="number" name="product_price" id="product_price" step="0.01" required>
+        <label for="price">Product Price:</label>
+        <input type="number" name="price" id="price" step="0.01" required>
     </div>
 
     <div class="form-group">
-        <label for="product_desc">Product Description:</label>
-        <textarea name="product_desc" id="product_desc" required></textarea>
+        <label for="description">Product Description:</label>
+        <textarea name="description" id="description" required></textarea>
     </div>
 
     <div class="form-group">
-        <label for="product_stock">Product Stock:</label>
-        <input type="number" name="product_stock" id="product_stock" required>
+        <label for="stock">Product Stock:</label>
+        <input type="number" name="stock" id="stock" required>
     </div>
 
     <div class="form-group">
-        <label for="product_color">Select Color:</label>
-        <select name="product_color" id="product_color" required>
+        <label for="color_id">Select Color:</label>
+        <select name="color_id" id="color_id" required>
             <option value="">--Select Color--</option>
             <!-- PHP kód a színek dinamikus beillesztésére -->
             <?php foreach ($colors as $color): ?>
@@ -43,8 +36,8 @@
     </div>
 
     <div class="form-group">
-        <label for="product_type">Select Type:</label>
-        <select name="product_type" id="product_type" required>
+        <label for="type_id">Select Type:</label>
+        <select name="type_id" id="type_id" required>
             <option value="">--Select Type--</option>
             <!-- PHP kód a típusok dinamikus beillesztésére -->
             <?php foreach ($types as $type): ?>
@@ -54,8 +47,8 @@
     </div>
 
     <div class="form-group">
-        <label for="product_material">Select Material:</label>
-        <select name="product_material" id="product_material" required>
+        <label for="material_id">Select Material:</label>
+        <select name="material_id" id="material_id" required>
             <option value="">--Select Material--</option>
             <!-- PHP kód az anyagok dinamikus beillesztésére -->
             <?php foreach ($materials as $material): ?>
@@ -65,12 +58,32 @@
     </div>
 
     <div class="form-group">
-        <label for="product_image">Product Image:</label>
-        <input type="file" name="product_image" id="product_image" required>
+        <label for="image">Product Image:</label>
+        <input type="file" name="image" id="image" required>
     </div>
 
-    <button type="submit" name="insert_product">Add Product</button>
+    <button class="modalButton" type="submit" name="addProduct">Add Product</button>
 </form>
+
+
+
+<script>
+document.getElementById('productForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Megakadályozza az űrlap alapértelmezett beküldési viselkedését
+
+    var formData = new FormData(this);
+    formData.append('action', 'addProduct'); // Biztosítja, hogy az 'action' kulcs be legyen állítva
+
+    fetch('/BeYou_web/Beyouproject/Backend/controllers/AdminContentController.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+});
+</script>
+
 
 </body>
 </html>
