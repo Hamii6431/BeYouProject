@@ -69,7 +69,7 @@ class AdminAreaModel {
                     'image' => $row['image'],
                     'id' => $row['product_ID'],
                     'type' => $row['type_ID'],
-                    'color' => $row['color_ID'],
+                    'gemstone' => $row['gemstone_ID'],
                     'material' => $row['material_ID'],
                 ];
             }
@@ -167,33 +167,33 @@ class AdminAreaModel {
     }
 
 
-    public function getColors() {
-        // Ide írd be a colors lekérdezést az adatbázisból
+    public function getgemstones() {
+        // Ide írd be a gemstones lekérdezést az adatbázisból
         // Példa:
-        $sql = "SELECT * FROM colors";
+        $sql = "SELECT * FROM gemstones";
         $result = $this->db->query($sql);
-        $colors = [];
+        $gemstones = [];
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $colors[] = [
-                    'color_id' => $row['color_id'],
-                    'color_name' => $row['color_name']
+                $gemstones[] = [
+                    'gemstone_id' => $row['gemstone_id'],
+                    'gemstone_name' => $row['gemstone_name']
                 ];
             }
         }
-        return $colors;
+        return $gemstones;
     }
 
 
-    public function addProduct($product_name, $price, $description, $stock, $color_id, $type_id, $material_id, $default_image_url) {
-        $sql = "INSERT INTO products (product_name, price, description, stock, color_id, type_id, material_id, default_image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    public function addProduct($product_name, $price, $description, $stock, $gemstone_id, $type_id, $material_id, $default_image_url) {
+        $sql = "INSERT INTO products (product_name, price, description, stock, gemstone_id, type_id, material_id, default_image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         
         if ($stmt === false) {
             return ['success' => false, 'message' => 'Adatbázis hiba.'];
         }
         
-        $stmt->bind_param('sdssiiis', $product_name, $price, $description, $stock, $color_id, $type_id, $material_id, $default_image_url);
+        $stmt->bind_param('sdssiiis', $product_name, $price, $description, $stock, $gemstone_id, $type_id, $material_id, $default_image_url);
         
         if ($stmt->execute()) {
             return ['success' => true, 'message' => 'Termék sikeresen hozzáadva.'];
@@ -203,15 +203,15 @@ class AdminAreaModel {
     }
 
 
-    public function updateProduct($product_id, $product_name, $price, $description, $stock, $color_id, $type_id, $material_id, $default_image_url) {
-        $sql = "UPDATE products SET product_name=?, price=?, description=?, stock=?, color_id=?, type_id=?, material_id=?, default_image_url=? WHERE product_id=?";
+    public function updateProduct($product_id, $product_name, $price, $description, $stock, $gemstone_id, $type_id, $material_id, $default_image_url) {
+        $sql = "UPDATE products SET product_name=?, price=?, description=?, stock=?, gemstone_id=?, type_id=?, material_id=?, default_image_url=? WHERE product_id=?";
         $stmt = $this->db->prepare($sql);
     
         if ($stmt === false) {
             return ['success' => false, 'message' => 'Adatbázis hiba.'];
         }
     
-        $stmt->bind_param('sdssiiisi', $product_name, $price, $description, $stock, $color_id, $type_id, $material_id, $default_image_url, $product_id);
+        $stmt->bind_param('sdssiiisi', $product_name, $price, $description, $stock, $gemstone_id, $type_id, $material_id, $default_image_url, $product_id);
     
         if ($stmt->execute()) {
             return ['success' => true, 'message' => 'Termék sikeresen frissítve.'];
@@ -302,7 +302,7 @@ class AdminAreaModel {
 
     
     public function getLatestProducts() {
-        $sql = "SELECT product_id, product_name, price, description, stock, color_id, type_id, material_id, default_image_url FROM products ORDER BY product_id DESC LIMIT 15";
+        $sql = "SELECT product_id, product_name, price, description, stock, gemstone_id, type_id, material_id, default_image_url FROM products ORDER BY product_id DESC LIMIT 15";
         $result = $this->db->query($sql);
         $orders = [];
     
@@ -314,18 +314,18 @@ class AdminAreaModel {
     
         return $orders;
 
-        $sql = "SELECT * FROM colors";
+        $sql = "SELECT * FROM gemstones";
         $result = $this->db->query($sql);
-        $colors = [];
+        $gemstones = [];
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $colors[] = [
-                    'color_id' => $row['color_id'],
-                    'color_name' => $row['color_name']
+                $gemstones[] = [
+                    'gemstone_id' => $row['gemstone_id'],
+                    'gemstone_name' => $row['gemstone_name']
                 ];
             }
         }
-        return $colors;
+        return $gemstones;
     }
     
 

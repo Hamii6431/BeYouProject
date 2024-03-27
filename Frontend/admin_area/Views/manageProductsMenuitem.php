@@ -25,12 +25,12 @@
     </div>
 
     <div class="form-group">
-        <label for="color_id">Select Color:</label>
-        <select name="color_id" id="color_id" required>
-            <option value="">--Select Color--</option>
+        <label for="gemstone_id">Select gemstone:</label>
+        <select name="gemstone_id" id="gemstone_id" required>
+            <option value="">--Select gemstone--</option>
             <!-- PHP kód a színek dinamikus beillesztésére -->
-            <?php foreach ($colors as $color): ?>
-                <option value="<?= $color['color_id'] ?>"><?= $color['color_name'] ?></option>
+            <?php foreach ($gemstones as $gemstone): ?>
+                <option value="<?= $gemstone['gemstone_id'] ?>"><?= $gemstone['gemstone_name'] ?></option>
             <?php endforeach; ?>
         </select>
     </div>

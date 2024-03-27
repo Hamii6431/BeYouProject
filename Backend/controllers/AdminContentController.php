@@ -19,7 +19,7 @@ $allUsers = $adminAreaModel->AllUsers();
 $allFinalOrders = $adminAreaModel->AllFinalOrders();
 $allProducts = $adminAreaModel->AllProducts();
 $allIncome = $adminAreaModel->AllIncome();
-$colors = $adminAreaModel->getColors();
+$gemstones = $adminAreaModel->getgemstones();
 $types = $adminAreaModel->getTypes();
 $materials = $adminAreaModel->getMaterials();
 $latestUsers = $adminAreaModel->getLatestUsers();
@@ -33,7 +33,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'addProduct') {
     $price = $_POST['price'];
     $description = $_POST['description'];
     $stock = $_POST['stock'];
-    $color_id = $_POST['color_id'];
+    $gemstone_id = $_POST['gemstone_id'];
     $type_id = $_POST['type_id'];
     $material_id = $_POST['material_id'];
 
@@ -53,14 +53,14 @@ if (isset($_POST['action']) && $_POST['action'] == 'addProduct') {
     
 
     // Ellenőrizd, hogy az összes szükséges adat meg van-e adva
-    if (empty($product_name) || empty($price) || empty($description) || empty($stock) || empty($color_id) || empty($type_id) || empty($material_id) || empty($default_image_url)) {
+    if (empty($product_name) || empty($price) || empty($description) || empty($stock) || empty($gemstone_id) || empty($type_id) || empty($material_id) || empty($default_image_url)) {
         echo json_encode(['success' => false, 'message' => 'Minden mezőt ki kell tölteni.']);
         exit;
     }
 
     try {
         // Próbáld meg hozzáadni a terméket az adatbázishoz
-        $result = $adminAreaModel->addProduct($product_name, $price, $description, $stock, $color_id, $type_id, $material_id, $default_image_url);
+        $result = $adminAreaModel->addProduct($product_name, $price, $description, $stock, $gemstone_id, $type_id, $material_id, $default_image_url);
 
         // Ellenőrizd a beszúrás eredményét
         if ($result['success']) {
@@ -86,7 +86,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateProduct') {
     $price = $_POST['editPrice'];
     $description = $_POST['editDescription'];
     $stock = $_POST['editStock'];
-    $color_id = $_POST['editColor_id'];
+    $gemstone_id = $_POST['editgemstone_id'];
     $type_id = $_POST['editType_id'];
     $material_id = $_POST['editMaterial_id'];
 
@@ -106,7 +106,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateProduct') {
     }
 
     // Adatbázisban való frissítés
-    $updateResult = $adminAreaModel->updateProduct($product_id, $product_name, $price, $description, $stock, $color_id, $type_id, $material_id, $default_image_url);
+    $updateResult = $adminAreaModel->updateProduct($product_id, $product_name, $price, $description, $stock, $gemstone_id, $type_id, $material_id, $default_image_url);
 
     if ($updateResult['success']) {
         echo json_encode(['success' => true, 'message' => 'Termék sikeresen frissítve.']);
@@ -136,20 +136,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateUser') {
     }
 }
 
-
-private function collectProductDataFromPost() {
-    return [
-        'productId' => $product_id,
-        'productName' => $_POST['product_name'],
-        'price' => $_POST['price'] ?? null,
-        'desciption' => $_POST['description'] ?? null,
-        'stock' => $_POST['stock'] ?? null,
-        'colorId' => $_POST['color_id'] ?? null,
-        'typeId' => $_POST['type_id'] ?? null,
-        'materialId' => $_POST['material_id'] ?? null,
-        'default_image_url' => $_POST['default_image_url'] ?? null,
-    ];
-}
 
 
 // Ha van 'menuItemId' paraméter az URL-ben

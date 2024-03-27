@@ -16,7 +16,7 @@
                                 <th>Price</th>
                                 <th>Description</th>
                                 <th>Stock</th>
-                                <th>Color</th>
+                                <th>gemstone</th>
                                 <th>Type</th>
                                 <th>Material</th>
                                 <th>Actions</th>
@@ -30,7 +30,7 @@
                                 <td><?= htmlspecialchars($product['price']) ?></td>
                                 <td><?= htmlspecialchars($product['description']) ?></td>
                                 <td><?= htmlspecialchars($product['stock']) ?></td>
-                                <td><?= htmlspecialchars($product['color_id']) ?></td>
+                                <td><?= htmlspecialchars($product['gemstone_id']) ?></td>
                                 <td><?= htmlspecialchars($product['type_id']) ?></td>
                                 <td><?= htmlspecialchars($product['material_id']) ?></td>
                                 <td><button class="modalButton" onclick="openModal(<?= $product['product_id'] ?>)">Edit</button></td>
@@ -78,12 +78,12 @@
             </div>
 
             <div class="form-group">
-                <label for="editColor_id">Select Color: <?= htmlspecialchars($product['color_id']) ?></label>
-                <select name="editColor_id" id="editColor_id" required>
-                    <option value="">--Select Color--</option>
+                <label for="editgemstone_id">Select gemstone: <?= htmlspecialchars($product['gemstone_id']) ?></label>
+                <select name="editgemstone_id" id="editgemstone_id" required>
+                    <option value="">--Select gemstone--</option>
                     <!-- PHP kód a színek dinamikus beillesztésére -->
-                    <?php foreach ($colors as $color): ?>
-                        <option value="<?= $color['color_id'] ?>"><?= $color['color_name'] ?></option>
+                    <?php foreach ($gemstones as $gemstone): ?>
+                        <option value="<?= $gemstone['gemstone_id'] ?>"><?= $gemstone['gemstone_name'] ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

@@ -8,22 +8,22 @@ class AdminProductModel {
         $this->db = $db;
     }
 
-    public function insertProduct($product_name, $price, $description, $stock, $color_id, $type_id, $material_id, $default_image_url) {
-        $sql = "INSERT INTO products (product_name, price, description, stock, color_id, type_id, material_id, default_image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    public function insertProduct($product_name, $price, $description, $stock, $gemstone_id, $type_id, $material_id, $default_image_url) {
+        $sql = "INSERT INTO products (product_name, price, description, stock, gemstone_id, type_id, material_id, default_image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("sdisiiis", $product_name, $price, $description, $stock, $color_id, $type_id, $material_id, $default_image_url);
+        $stmt->bind_param("sdisiiis", $product_name, $price, $description, $stock, $gemstone_id, $type_id, $material_id, $default_image_url);
         $stmt->execute();
         return $stmt->affected_rows > 0;
     }
 
-    public function getColors() {
-        $sql = "SELECT color_id, color_name FROM colors";
+    public function getgemstones() {
+        $sql = "SELECT gemstone_id, gemstone_name FROM gemstones";
         $result = $this->db->query($sql);
-        $colors = [];
+        $gemstones = [];
         while ($row = $result->fetch_assoc()) {
-            $colors[] = $row;
+            $gemstones[] = $row;
         }
-        return $colors;
+        return $gemstones;
     }
 
     public function getTypes() {
