@@ -9,9 +9,9 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Termékek</title>
-    <link rel="stylesheet" href="css/AdminPage.css">
-    <link rel="stylesheet" href="css/ImportFont.css">
-    <link rel="stylesheet" href="css/Header.css">
+    <link rel="stylesheet" href="Css/AdminPage.css">
+    <link rel="stylesheet" href="Css/ImportFont.css">
+    <link rel="stylesheet" href="Css/Header.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -26,7 +26,6 @@ session_start();
         </div>
         <div class="container-menuitems">
             <div class="container-menuitem" id="dashboardMenuitem">Dashboard</div>
-            <div class="container-menuitem" id="analyticsMenuitem">Analytics</div>
             <div class="container-menuitem" id="manageProductsMenuitem">Manage Products</div>
             <div class="container-menuitem" id="manageProductsDetailsMenuitem">Manage Product Details</div>
             <div class="container-menuitem" id="manageUsersMenuitem">Manage Users</div>

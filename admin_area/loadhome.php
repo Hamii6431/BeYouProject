@@ -69,6 +69,8 @@ if ($user_count_result) {
     $user_count = "N/A";
 }
 
+$new_user_query = "SELECT user_ID, username, email, name FROM user_table"
+
 
 // Query a user_table sorainak számolására
 $order_count_query = "SELECT COUNT(*) as order_count FROM orders";
