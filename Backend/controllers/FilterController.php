@@ -8,10 +8,11 @@ class FilterController {
         $this->model = new ProductModel();
     }
 
+    //Termék tulajdonságok lekérése
     public function index() {
         $filters = [
             'types' => $this->model->getTypes(),
-            'colors' => $this->model->getColors(),
+            'gemstones' => $this->model->getGemstones(),
             'materials' => $this->model->getMaterials()
         ];
 

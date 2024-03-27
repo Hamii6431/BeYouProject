@@ -20,7 +20,6 @@ class CartController {
                 case 'displayCartItems':
                     $this->displayCartItems();
                     break;
-                // Itt jöhetnek további GET esetek kezelése
                 default:
                     echo json_encode(['status' => 'error', 'message' => 'Invalid GET action']);
                     break;
@@ -52,6 +51,7 @@ class CartController {
         }
     }
 
+    //Kosárban lévő termékek lekérése
     private function displayCartItems() {
         if ($this->sessionModel->isUserLoggedIn()) {
             $userId = $_SESSION['user_id'];
@@ -62,6 +62,7 @@ class CartController {
         }
     }
 
+    //Termék hozzáadása a kosárhoz
     private function addToCart() {
         if ($this->sessionModel->isUserLoggedIn()) {
             $userId = $_SESSION['user_id'];
@@ -78,6 +79,7 @@ class CartController {
         }
     }
 
+    //Mennyiség módosítása a kosárban
     private function updateQuantityInCart() {
         if ($this->sessionModel->isUserLoggedIn()) {
             $userId = $_SESSION['user_id'];
@@ -94,6 +96,7 @@ class CartController {
         }
     }
 
+    //Termék törlése a kosárból
     private function deleteCartItem() {
         if ($this->sessionModel->isUserLoggedIn()) {
             $userId = $_SESSION['user_id'];
@@ -109,6 +112,7 @@ class CartController {
         }
     }
 
+    //Kosár értékeinek kiszámítása
     private function calculateCartSummary() {
         if ($this->sessionModel->isUserLoggedIn()) {
             $userId = $_SESSION['user_id'];

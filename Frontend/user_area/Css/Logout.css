@@ -1,37 +1,29 @@
-body {
+.container-for-logout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+    padding-bottom: 80px;
+    height: calc(100vh - 100px);
+}
+
+.logout {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
-    margin: 0;
+    max-width: 500px;
+    padding: 3rem;
+    background-color: #fff;
+    border-radius: 10px;
+    background-color: #E0E8F1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-
-.tabla {
-width: 300px;
-height: 300px;
-border: 2px solid #27251F;
-display: flex;
-align-items: center;
-justify-content: center;
-margin-top: 3rem;
-}
-
-.kijelenkez {
-    text-align: center;
-}
-
-.kijelenkez a {
+.lock {
     display: block;
     margin-bottom: 1rem;
 }
-
-.szimbolum {
-    display: block;
-    margin-bottom: 1rem;
-}
-
 
 button {
     border: none;
@@ -57,4 +49,4 @@ button {
     transition: 0.3s;
     background-color: #FFCAD4;
     color: black;
-}
+} 

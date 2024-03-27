@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('No product ID provided');
     }
 
-    const buyButton = document.querySelector('.buy-button');
+    const buyButton = document.getElementById('buy-button');
     if (buyButton) {
         buyButton.addEventListener('click', function() {
             if (productId) {
@@ -40,3 +40,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+//Felhasználói értesítés elem
+let isToastVisible = false;
+
+function showToast(message) {
+    if (isToastVisible) return;
+
+    // Nézet mozgatása a képernyő tetejére.
+    window.scrollTo(0, 0);
+
+    isToastVisible = true;
+    const toastContainer = document.getElementById('toastContainer');
+    if (!toastContainer) {
+        console.error('Toast container not found');
+        return;
+    }
+    const toast = document.createElement('div');
+    toast.classList.add('toast');
+    toast.textContent = message;
+
+    toastContainer.appendChild(toast);
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100);
+
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            toastContainer.removeChild(toast);
+            isToastVisible = false;
+        }, 500);
+    }, 3000);
+}

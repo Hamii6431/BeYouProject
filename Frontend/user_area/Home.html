@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <!-- Stíluslapok linkelése -->
+    <link rel="stylesheet" href="css/Navbar.css">
+    <link rel="stylesheet" href="css/Home.css">
+    <link rel="stylesheet" href="css/Footer.css">
+    <!-- Betüstílus linkelése -->
+    <link rel="stylesheet" href="css/ImportFont.css">
+    <link href="https://fonts.cdnfonts.com/css/optima" rel="stylesheet">
+    <!-- Ikonok linkelése -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+<!-- Header -->
+<header>
+    <!--Navigációs sáv-->
+    <nav class="container-navbar">
+        <!--Logo-->
+        <div class="logo">
+            <img src="../../public/img/PngLogo.png" alt="Logo">
+        </div>
+        <!--Hamburger menü a reszponzivitáshoz-->
+        <div class="hamburger-menu" onclick="toggleMenu()">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <!-- Navigációs menü -->
+        <div class="navigation-menu">
+            <!-- Navigációs linkek -->
+            <div class="navigation-menu-item"><a href="Home.html">Home</a></div>
+            <div class="navigation-menu-item"><a href="Products.html">All products</a></div>
+            <div class="navigation-menu-item"><a href="Rings.html">Rings</a></div>
+            <div class="navigation-menu-item"><a href="Bracelets.html">Bracelets</a></div>
+            <div class="navigation-menu-item"><a href="Necklaces.html">Necklaces</a></div>
+            <!-- Navigációs sáv: Felhasználói interakciók ikonjai. (Csak kisméretű kijelző esetén jelenik meg)-->
+            <div class="hamburger-menu-icons">
+                <div class="navigation-menu-item hamburger-item personIcon"><a>Profile<button type="button" class="icon-button"><span class="material-symbols-outlined iconstyle">person</span></button></a></div>
+                <div class="navigation-menu-item hamburger-item shoppingBagIcon"><a>Cart<button type="button" class="icon-button"><span class="material-symbols-outlined iconstyle">shopping_bag</span></button></a></div>
+                <div class="navigation-menu-item hamburger-item logoutIcon"><a>Logout<button type="button" class="icon-button"><span class="material-symbols-outlined iconstyle">logout</span></button></a></div>
+            </div>
+        </div>
+        <!-- Nagy képernyős felhasználói interakciók ikonjai -->
+        <div class="icon-container">
+            <button type="button" class="icon-button personIcon"><span class="material-symbols-outlined iconstyle">person</span></button>
+            <button type="button" class="icon-button shoppingBagIcon"><span class="material-symbols-outlined iconstyle">shopping_bag</span></button>
+            <button type="button" class="icon-button logoutIcon"><span class="material-symbols-outlined iconstyle">logout</span></button>
+        </div>
+    </nav>
+</header>
+<!-- Fő tartalom -->
+<div class="container-for-home">
+    <div class="collection">
+        <h1>Life's Short, <br> Grab Them All!</h1>
+        <p>Discover our unique, limited-edition jewelry pieces. Each handcrafted gem, adorned with rare stones, offers a touch of exclusivity to your style. Don't miss out on owning something truly special. Shop now before they're gone!</p>
+        <button>Explore Now</button>
+    </div>
+</div>
+
+<!-- Kártyák konténere -->
+<div class="container-for-cards">
+
+</div>
+
+
+<!-- További tartalom konténer -->
+<div class="container-for-content">
+    <div class="container-for-content-left">
+        <img src="../../public/img/BGremove/opal_ring_5_removebg-preview.png">
+    </div>
+    <div class="container-for-content-right">
+        <h1>Exclusive rings, unique collections!</h1>
+        <p>Take a look through our collection to find the ideal ring, necklace, or bracelet that matches your style or would make a perfect gift.</p>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12 ">
+                <div class="about-us">
+                    <h3>About Us</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="navigation">
+                    <h3>Navigation</h3>
+                    <div class="footer-navigation-links">
+                        <div class="footer-navigation-item"><a href="Home.html">Home</a></div>
+                        <div class="footer-navigation-item"><a href="Products.html">All Products</a></div>
+                        <div class="footer-navigation-item"><a href="Rings.html">Rings</a></div>
+                        <div class="footer-navigation-item"><a href="Bracelets.html">Bracelets</a></div>
+                        <div class="footer-navigation-item"><a href="Necklaces.html">Necklaces</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12 ">
+                <div class="contact-info">
+                    <h3>Contact Us</h3>
+                    <div class="footer-info">
+                        <div class="footer-info-item"><i class="material-icons-outlined">location_on</i>123 Street, City, Country</div>
+                        <div class="footer-info-item"><i class="material-icons-outlined">phone</i>(123) 456-7890</div>
+                        <div class="footer-info-item"><i class="material-icons-outlined">email</i>info@example.com</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- JavaScript kód -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="Js/Navbar.js"></script>
+</body>
+</html>

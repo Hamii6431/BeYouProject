@@ -16,10 +16,10 @@ class ProductController {
     //Szűrők lekérése
     public function index() {
         $types = isset($_GET['types']) ? $_GET['types'] : [];
-        $colors = isset($_GET['colors']) ? $_GET['colors'] : [];
+        $gemstones = isset($_GET['gemstones']) ? $_GET['gemstones'] : [];
         $materials = isset($_GET['materials']) ? $_GET['materials'] : [];
 
-        $filteredProducts = $this->model->getFilteredProducts($types, $colors, $materials);
+        $filteredProducts = $this->model->getFilteredProducts($types, $gemstones, $materials);
 
         header('Content-Type: application/json');
         echo json_encode($filteredProducts);

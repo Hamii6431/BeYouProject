@@ -14,7 +14,7 @@ class Database {
     // Az adatbázis felhasználó jelszava.
     private $DB_password = "4M9TZedhhxxd-PFP";
     // Az adatbázis neve, amelyhez kapcsolódni szeretnénk.
-    private $DB_database = "BeYou_DB";
+    private $DB_database = "BeYou";
 
     // A konstruktor privát, hogy megakadályozza a közvetlen példányosítást.
     private function __construct() {

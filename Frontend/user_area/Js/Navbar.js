@@ -46,7 +46,7 @@ function navigateBasedOnSession(action) {
             const res = JSON.parse(response);
             if (res.isLoggedIn) {
                 // Felhasználó átirányítása a profil vagy a kosár oldalra
-                window.location.href = action === 'person' ? 'ProfilePage.php' : 'CartPage.php';
+                window.location.href = action === 'person' ? 'ProfilePage.html' : 'CartPage.html';
             } else {
                 // Bejelentkezési oldalra átirányítás, ha a felhasználó nincs bejelentkezve
                 window.location.href = 'LoginPage.html';

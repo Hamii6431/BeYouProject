@@ -5,11 +5,12 @@ require_once __DIR__ . '/../includes/Database.php';
 class ProductModel {
     private $db;
 
+        // Konstruktor az adatbázis kapcsolathoz
     public function __construct() {
-        $dbInstance = Database::getInstance();
-        $this->db = $dbInstance->getConnection();
+        $this->db = Database::getInstance()->getConnection();
     }
     
+    //Termék lekérése [Felhasználói ID alapján]
     public function getProductById($productId) {
         $stmt = $this->db->prepare("SELECT * FROM products WHERE product_id = ?");
         $stmt->bind_param("i", $productId);
@@ -22,6 +23,7 @@ class ProductModel {
         }
     }
 
+    //Összes termék lekérése az adatbázisból
     public function getAllProducts(){
         $sql = "SELECT * FROM products";
         $result = $this->db->query($sql);
@@ -32,10 +34,10 @@ class ProductModel {
                 $products[] = [
                     'name' => $row['product_name'],
                     'price' => $row['price'],
-                    'image' => $row['image'],
+                    'image' => $row['default_image_url'],
                     'id' => $row['product_ID'],
                     'type' => $row['type_ID'],
-                    'color' => $row['color_ID'],
+                    'gemstone' => $row['gemstone_ID'],
                     'material' => $row['material_ID'],
                 ];
             }
@@ -44,18 +46,19 @@ class ProductModel {
         return $products;
     }
     
-    public function getFilteredProducts($types, $colors, $materials) {
+    //Szűrt termékek lekérése az adatbázisból
+    public function getFilteredProducts($types, $gemstones, $materials) {
         $sql = "SELECT * FROM products";
 
-        if (!empty($types) || !empty($colors) || !empty($materials)) {
+        if (!empty($types) || !empty($gemstones) || !empty($materials)) {
             $sql .= " WHERE";
             $conditions = [];
 
             if (!empty($types)) {
                 $conditions[] = " type_ID IN (" . implode(",", $types) . ")";
             }
-            if (!empty($colors)) {
-                $conditions[] = " color_ID IN (" . implode(",", $colors) . ")";
+            if (!empty($gemstones)) {
+                $conditions[] = " gemstone_ID IN (" . implode(",", $gemstones) . ")";
             }
             if (!empty($materials)) {
                 $conditions[] = " material_ID IN (" . implode(",", $materials) . ")";
@@ -75,7 +78,7 @@ class ProductModel {
                     'image' => $row['default_image_url'],
                     'id' => $row['product_id'],
                     'type' => $row['type_id'],
-                    'color' => $row['color_id'],
+                    'gemstone' => $row['gemstone_id'],
                     'material' => $row['material_id'],
                 ];
             }
@@ -84,9 +87,8 @@ class ProductModel {
         return $filteredProducts;
     }
 
+    //Anyagtípusok lekérdezése
     public function getMaterials() {
-        // Ide írd be a materials lekérdezést az adatbázisból
-        // Példa:
         $sql = "SELECT * FROM materials";
         $result = $this->db->query($sql);
         $materials = [];
@@ -100,10 +102,9 @@ class ProductModel {
         }
         return $materials;
     }
-
+    
+    //Ékszertípusok lekérdezése
     public function getTypes() {
-        // Ide írd be a types lekérdezést az adatbázisból
-        // Példa:
         $sql = "SELECT * FROM types";
         $result = $this->db->query($sql);
         $types = [];
@@ -118,21 +119,20 @@ class ProductModel {
         return $types;
     }
 
-    public function getColors() {
-        // Ide írd be a colors lekérdezést az adatbázisból
-        // Példa:
-        $sql = "SELECT * FROM colors";
+    //Drágakő típusok lekérdezése
+    public function getGemstones() {
+        $sql = "SELECT * FROM gemstones";
         $result = $this->db->query($sql);
-        $colors = [];
+        $gemstones = [];
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $colors[] = [
-                    'id' => $row['color_id'],
-                    'name' => $row['color_name']
+                $gemstones[] = [
+                    'id' => $row['gemstone_id'],
+                    'name' => $row['gemstone_name']
                 ];
             }
         }
-        return $colors;
+        return $gemstones;
     }
 }
 

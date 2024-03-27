@@ -1,13 +1,49 @@
+/*Univerzális elemek stílusai:*/
+body,html{
+    margin:0;
+    padding:0;
+}
+/*Gombok stílusai*/
+button {
+    border: none;
+    background: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin:0;
+    width: 100%;
+    height: 50px;
+}
+.sample-button{
+    background-color: #3A4049;
+    border-radius: 8px;
+    color: white;
+    margin-bottom: 0.5rem;
+    height: 50px;
+}
+.sample-button:hover {
+    transition: 0.5s;
+    background-color: #545E67;
+    color: white;
+}
+    
+/*Univerzális elemek vége*/
+
+
 
 /* Fő tartalmi részek stílusai */
 .container-for-profilepage {
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding-top: 15vh;
+
+    gap:5rem;
+    padding-top: 140px;
     padding-left: 10rem;
     padding-right: 10rem;
-    height: fit-content;
-    min-height: 70vh;
+    height:fit-content;
+    min-height: 105vh;
 }
 /*Beviteli mezők stílusai*/
 .form-group {
@@ -34,7 +70,7 @@
     }
 
 
-
+/*Profilkép/menü elemek*/
 .container-profile-menu {
     display: flex;
     flex-direction: column;
@@ -62,8 +98,6 @@
     text-align: center;
     margin-top: 1rem;
 }
-
-
 .container-menu{
     display:block;
     width:100%;
@@ -84,6 +118,7 @@
     
 }
 
+/*Tartalmi rész stílusai*/
 .container-surface {
     display:block;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
@@ -92,7 +127,6 @@
     transition: 1s;
     padding: 2rem 2.5rem 2rem 2.5rem;
     height:fit-content;
-
 }
 .surface_header1 {
     margin-bottom: 1.5rem;
@@ -109,8 +143,6 @@
     flex-wrap: wrap;
     gap: 5px 15px;
 }
-
-
 .form-group input,
 .form-group select {
     width: 100%;
@@ -127,43 +159,7 @@
     transition: all 0.3s;
 }
 
-button {
-border: none;
-background: none;
-padding: 0;
-font: inherit;
-cursor: pointer;
-outline: inherit;
-display: flex;
-align-items: center;
-justify-content: center;
-margin:0;
-width: 100%;
-height: 50px;
-}
-.sample_button{
-background-color: #27251F;
-color: white;
-margin-bottom: 0.5rem;
-}
-.sample_button:hover {
-transition: 0.3s;
-background-color: #000000;
-color: white;
-}
-.sample_button_reverse{
-background-color: white;
-color: black;
-border:1px solid black;
-}
-.sample_button_reverse:hover{
-transition: 0.3s;
-background-color: #000000;
-color: white;
-}
-
-
-
+/*Reszponzív stílusok*/
 @media (max-width: 1200px) {
     .container-for-profilepage{
     padding-left: 5rem;
@@ -171,9 +167,59 @@ color: white;
 }
 }
 @media (max-width: 576px) {
+    .container-surface{
+    margin-top: 2rem;
+}
+}
+@media (max-width: 576px) {
     .container-for-profilepage{
     padding-left: 2rem;
     padding-right: 2rem;
 }
+}
 
+
+
+/*Űrlap stílus*/
+.details_group_1 {
+    margin: 0;
+    color: #7E8D96;
+}
+.details_group_2 p {
+    color: #3A4049;
+}
+
+#surface_primary_body {
+    display: flex;
+    justify-content: space-between;
+}
+
+#surface_primary_body_account {
+    width: 50%;
+}
+
+#surface_primary_body_shipping {
+    width: 50%;
+}
+
+/*Rendelések táblázat stílusa*/
+.scrollable-table {
+    max-height: 400px; /* Példában 400px magasság, de módosítható a konkrét igényeknek megfelelően */
+    overflow-y: auto;
+    width: 100%;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-table th, .order-table td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.order-table th {
+    background-color: #f2f2f2;
 }

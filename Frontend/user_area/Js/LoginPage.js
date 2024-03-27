@@ -1,5 +1,3 @@
-
-
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("tab-login").addEventListener("click", loadLoginForm);
     document.getElementById("tab-register").addEventListener("click", loadRegistrationForm);
@@ -9,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
 function loadLoginForm() {
     const formContainer = document.getElementById("form-container");
     formContainer.innerHTML = `
-        <form id="loginForm" method="POST" action="../../Backend/controllers/LoginController.php" class="orderform">
+        <form id="loginForm" method="POST" action="../../Backend/controllers/LoginController.php" class="orderform" novalidate>
             <div class="form-group">
                 <input type="text" name="login_username" id="login_username" class="container-input" placeholder=" " required>
                 <label for="login_username">Enter your username *</label>
@@ -27,14 +25,14 @@ function loadLoginForm() {
 
     document.getElementById('loginForm').addEventListener('submit', function(event) {
         event.preventDefault();
-        submitForm(this, 'Login successful!', 'Login failed.');
+        submitForm(this, 'Login successful!', 'Invalid username or password.');
     });
 }
-
+let isRegistered = false;
 function loadRegistrationForm() {
     const formContainer = document.getElementById("form-container");
     formContainer.innerHTML = `
-        <form id="registrationForm" method="POST" action="../../Backend/controllers/RegistrationController.php" class="orderform">
+        <form id="registrationForm" method="POST" action="../../Backend/controllers/RegistrationController.php" class="orderform" novalidate>
             <div class="form-group">
                 <input type="text" name="first_name" id="first_name" class="container-input" placeholder=" " autocomplete="off" required>
                 <label for="first_name">Enter your first name *</label>
@@ -72,7 +70,13 @@ function loadRegistrationForm() {
 
     document.getElementById('registrationForm').addEventListener('submit', function(event) {
         event.preventDefault();
-        submitRegistrationForm(this);
+        if (isRegistered) {
+            showToast('You have already registered.');
+            return;
+        }else{
+            submitRegistrationForm(this);
+        }
+
     });
 }
 
@@ -112,9 +116,13 @@ function submitRegistrationForm(form) {
     })
     .then(data => {
         if (data.status === 'success') {
+            // Sikeres regisztráció esetén:
+            isRegistered = true;
             showToast('Registration successful!');
+            // Letiltjuk a regisztrációs űrlapot:
+            document.getElementById('registrationForm').classList.add('disabled');
         } else {
-            showToast('Registration failed.');
+            showToast(data.message);
         }
     })
     .catch(() => {

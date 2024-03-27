@@ -5,15 +5,18 @@
     display: flex; 
     padding-left: 10rem;
     padding-right: 10rem;
+    
 }
 
 .container-for-home {
     background-image: linear-gradient(45deg, rgb(203,219,229) 0%, rgb(203,219,229) 32%,rgba(171,171,171, 0.0392156862745098) 32%, rgba(171,171,171, 0.0392156862745098) 100%),linear-gradient(0deg, rgba(173,173,173, 0.0392156862745098) 0%, rgba(173,173,173, 0.0392156862745098) 40%,rgba(55,55,55, 0.0392156862745098) 40%, rgba(55,55,55, 0.0392156862745098) 100%),linear-gradient(157.5deg, rgba(173,173,173, 0.0392156862745098) 0%, rgba(173,173,173, 0.0392156862745098) 52%,rgb(179,202,222) 52%, rgb(179,202,222) 100%),linear-gradient(157.5deg, rgb(179,202,222) 0%, rgb(179,202,222) 11%,rgb(181,201,218) 11%, rgb(181,201,218) 100%),linear-gradient(90deg, rgb(155,209,225),rgb(77,174,204));
-    justify-content: center;
+    padding-top: 200px;
+    padding-bottom: 200px;
     flex-direction: column;
-    min-height: 85vh;
-    max-height: 100vh;
+    height: fit-content;
+    max-height: fit-content;
     background-color: #DADCE2;
+    box-shadow: 0px 2px 4px 2px rgba(0,0,0,0.1);
 }
 
 .container-for-cards {
@@ -144,7 +147,7 @@
 
 
 /* Reszponzív módosítások */
-@media (max-width: 991px) {
+@media (max-width: 1000px) {
     .box-for-cards {
         flex-basis: 100%;
     }
@@ -176,11 +179,16 @@
     padding-left: 5rem;
     padding-right: 5rem;
 }
+.collection{
+    width:60%;
+}
 }
 @media (max-width: 576px) {
     .container-for-home, .container-for-cards, .container-for-content{
     padding-left: 2rem;
     padding-right: 2rem;
 }
-
+.collection{
+    width:75%;
+}
 }

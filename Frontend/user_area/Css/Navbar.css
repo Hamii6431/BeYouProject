@@ -24,15 +24,13 @@ button {
     right: 0;
     background-color: #E0E8F1 ;
     min-height: 80px;
-    height: 80xp;
+    height: 80px;
     padding: 0 10rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: top 0.2s;
     z-index: 1000;
 }
-.logo{
-    width: 120px;
-}
+
 .logo img {
     margin: 10px 0;
     height: 60px;
@@ -43,9 +41,7 @@ button {
     .container-navbar {
         padding: 0 4rem;
     }
-    .logo{
-        width: auto;
-    }
+
 }
 
 
@@ -70,7 +66,7 @@ button {
 
 .navigation-menu-item a {
     text-align: center;
-    font-size: 120%;
+    font-size: 125%;
     margin: 0 15px;
     text-decoration-line: none;
     color: #3A4049;
@@ -88,7 +84,6 @@ button {
     display: flex;
 }
 .iconstyle {
-    font-size: 24px;
     transform: scale(1.2);
     color: #3A4049;
 }
@@ -112,7 +107,7 @@ button {
 
 
 /* Hamburger menü és ikonok megjelenítése kis képernyőn */
-@media (max-width: 973px) {
+@media (max-width: 1000px) {
     .hamburger-menu {
         display: block;
         cursor: pointer;

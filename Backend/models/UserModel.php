@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/../includes/Database.php';
 require_once __DIR__ . '/../models/AdminModel.php'; // Biztosítsuk, hogy az AdminModel is betöltődjön
 
@@ -152,11 +151,24 @@ class UserModel {
 
 
 
+    // Felhasználó szállítási adatainak és a hozzá tartozó felhasználó nevének lekérése ID alapján
+    public function getUserLatestOrdersByUserID($userId) {
+        $stmt = $this->db->prepare("
+            SELECT fo.final_order_id, fo.total_price, fo.order_date, fo.status, u.first_name, u.last_name
+            FROM final_orders fo
+            JOIN users u ON fo.user_id = u.user_id
+            WHERE fo.user_id = ?
+        ");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
 
 
-
+    //Bejelentkezettség ellenőrzése
     public function isUserLoggedIn() {
         // Ellenőrizzük, hogy a 'logged_in' session változó létezik-e és igaz értékű-e
         return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
     }
+
 }

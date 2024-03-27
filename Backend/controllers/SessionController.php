@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/../models/UserModel.php';
+
 session_start();
+
 class SessionController {
     private $model;
 
@@ -19,7 +21,7 @@ class SessionController {
     public function logout() {
         session_unset();
         session_destroy();
-        echo json_encode(['redirectUrl' => '../user_area/Logout.html']); // Módosítva .php-ról .html-re
+        echo json_encode(['redirectUrl' => '../user_area/Logout.html']);
         exit();
     }
 

@@ -1,7 +1,5 @@
-@font-face {
-    font-family: 'CustomFont';
-    src: url('../../fonts/Optima_medium.woff') format('woff');
-}
-* {
-    font-family: 'CustomFont', sans-serif;
+
+* {                                                                    
+    font-family: 'Inclusive Sans', sans-serif;
+    font-weight: 500;
 }

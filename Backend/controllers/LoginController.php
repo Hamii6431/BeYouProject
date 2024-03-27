@@ -1,6 +1,7 @@
 <?php
-session_start(); // Session indítása
 require_once '../../Backend/models/UserModel.php';
+
+session_start();
 
 class LoginController {
     private $userModel;
@@ -9,6 +10,7 @@ class LoginController {
         $this->userModel = new UserModel();
     }
 
+    //Kérés validálása és kezelése
     public function handleRequest() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $this->areCredentialsProvided()) {
             $this->attemptLogin();
@@ -17,16 +19,20 @@ class LoginController {
         }
     }
 
+    //Űrlapról beérkező adatok validálása
     private function areCredentialsProvided() {
         return isset($_POST['login_username'], $_POST['login_password']);
     }
 
+    //Bejelentkezés kezelése
     private function attemptLogin() {
         $loginUsername = $_POST['login_username'];
         $loginPassword = $_POST['login_password'];
 
+        //Jelszó hitelesítése
         $loginResult = $this->userModel->verifyPassword($loginUsername, $loginPassword);
 
+        //Jogosultsági kör kiválasztása
         if ($loginResult) {
             if ($loginResult['type'] === 'admin') {
                 $this->setAdminSessionVariablesAndRedirect($loginResult['data']);
@@ -34,10 +40,12 @@ class LoginController {
                 $this->setUserSessionVariablesAndRedirect($loginResult['data']);
             }
         } else {
+            //Hibás bejelentkezés esetén a felhasználó visszairányítása és értesítés küldése.
             $this->redirectWithMessage('../../Frontend/user_area/LoginPage.html', 'invalid_login');
         }
     }
 
+    //Felhasználói adatok beállítása és felhasználó átirányítása a profil oldalra.
     private function setUserSessionVariablesAndRedirect($userData) {
         $_SESSION['user_id'] = $userData['user_id'];
         $_SESSION['user_username'] = $userData['username'];
@@ -46,9 +54,10 @@ class LoginController {
         $_SESSION['user_lastname'] = $userData['last_name'];
         $_SESSION['logged_in'] = true;
 
-        $this->sendResponse('success', '../../Frontend/user_area/ProfilePage.php');
+        $this->sendResponse('success', '../../Frontend/user_area/ProfilePage.html');
     }
 
+    //Admin adatok beállítása és felhasználó átirányítása az adminisztrációs felületre.
     private function setAdminSessionVariablesAndRedirect($adminData) {
         $_SESSION['admin_id'] = $adminData['admin_id'];
         $_SESSION['admin_username'] = $adminData['admin_username'];
@@ -60,11 +69,13 @@ class LoginController {
         $this->sendResponse('success', '../../Frontend/admin_area/AdminDashboard.php');
     }
 
+    //Hibás bejelentkezés kezelése 
     private function redirectWithMessage($url, $message) {
         header("Location: $url?message=$message");
         exit();
     }
 
+    //Válasz küldése
     private function sendResponse($status, $redirectUrl) {
         header('Content-Type: application/json');
         echo json_encode(['status' => $status, 'redirectUrl' => $redirectUrl]);

@@ -1,6 +1,10 @@
-// Az oldal betöltésénél a termékek megjelenítése a kosárban.
 document.addEventListener("DOMContentLoaded", function() {
-    displayCartItems();
+    displayCartItems(); // Kosárban lévő termékek megjelenítése.
+
+    const continueButtonElement = document.getElementById('continueButton');
+    if (continueButtonElement) {
+        continueButtonElement.addEventListener('click', continueOrder);
+    }
 });
 
 // Kosárban lévő termékek megjelenítése.
@@ -74,11 +78,16 @@ function updateQuantity(productId, change) {
         if(data.status === 'success') {
             console.log('Quantity updated successfully');
             displayCartItems(); // A kosár újratöltése.
+            showToast('Quantity updated successfully'); // Értesítés kiírása
         } else {
             console.error(data.message)
+            showToast('Failed to update quantity: ' + data.message); // Hibaüzenet kiírása
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('Error updating quantity'); // Hibaüzenet kiírása
+    });
 }
 
 // Termék törlése a kosárból.
@@ -93,11 +102,16 @@ function deleteCartItem(productId) {
         if(data.status === 'success') {
             console.log('Product deleted successfully');
             displayCartItems(); // A kosár újratöltése.
+            showToast('Product deleted successfully'); // Értesítés kiírása
         } else {
             console.error(data.message);
+            showToast('Failed to delete product: ' + data.message); // Hibaüzenet kiírása
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('Error deleting product'); // Hibaüzenet kiírása
+    });
 }
 
 // Az összegzés frissítése a kosár tartalma alapján.
@@ -111,14 +125,45 @@ function updateSummary(cartItems) {
     document.querySelector('.summary-subtotal .subtotal-price h5').textContent = `$${subtotal.toFixed(2)}`;
     document.querySelector('.summary-subtotal .subtotal-price p').textContent = `$${shippingCost.toFixed(2)}`;
     document.querySelector('#totalPrice').textContent = `$${total.toFixed(2)}`;
+    
 }
 
+function continueOrder() {
+    const totalPriceElement = document.getElementById('totalPrice');
+    const totalPrice = parseFloat(totalPriceElement.textContent.replace('$', ''));
 
-document.addEventListener('DOMContentLoaded', function() {
-    const placeOrderButton = document.getElementById('placeOrderButton');
-    
-    placeOrderButton.addEventListener('click', function() {
-            window.location.href = 'Order.php'; // Ha be van jelentkezve, átirányítjuk az Order.php oldalra
-        }
-    );
-});
+    if (totalPrice <= 0) {
+        showToast('There are no items in the cart. Please add items before finalizing your order.');
+    } else {
+        window.location.href = 'Order.html'; // Redirect to the Order page if the cart is not empty
+    }
+}
+
+let isToastVisible = false;
+
+function showToast(message) {
+
+    if (isToastVisible) return;
+
+    //Nézet mozgatása a képernyő tetejére.
+    window.scrollTo(0, 0);
+
+    isToastVisible = true;
+    const toastContainer = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.classList.add('toast');
+    toast.textContent = message;
+
+    toastContainer.appendChild(toast);
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100);
+
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            toastContainer.removeChild(toast);
+            isToastVisible = false;
+        }, 500);
+    }, 3000);
+}

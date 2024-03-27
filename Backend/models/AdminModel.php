@@ -4,6 +4,7 @@ require_once __DIR__ . '/../includes/Database.php';
 class AdminModel {
     private $db;
 
+    // Konstruktor az adatbázis kapcsolathoz
     public function __construct() {
         $this->db = Database::getInstance()->getConnection();
     }
