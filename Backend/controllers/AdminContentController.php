@@ -137,21 +137,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateUser') {
 }
 
 
-private function collectProductDataFromPost() {
-    return [
-        'productId' => $product_id,
-        'productName' => $_POST['product_name'],
-        'price' => $_POST['price'] ?? null,
-        'desciption' => $_POST['description'] ?? null,
-        'stock' => $_POST['stock'] ?? null,
-        'colorId' => $_POST['color_id'] ?? null,
-        'typeId' => $_POST['type_id'] ?? null,
-        'materialId' => $_POST['material_id'] ?? null,
-        'default_image_url' => $_POST['default_image_url'] ?? null,
-    ];
-}
-
-
 // Ha van 'menuItemId' paraméter az URL-ben
 if (isset($_POST['menuItemId'])) {
     $menuItemId = $_POST['menuItemId'];
