@@ -18,7 +18,7 @@ class AdminProductController {
             $postData['product_price'],
             $postData['product_desc'],
             $postData['product_stock'],
-            $postData['product_color'],
+            $postData['product_gemstone'],
             $postData['product_type'],
             $postData['product_material'],
             $default_image_url
@@ -35,7 +35,7 @@ class AdminProductController {
     // Egy metódus, ami lekéri és visszaadja az összes szükséges dinamikus adatot (színek, típusok, anyagok)
     public function getFormData() {
         return [
-            'colors' => $this->model->getColors(),
+            'gemstones' => $this->model->getgemstones(),
             'types' => $this->model->getTypes(),
             'materials' => $this->model->getMaterials()
         ];

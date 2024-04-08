@@ -66,7 +66,7 @@ class LoginController {
         $_SESSION['admin_lastname'] = $adminData['admin_last_name'];
         $_SESSION['logged_in'] = true;
 
-        $this->sendResponse('success', '../../Frontend/admin_area/AdminDashboard.php');
+        $this->sendResponse('success', '../../Frontend/admin_area/AdminPage.php');
     }
 
     //Hibás bejelentkezés kezelése 
