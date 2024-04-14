@@ -38,7 +38,7 @@ class GetOrdersController {
         // Itt a UserModel-ben lévő getUserLatestOrdersByUserID függvényt hívjuk meg
         $userOrders = $this->userModel->getUserLatestOrdersByUserID($userId);
         if (empty($userOrders)) {
-            $this->sendResponse("User orders not found", false);
+            $this->sendResponse("Orders not found", false);
         } else {
             echo json_encode(['status' => 'success', 'orders' => $userOrders]); // Módosított válasz tömbbel
             exit;

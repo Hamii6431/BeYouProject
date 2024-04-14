@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
         continueButtonElement.addEventListener('click', continueOrder);
     }
 });
-
+ 
 // Kosárban lévő termékek megjelenítése.
 function displayCartItems() {
     // A kosár tartalmának lekérdezése a szerverről.
@@ -81,7 +81,7 @@ function updateQuantity(productId, change) {
             showToast('Quantity updated successfully'); // Értesítés kiírása
         } else {
             console.error(data.message)
-            showToast('Failed to update quantity: ' + data.message); // Hibaüzenet kiírása
+            showToast(data.message); // Hibaüzenet kiírása
         }
     })
     .catch(error => {
@@ -114,7 +114,7 @@ function deleteCartItem(productId) {
     });
 }
 
-// Az összegzés frissítése a kosár tartalma alapján.
+// Részösszegek és végösszekek számolása és frissítése a kosár tartalma alapján.
 function updateSummary(cartItems) {
     const subtotal = calculateSubtotal(cartItems);
     // Szállítási költség csak akkor, ha a subtotal több mint 0.
@@ -125,9 +125,9 @@ function updateSummary(cartItems) {
     document.querySelector('.summary-subtotal .subtotal-price h5').textContent = `$${subtotal.toFixed(2)}`;
     document.querySelector('.summary-subtotal .subtotal-price p').textContent = `$${shippingCost.toFixed(2)}`;
     document.querySelector('#totalPrice').textContent = `$${total.toFixed(2)}`;
-    
 }
 
+//Továbbítás a rendelés véglegesítése oldalra.
 function continueOrder() {
     const totalPriceElement = document.getElementById('totalPrice');
     const totalPrice = parseFloat(totalPriceElement.textContent.replace('$', ''));
@@ -139,17 +139,22 @@ function continueOrder() {
     }
 }
 
+
+// Univerzális Toast értesítés
 let isToastVisible = false;
 
 function showToast(message) {
-
     if (isToastVisible) return;
 
-    //Nézet mozgatása a képernyő tetejére.
+    // Nézet mozgatása a képernyő tetejére.
     window.scrollTo(0, 0);
 
     isToastVisible = true;
     const toastContainer = document.getElementById('toastContainer');
+    if (!toastContainer) {
+        console.error('Toast container not found');
+        return;
+    }
     const toast = document.createElement('div');
     toast.classList.add('toast');
     toast.textContent = message;
@@ -167,3 +172,4 @@ function showToast(message) {
         }, 500);
     }, 3000);
 }
+

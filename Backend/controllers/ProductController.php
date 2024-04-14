@@ -1,19 +1,18 @@
 <?php
 require_once __DIR__ . '/../models/ProductModel.php';
-require_once __DIR__ . '/../includes/Database.php'; // Feltételezve, hogy van egy Database osztályod
+require_once __DIR__ . '/../includes/Database.php';
 
 class ProductController {
     private $model;
 
     public function __construct() {
-        // Adatbázis kapcsolat előkészítése
         $dbInstance = Database::getInstance();
         $dbConnection = $dbInstance->getConnection();
 
         $this->model = new ProductModel($dbConnection);
     }
 
-    //Szűrők lekérése
+    //Szűrt termékek lekérése.
     public function index() {
         $types = isset($_GET['types']) ? $_GET['types'] : [];
         $gemstones = isset($_GET['gemstones']) ? $_GET['gemstones'] : [];
@@ -25,7 +24,7 @@ class ProductController {
         echo json_encode($filteredProducts);
     }
 
-    // Termékek lekérése termék ID alapján.
+    //Kiválasztott termék adatainak lekérése.
     public function getProductDetails() {
         $productId = isset($_GET['productId']) ? $_GET['productId'] : null;
         if ($productId) {
@@ -45,14 +44,11 @@ class ProductController {
     }
 }
 
-// ProductController példány létrehozása
 $productController = new ProductController();
 
-// Meghatározzuk, melyik metódust kell meghívni az URL alapján
 if (isset($_GET['action']) && $_GET['action'] == 'getProductDetails') {
     $productController->getProductDetails();
 } else {
     $productController->index();
 }
-
 ?>

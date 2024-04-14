@@ -15,18 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Szűrők megjelenítése
     function populateFilters(data) {
-        const typeFilterContainer = document.querySelector('.type_filter');
         const gemstoneFilterContainer = document.querySelector('.gemstone_filter');
         const materialFilterContainer = document.querySelector('.material_filter');
-
-        // Típusok megjelenítése
-        data.types.forEach(type => {
-            typeFilterContainer.innerHTML += `<div class="wrapper">
-                <input type="checkbox" name="types" value="${type.id}" id="type_${type.id}">
-                <label for="type_${type.id}">${type.name}</label>
-            </div>`;
-        });
-
+        
         // Drágakövek megjelenítése
         data.gemstones.forEach(gemstone => {
             gemstoneFilterContainer.innerHTML += `<div class="wrapper">
@@ -44,18 +35,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Aktív szűrők lekérdezése
-    function getSelectedFilters() {
-        const form = document.getElementById('filterForm');
-        const formData = new FormData(form);
-        const params = new URLSearchParams();
+// Aktív szűrők lekérdezése
+function getSelectedFilters() {
+const form = document.getElementById('filterForm');
+const formData = new FormData(form);
+const params = new URLSearchParams();
 
-        formData.getAll('types').forEach(value => params.append('types[]', value));
-        formData.getAll('gemstones').forEach(value => params.append('gemstones[]', value));
-        formData.getAll('materials').forEach(value => params.append('materials[]', value));
+// Alapértelmezetten csak a 'Bracelet' típust válasszuk ki
+params.append('types[]', 5); // Feltételezzük, hogy a karkötő típusának ID-ja 1
 
-        return params.toString();
-    }
+formData.getAll('gemstones').forEach(value => params.append('gemstones[]', value));
+formData.getAll('materials').forEach(value => params.append('materials[]', value));
+
+return params.toString();
+}
 
     // Szűrők változásakor újra lekérdezzük a termékeket
     document.getElementById('filterForm').addEventListener('change', fetchProducts);
@@ -71,36 +64,34 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error fetching products:', error));
     }
 
-// Termékek megjelenítése
-function displayProducts(products) {
-    const productsContainer = document.getElementById('productDisplay');
-    productsContainer.innerHTML = ''; // Előző termékek törlése
-    products.forEach(product => {
-        let buyButton;
-        if (product.in_stock == 1) {
-            buyButton = `<button class="sample-buy-button" onclick="addToCart(${product.id})">Buy</button>`;
-        } else {
-            buyButton = `<button class="sample-buy-button out-of-stock">Out of Stock</button>`;
-        }
-        productsContainer.innerHTML += `
-            <div class="product-box" data-type="${product.type}" data-gemstone="${product.gemstone}" data-material="${product.material}" onclick="redirectToProduct(${product.id})">
-                <div class="product-box-img">
-                    <img src="../../public/product_images/${product.image}" alt="${product.name}">
-                </div>
-                <div class="product-box-data">
-                    <div class="product-name">
-                        <p>${product.name}</p>
+    // Termékek megjelenítése
+    function displayProducts(products) {
+        const productsContainer = document.getElementById('productDisplay');
+        productsContainer.innerHTML = ''; // Előző termékek törlése
+        products.forEach(product => {
+            let buyButton;
+            if (product.in_stock == 1) {
+                buyButton = `<button class="sample-buy-button" onclick="addToCart(${product.id})">Buy</button>`;
+            } else {
+                buyButton = `<button class="sample-buy-button out-of-stock">Out of Stock</button>`;
+            }
+            productsContainer.innerHTML += `
+                <div class="product-box" data-type="${product.type}" data-gemstone="${product.gemstone}" data-material="${product.material}" onclick="redirectToProduct(${product.id})">
+                    <div class="product-box-img">
+                        <img src="../../public/product_images/${product.image}" alt="${product.name}">
                     </div>
-                    <div class="product-price">
-                        <p>${product.price}$</p>
+                    <div class="product-box-data">
+                        <div class="product-name">
+                            <p>${product.name}</p>
+                        </div>
+                        <div class="product-price">
+                            <p>${product.price}$</p>
+                        </div>
+                        ${buyButton}
                     </div>
-                    ${buyButton}
-                </div>
-            </div>`;
-    });
-}
-
-
+                </div>`;
+        });
+    }
 });
 
 // Kiválasztott termék oldalára továbbítás

@@ -72,10 +72,6 @@ class UserModel {
         return $result->num_rows > 0;
     }
 
-    // Jelszavak egyezőségének ellenőrzése
-    public function passwordsMatch($password, $password_again) {
-        return $password === $password_again;
-    }
 
     // Felhasználó regisztrálása
     public function registerUser($first_name, $last_name, $username, $email, $password) {
@@ -122,6 +118,7 @@ class UserModel {
         return $addresses;
     }
 
+    //Felhasználó szállítási adatok meglétének ellenőrzése
     public function isUserHaveAddress($userId) {
         $stmt = $this->db->prepare("SELECT address_id FROM shipping_addresses WHERE user_id = ?");
         $stmt->bind_param("i", $userId);
@@ -167,8 +164,8 @@ class UserModel {
 
     //Bejelentkezettség ellenőrzése
     public function isUserLoggedIn() {
-        // Ellenőrizzük, hogy a 'logged_in' session változó létezik-e és igaz értékű-e
-        return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
+
+        return isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
     }
 
 }

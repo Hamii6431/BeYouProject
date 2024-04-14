@@ -1,18 +1,17 @@
-<!--Kiválasztott termék oldal-->
+<!--Felhasználási feltételek oldal-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirected Product</title>
+    <title>Terms and Conditions</title>
     <!-- Stíluslapok linkelése -->
     <link rel="stylesheet" href="css/Navbar.css">
-    <link rel="stylesheet" href="css/Toast.css">
-    <link rel="stylesheet" href="css/RedirectedProduct.css">
+    <link rel="stylesheet" href="css/TermsAndConditions.css"> <!-- Assuming Home.css contains common styling -->
     <link rel="stylesheet" href="css/Footer.css">
     <!-- Betüstílus linkelése -->
     <link rel="stylesheet" href="css/ImportFont.css">
-    <link href="https://fonts.cdnfonts.com/css/optima" rel="stylesheet"><link href="https://fonts.cdnfonts.com/css/inclusive-sans-2" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/inclusive-sans-2" rel="stylesheet">
     <!-- Ikonok linkelése -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
@@ -20,8 +19,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-<!--Toast container beillesztése-->
-<div id="toastContainer" class="toast-container"></div>
 <!-- Header -->
 <header>
     <!--Navigációs sáv-->
@@ -60,20 +57,47 @@
     </nav>
 </header>
 
-<!--Kiválasztott termék oldal tartalma-->
-<div class="container-for-redirectedproduct">
-    <div class="row">
-        <div class="container-product-image col-lg-6 col-md-6 col-sm-12">
-            <img src="">
-        </div>
-        <div class="container-product-details col-lg-6 col-md-6 col-sm-12">
-            <h1></h1>
-            <p></p>
-            <h2></h2>
-            <button id="buy-button" class="sample-buy-button">Add to cart</button>
+<!--Felhasználási feltételek oldal tartalma-->
+<div class="container-for-terms">
+    <div class="terms-header">
+        <h1>Terms and Conditions</h1>
+        <p>Please read these Terms and Conditions ("Terms", "Terms and Conditions") carefully before using our website or services.</p>
+    </div>
+    <div class="terms-body">
+        <ol>
+            <li><strong>Acceptance</strong>
+                <p>By accessing or using the website or services, you agree to be bound by these Terms. If you disagree with any part of the terms, then you may not access the website or use the services.</p>
+            </li>
+            <li><strong>Services</strong>
+                <p>Our website offers a variety of services, including but not limited to product sales and information provision.</p>
+            </li>
+            <li><strong>User Responsibilities</strong>
+                <p>You agree not to use our website or services for any unlawful or prohibited activities or purposes, including but not limited to copyright infringement or harassment of others.</p>
+            </li>
+            <li><strong>Privacy</strong>
+                <p>During the use of the webshop, we collect and store certain personal data. These data may include their name, email address, shipping address, and payment information. We use this information solely for the purpose of fulfilling orders, customer service activities, and providing a better user experience.</p>
+            </li>
+            <li><strong>Intellectual Property</strong>
+                <p>All content on our website and services (images, texts, graphics, etc.) is the property of the website operator.</p>
+            </li>
+            <li><strong>Limitation of Liability</strong>
+                <p>The use of our website or services is at your own risk. The website operator shall not be liable for any direct, indirect, incidental, consequential, or special damages arising out of or in any way connected with your use of the website or services.</p>
+            </li>
+            <li><strong>Modifications</strong>
+                <p>The website operator reserves the right to modify or revise these Terms at any time. Your continued use of the website or services after any such changes constitutes your acceptance of the new Terms.</p>
+            </li>
+            <li><strong>Contact</strong>
+                <p>If you have any questions or concerns about these Terms, please contact us at the following address.</p>
+            </li>
+        </ol>
+        <div class="contact-us-collection">
+            <div class="contact-us-item"><i class="material-icons-outlined">location_on</i>Pécs, Malomvölgyi út 1/b, 7636</div>
+            <div class="contact-us-item"><i class="material-icons-outlined">phone</i>(06) 204040404</div>
+            <div class="contact-us-item"><i class="material-icons-outlined">email</i>beyou@gmail.com</div>
         </div>
     </div>
 </div>
+
 <!--Footer-->
 <footer class="footer">
     <div class="container">
@@ -110,11 +134,9 @@
         </div>
     </div>
 </footer>
-<!-- JavaScript és külső források -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<!-- JavaScript kód -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="Js/Navbar.js"></script>
-<script src="Js/RedirectedProduct.js"></script>
-
 </body>
 </html>

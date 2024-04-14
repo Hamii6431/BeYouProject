@@ -5,14 +5,14 @@ require_once __DIR__ . '/../includes/Database.php';
 class ProductModel {
     private $db;
 
-        // Konstruktor az adatbázis kapcsolathoz
+    // Konstruktor az adatbázis kapcsolathoz
     public function __construct() {
         $this->db = Database::getInstance()->getConnection();
     }
     
     //Termék lekérése [Felhasználói ID alapján]
     public function getProductById($productId) {
-        $stmt = $this->db->prepare("SELECT * FROM products WHERE product_id = ?");
+        $stmt = $this->db->prepare("SELECT *, IF(stock > 0, 'In stock', 'Out of stock') AS availability FROM products WHERE product_id = ?");
         $stmt->bind_param("i", $productId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -22,6 +22,25 @@ class ProductModel {
             return null; // Nincs ilyen termék
         }
     }
+
+
+    // Készlet lekérdezése
+    public function getStock($productId) {
+        $query = "SELECT stock FROM products WHERE product_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $productId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return ($result->num_rows > 0) ? $result->fetch_assoc()['stock'] : 0;
+    }
+    
+        // Készlet frissítése
+        public function updateStock($productId, $quantity) {
+            $query = "UPDATE products SET stock = stock + ? WHERE product_id = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("ii", $quantity, $productId);
+            return $stmt->execute();
+        }
 
     //Összes termék lekérése az adatbázisból
     public function getAllProducts(){
@@ -46,9 +65,9 @@ class ProductModel {
         return $products;
     }
     
-    //Szűrt termékek lekérése az adatbázisból
+    //Szűrt termékek lekérése.
     public function getFilteredProducts($types, $gemstones, $materials) {
-        $sql = "SELECT * FROM products";
+        $sql = "SELECT *, IF(stock > 0, 1, 0) AS in_stock FROM products";
 
         if (!empty($types) || !empty($gemstones) || !empty($materials)) {
             $sql .= " WHERE";
@@ -80,6 +99,7 @@ class ProductModel {
                     'type' => $row['type_id'],
                     'gemstone' => $row['gemstone_id'],
                     'material' => $row['material_id'],
+                    'in_stock' => $row['in_stock']
                 ];
             }
         }

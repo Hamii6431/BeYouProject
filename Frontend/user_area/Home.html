@@ -1,7 +1,9 @@
+<!--Főoldal-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <!-- Stíluslapok linkelése -->
@@ -10,7 +12,7 @@
     <link rel="stylesheet" href="css/Footer.css">
     <!-- Betüstílus linkelése -->
     <link rel="stylesheet" href="css/ImportFont.css">
-    <link href="https://fonts.cdnfonts.com/css/optima" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/inclusive-sans-2" rel="stylesheet">
     <!-- Ikonok linkelése -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
@@ -36,7 +38,7 @@
         <div class="navigation-menu">
             <!-- Navigációs linkek -->
             <div class="navigation-menu-item"><a href="Home.html">Home</a></div>
-            <div class="navigation-menu-item"><a href="Products.html">All products</a></div>
+            <div class="navigation-menu-item"><a href="AllProducts.html">All products</a></div>
             <div class="navigation-menu-item"><a href="Rings.html">Rings</a></div>
             <div class="navigation-menu-item"><a href="Bracelets.html">Bracelets</a></div>
             <div class="navigation-menu-item"><a href="Necklaces.html">Necklaces</a></div>
@@ -64,51 +66,53 @@
     </div>
 </div>
 
-<!-- Kártyák konténere -->
-<div class="container-for-cards">
-
-</div>
-
-
 <!-- További tartalom konténer -->
 <div class="container-for-content">
-    <div class="container-for-content-left">
-        <img src="../../public/img/BGremove/opal_ring_5_removebg-preview.png">
-    </div>
-    <div class="container-for-content-right">
-        <h1>Exclusive rings, unique collections!</h1>
-        <p>Take a look through our collection to find the ideal ring, necklace, or bracelet that matches your style or would make a perfect gift.</p>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="container-for-content-left">
+                <img src="../../public/img/BGremove/opal_ring_5_removebg-preview.png" class="img-fluid" alt="Ring">
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="container-for-content-right">
+                <h1>Exclusive rings, unique collections!</h1>
+                <p>Explore our beautiful selection of handcrafted rings, each carefully designed to showcase timeless elegance and charm. From dazzling diamonds to colorful gemstones, our collection offers a variety of styles to suit every taste and occasion. Whether you're searching for the perfect engagement ring or a stunning accessory to elevate your everyday look, our rings are crafted to make you feel special. Discover your perfect ring from our exclusive collection today!</p>
+            </div>
+        </div>
     </div>
 </div>
+<!--Footer-->
 <footer class="footer">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-12 ">
-                <div class="about-us">
+                <!--Általános leírás-->
+                <div class="footer-about-us">
                     <h3>About Us</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.</p>
+                    <p>
+                        Welcome to BeYou - where elegance meets style. Discover our curated collection of exquisite jewelry, crafted to reflect your unique personality. From stunning rings to elegant necklaces, find the perfect accessory for any occasion. Thank you for choosing BeYou - elevate your look today.
+                    </p>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="navigation">
+            <div class="col-lg-4 col-md-6 col-sm-12" >
+                <!--Footer navigációs menü-->
+                <div class="footer-navigation">
                     <h3>Navigation</h3>
-                    <div class="footer-navigation-links">
-                        <div class="footer-navigation-item"><a href="Home.html">Home</a></div>
-                        <div class="footer-navigation-item"><a href="Products.html">All Products</a></div>
-                        <div class="footer-navigation-item"><a href="Rings.html">Rings</a></div>
-                        <div class="footer-navigation-item"><a href="Bracelets.html">Bracelets</a></div>
-                        <div class="footer-navigation-item"><a href="Necklaces.html">Necklaces</a></div>
-                    </div>
+                    <div class="footer-navigation-item"><a href="Home.html">Home</a></div>
+                    <div class="footer-navigation-item"><a href="AllProducts.html">All Products</a></div>
+                    <div class="footer-navigation-item"><a href="Rings.html">Rings</a></div>
+                    <div class="footer-navigation-item"><a href="Bracelets.html">Bracelets</a></div>
+                    <div class="footer-navigation-item"><a href="Necklaces.html">Necklaces</a></div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-12 col-sm-12 ">
-                <div class="contact-info">
+                <!--Kapcsolattartási információk-->
+                <div class="footer-contact-info">
                     <h3>Contact Us</h3>
-                    <div class="footer-info">
-                        <div class="footer-info-item"><i class="material-icons-outlined">location_on</i>123 Street, City, Country</div>
-                        <div class="footer-info-item"><i class="material-icons-outlined">phone</i>(123) 456-7890</div>
-                        <div class="footer-info-item"><i class="material-icons-outlined">email</i>info@example.com</div>
-                    </div>
+                    <div class="footer-info-item"><i class="material-icons-outlined">location_on</i>Pécs, Malomvölgyi út 1/b</div>
+                    <div class="footer-info-item"><i class="material-icons-outlined">phone</i>(06) 204040404</div>
+                    <div class="footer-info-item"><i class="material-icons-outlined">email</i>beyou@gmail.com</div>
                 </div>
             </div>
         </div>

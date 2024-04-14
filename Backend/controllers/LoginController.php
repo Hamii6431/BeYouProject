@@ -1,38 +1,33 @@
 <?php
-require_once '../../Backend/models/UserModel.php';
-
+require_once __DIR__ . '/../models/UserModel.php';
 session_start();
 
 class LoginController {
     private $userModel;
 
-    public function __construct() {
-        $this->userModel = new UserModel();
+    public function __construct(UserModel $userModel) {
+        $this->userModel = $userModel;
     }
 
-    //Kérés validálása és kezelése
+    //Bejelentkezési kérés ellenőrzése.
     public function handleRequest() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $this->areCredentialsProvided()) {
-            $this->attemptLogin();
-        } else {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->redirectWithMessage('../../Frontend/user_area/LoginPage.html', 'invalid_request');
         }
-    }
-
-    //Űrlapról beérkező adatok validálása
-    private function areCredentialsProvided() {
-        return isset($_POST['login_username'], $_POST['login_password']);
-    }
-
-    //Bejelentkezés kezelése
-    private function attemptLogin() {
-        $loginUsername = $_POST['login_username'];
-        $loginPassword = $_POST['login_password'];
-
-        //Jelszó hitelesítése
+    
+        if (!$this->areCredentialsProvided()) {
+            $this->redirectWithMessage('../../Frontend/user_area/LoginPage.html', 'missing_credentials');
+        }
+    
+        $loginUsername = $_POST['login_username'] ?? '';
+        $loginPassword = $_POST['login_password'] ?? '';
+    
+        if (strlen($loginUsername) < 3 || strlen($loginPassword) < 6) {
+            $this->redirectWithMessage('../../Frontend/user_area/LoginPage.html', 'invalid_credentials_length');
+        }
+    
         $loginResult = $this->userModel->verifyPassword($loginUsername, $loginPassword);
-
-        //Jogosultsági kör kiválasztása
+    
         if ($loginResult) {
             if ($loginResult['type'] === 'admin') {
                 $this->setAdminSessionVariablesAndRedirect($loginResult['data']);
@@ -40,12 +35,17 @@ class LoginController {
                 $this->setUserSessionVariablesAndRedirect($loginResult['data']);
             }
         } else {
-            //Hibás bejelentkezés esetén a felhasználó visszairányítása és értesítés küldése.
             $this->redirectWithMessage('../../Frontend/user_area/LoginPage.html', 'invalid_login');
         }
     }
+    
 
-    //Felhasználói adatok beállítása és felhasználó átirányítása a profil oldalra.
+    //Név és jelszó meglétének ellenőrzése.
+    private function areCredentialsProvided() {
+        return isset($_POST['login_username'], $_POST['login_password']);
+    }
+
+    //Felhasználói adatok beállítása a sessionben.
     private function setUserSessionVariablesAndRedirect($userData) {
         $_SESSION['user_id'] = $userData['user_id'];
         $_SESSION['user_username'] = $userData['username'];
@@ -57,7 +57,7 @@ class LoginController {
         $this->sendResponse('success', '../../Frontend/user_area/ProfilePage.html');
     }
 
-    //Admin adatok beállítása és felhasználó átirányítása az adminisztrációs felületre.
+    //Admin felhasználói adatok beállítási a sessionben.
     private function setAdminSessionVariablesAndRedirect($adminData) {
         $_SESSION['admin_id'] = $adminData['admin_id'];
         $_SESSION['admin_username'] = $adminData['admin_username'];
@@ -69,13 +69,12 @@ class LoginController {
         $this->sendResponse('success', '../../Frontend/admin_area/AdminPage.php');
     }
 
-    //Hibás bejelentkezés kezelése 
+    
     private function redirectWithMessage($url, $message) {
         header("Location: $url?message=$message");
         exit();
     }
 
-    //Válasz küldése
     private function sendResponse($status, $redirectUrl) {
         header('Content-Type: application/json');
         echo json_encode(['status' => $status, 'redirectUrl' => $redirectUrl]);
@@ -83,6 +82,9 @@ class LoginController {
     }
 }
 
-$loginController = new LoginController();
-$loginController->handleRequest();
+// A kéréstípustól függően hívjuk meg a megfelelő metódust
+if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $controller = new LoginController(new UserModel());
+    $controller->handleRequest();
+}
 ?>

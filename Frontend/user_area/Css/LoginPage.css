@@ -1,8 +1,29 @@
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    outline: none; /* Alapértelmezett keret letiltása */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: 2px solid #6B6B6B; /* Fókuszban lévő mező esetén fekete outline */
+    outline-offset: -1px; /* Az outline befelé vastagodik */
+    /* Egyéb stílusok... */
+}
+
+
 /*Univerzális elemek stílusai:*/
 body,html{
     margin:0;
     padding:0;
 }
+a.terms-style {
+    color: inherit; /* Örökli az ős elem (a label) színét */
+    text-decoration: underline; /* Aláhúzás megtartása */
+}
+
+
 /*Gombok stílusai*/
 button {
     border: none;
@@ -50,10 +71,10 @@ button {
     flex-direction: column;
     width:50%;
     height: fit-content;
-    background-color: #E0E8F1;
+    background-color: #CDDEEF !important;
     border-radius: 1rem;
     padding: 1rem 2.5rem 2rem 2.5rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 /* Űrlap váltó gombok dobozai*/
 .container-tab-items{
@@ -65,12 +86,13 @@ button {
 /* Űrlap váltó gombok*/
 .tab-pill-item{
     text-decoration: none;
-    box-shadow: 0 4px 8px 0 rgba(170, 184, 205, 0.5); /* X-offset Y-offset Blur Spread Color */
+    background-color: #E0E8F1 !important;
+    box-shadow: 0 4px 8px 0 rgba(170, 184, 205, 0.5); 
     border-radius: 1rem;
     transition: 1s;
 }
 .tab-pill-item:hover{
-    background-color: rgba(184, 218, 255, 0.5);
+    background-color: #DBE5F1 !important;
 }
 
 /* Beviteli mezők stílusai*/

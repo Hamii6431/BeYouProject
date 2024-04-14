@@ -1,9 +1,10 @@
+<!--Karkötők oldal-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products</title>
+    <title>Bracelets</title>
     <!-- Stíluslapok linkelése -->
     <link rel="stylesheet" href="css/Navbar.css">
     <link rel="stylesheet" href="css/Products.css">
@@ -37,7 +38,7 @@
         <div class="navigation-menu">
             <!-- Navigációs linkek -->
             <div class="navigation-menu-item"><a href="Home.html">Home</a></div>
-            <div class="navigation-menu-item"><a href="Products.html">All products</a></div>
+            <div class="navigation-menu-item"><a href="AllProducts.html">All products</a></div>
             <div class="navigation-menu-item"><a href="Rings.html">Rings</a></div>
             <div class="navigation-menu-item"><a href="Bracelets.html">Bracelets</a></div>
             <div class="navigation-menu-item"><a href="Necklaces.html">Necklaces</a></div>
@@ -57,17 +58,11 @@
     </nav>
 </header>
 
+<!--Karkötők oldal tartalma-->
 <div class="container-for-products">
     <div class="row">
         <div class="container-filters col-lg-3 col-md-4 col-sm-4 col-xs-12">
             <form id="filterForm">
-                <div class="filter">
-                    <h3>Types:</h3>
-                    <div class="type_filter">
-                        <!-- Típusok dinamikus betöltése -->
-                    </div>
-                </div>
-                <hr>
                 <div class="filter">
                     <h3>Gemstones:</h3>
                     <div class="gemstone_filter">
@@ -89,36 +84,37 @@
     </div>
 </div>
 
-
+<!--Footer-->
 <footer class="footer">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-12 ">
-                <div class="about-us">
+                <!--Általános leírás-->
+                <div class="footer-about-us">
                     <h3>About Us</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.</p>
+                    <p>
+                        Welcome to BeYou - where elegance meets style. Discover our curated collection of exquisite jewelry, crafted to reflect your unique personality. From stunning rings to elegant necklaces, find the perfect accessory for any occasion. Thank you for choosing BeYou - elevate your look today.
+                    </p>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="navigation">
-                <h3>Navigation</h3>
-                    <div class="footer-navigation-links">
-                        <div class="footer-navigation-item"><a href="Home.html">Home</a></div>
-                        <div class="footer-navigation-item"><a href="Products.html">All Products</a></div>
-                        <div class="footer-navigation-item"><a href="Rings.html">Rings</a></div>
-                        <div class="footer-navigation-item"><a href="Bracelets.html">Bracelets</a></div>
-                        <div class="footer-navigation-item"><a href="Necklaces.html">Necklaces</a></div>
-                    </div>
+            <div class="col-lg-4 col-md-6 col-sm-12" >
+                <!--Footer navigációs menü-->
+                <div class="footer-navigation">
+                    <h3>Navigation</h3>
+                    <div class="footer-navigation-item"><a href="Home.html">Home</a></div>
+                    <div class="footer-navigation-item"><a href="AllProducts.html">All Products</a></div>
+                    <div class="footer-navigation-item"><a href="Rings.html">Rings</a></div>
+                    <div class="footer-navigation-item"><a href="Bracelets.html">Bracelets</a></div>
+                    <div class="footer-navigation-item"><a href="Necklaces.html">Necklaces</a></div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-12 col-sm-12 ">
-                <div class="contact-info">
+                <!--Kapcsolattartási információk-->
+                <div class="footer-contact-info">
                     <h3>Contact Us</h3>
-                    <div class="footer-info">
-                        <div class="footer-info-item"><i class="material-icons-outlined">location_on</i>123 Street, City, Country</div>
-                        <div class="footer-info-item"><i class="material-icons-outlined">phone</i>(123) 456-7890</div>
-                        <div class="footer-info-item"><i class="material-icons-outlined">email</i>info@example.com</div>
-                    </div>
+                    <div class="footer-info-item"><i class="material-icons-outlined">location_on</i>Pécs, Malomvölgyi út 1/b</div>
+                    <div class="footer-info-item"><i class="material-icons-outlined">phone</i>(06) 204040404</div>
+                    <div class="footer-info-item"><i class="material-icons-outlined">email</i>beyou@gmail.com</div>
                 </div>
             </div>
         </div>
@@ -127,6 +123,8 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="js/Navbar.js"></script>
-<script src="js/ProductsFetch.js"></script>
+
+<script src="js/Bracelets.js"></script>
+
 </body>
 </html>

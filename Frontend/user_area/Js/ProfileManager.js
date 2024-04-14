@@ -54,6 +54,7 @@ function showForm(itemId) {
     }
 }
 
+//Alapértelmezett tartalom a felhasználó adatainak megjelenítésével.
 function loadAccountItem() {
     const accountItemContent = `
         <div class="surface_primary_header">
@@ -107,6 +108,7 @@ function loadAccountItem() {
     document.getElementById('accountItemDiv').innerHTML = accountItemContent;
 }
 
+//A felhasználó korábban leadott rendeléseit tartalmazó elem.
 function loadOrdersItem() {
     const ordersItemContent = `
     <div class="surface_primary_header">
@@ -138,6 +140,7 @@ function loadOrdersItem() {
     document.getElementById('ordersItemDiv').innerHTML = ordersItemContent;
     }
 
+//Felhasználói adatok frissítésére szolgáló űrlap.
 function loadManageAccountItem() {
     const manageAccountItemContent = `
     <div class="surface_primary_header">
@@ -174,6 +177,7 @@ function loadManageAccountItem() {
 document.getElementById('manageAccountItemDiv').innerHTML = manageAccountItemContent;
 }
 
+//Szállítási adatok frissítésére szolgáló űrlap.
 function loadManageShippingItem() {
     // A szállítási űrlap tartalmának beállítása
     const manageShippingItemContent = `
@@ -216,6 +220,7 @@ function loadManageShippingItem() {
     document.getElementById('manageShippingItemDiv').innerHTML = manageShippingItemContent;
 }
 
+//Táblázat a felhasználó korábbi rendeléseivel.
 function populateOrdersTable(orders) {
     const tableBody = document.querySelector('.order-table tbody');
     if (!tableBody) return;
@@ -271,6 +276,7 @@ function fetchUserData() {
     .catch(error => console.error('Error fetching user data:', error));
 }
 
+
 function fetchUserOrders() {
     fetch('/BeYou_web/Beyouproject/Backend/controllers/GetOrdersController.php')
     .then(response => response.json())
@@ -278,7 +284,7 @@ function fetchUserOrders() {
         if (data.status === 'success') {
             populateOrdersTable(data.orders); // Tegyük fel, hogy 'orders' a rendelések tömbje
         } else {
-            showToast('Failed to fetch orders: ' + data.message);
+            showToast(data.message);
         }
     })
     .catch(error => {
@@ -365,7 +371,7 @@ function setupAccountFormSubmit() {
 }
 
 
-//Felhasználói érrtesítés elem
+// Univerzális Toast értesítés
 let isToastVisible = false;
 
 function showToast(message) {

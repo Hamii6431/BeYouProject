@@ -55,6 +55,8 @@ class ProfileController {
             exit;
         }
     }
+
+    //Felhasználói adatok validálása és frissítése.
     private function isValidUpdateAccountRequest() {
         // Ellenőrizze, hogy minden szükséges mező jelen van-e
         $requiredFields = ['username', 'first_name', 'last_name', 'email'];

@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     loadLoginForm();
 });
 
+//Bejelentkezési űrlap feltöltése
 function loadLoginForm() {
     const formContainer = document.getElementById("form-container");
     formContainer.innerHTML = `
@@ -23,12 +24,17 @@ function loadLoginForm() {
         </form>
     `;
 
+    //Bejelentkezési űrlap elküldése és feldolgozása
     document.getElementById('loginForm').addEventListener('submit', function(event) {
         event.preventDefault();
-        submitForm(this, 'Login successful!', 'Invalid username or password.');
+        submitLoginForm(this, 'Login successful!', 'Invalid username or password.');
     });
 }
+
+//Változó hogy meg tudjuk nézni a felhasználó regisztrált e már ebben a munakamenetben és ez alapján értesítünk.
 let isRegistered = false;
+
+//Regisztrációs űrlap betöltése
 function loadRegistrationForm() {
     const formContainer = document.getElementById("form-container");
     formContainer.innerHTML = `
@@ -60,7 +66,7 @@ function loadRegistrationForm() {
             <div class="container-terms">
                 <div class="container-terms-checkbox">
                     <input type="checkbox" name="terms" id="terms" value="accepted" required>
-                    <label for="terms">I accept the Terms and Conditions *</label>
+                    <label for="terms">I accept the <a class="terms-style" href="TermsAndConditions.html" target="_blank">Terms and Conditions</a> *</label>
                 </div>
                 <p>* The required fields must be filled out. Without feedback, we cannot process your request.</p>
             </div>
@@ -68,6 +74,7 @@ function loadRegistrationForm() {
         </form>
     `;
 
+    //Adatok elküldése és feldolgozása
     document.getElementById('registrationForm').addEventListener('submit', function(event) {
         event.preventDefault();
         if (isRegistered) {
@@ -80,7 +87,8 @@ function loadRegistrationForm() {
     });
 }
 
-function submitForm(form, successMessage, errorMessage) {
+//Bejelentkezési űrlap elküldése
+function submitLoginForm(form, successMessage, errorMessage) {
     const formData = new FormData(form);
     fetch(form.action, {
         method: 'POST',
@@ -104,8 +112,8 @@ function submitForm(form, successMessage, errorMessage) {
     });
 }
 
+//Regisztrációs űrlap elküldése
 function submitRegistrationForm(form) {
-
     fetch(form.action, {
         method: 'POST',
         body: new FormData(form)
@@ -130,17 +138,21 @@ function submitRegistrationForm(form) {
     });
 }
 
+// Univerzális Toast értesítés
 let isToastVisible = false;
 
 function showToast(message) {
-
     if (isToastVisible) return;
 
-    //Nézet mozgatása a képernyő tetejére.
+    // Nézet mozgatása a képernyő tetejére.
     window.scrollTo(0, 0);
 
     isToastVisible = true;
     const toastContainer = document.getElementById('toastContainer');
+    if (!toastContainer) {
+        console.error('Toast container not found');
+        return;
+    }
     const toast = document.createElement('div');
     toast.classList.add('toast');
     toast.textContent = message;
@@ -158,3 +170,4 @@ function showToast(message) {
         }, 500);
     }, 3000);
 }
+

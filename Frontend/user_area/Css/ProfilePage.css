@@ -37,13 +37,12 @@ button {
 
 /* Fő tartalmi részek stílusai */
 .container-for-profilepage {
-
     gap:5rem;
-    padding-top: 140px;
+    padding-top: 120px;
     padding-left: 10rem;
     padding-right: 10rem;
     height:fit-content;
-    min-height: 105vh;
+    min-height: 100vh;
 }
 /*Beviteli mezők stílusai*/
 .form-group {
@@ -76,28 +75,9 @@ button {
     flex-direction: column;
     align-items: center;
 }
-.profile-name-image {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 1rem;
-    width:100%;
-}
-.preview-image {
-    width: 10rem;
-    height: 10rem;
-    border-radius: 50%;
-    overflow: hidden;
-}
-.preview-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.profile-name {
-    text-align: center;
-    margin-top: 1rem;
-}
+
+
+
 .container-menu{
     display:block;
     width:100%;
@@ -166,9 +146,9 @@ button {
     padding-right: 5rem;
 }
 }
-@media (max-width: 576px) {
+@media (max-width: 768px) {
     .container-surface{
-    margin-top: 2rem;
+    margin-top: 2rem !important;
 }
 }
 @media (max-width: 576px) {

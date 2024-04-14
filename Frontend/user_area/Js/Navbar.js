@@ -30,6 +30,7 @@ function initUserInteractionHandlers() {
             } else if (this.classList.contains('shoppingBagIcon')) {
                 navigateBasedOnSession('shoppingBag');
             } else if (this.classList.contains('logoutIcon')) {
+                // Felhasználó kijelentkeztetése csak akkor, ha van aktív felhasználó a sessionben
                 logout();
             }
         });
@@ -55,7 +56,7 @@ function navigateBasedOnSession(action) {
     });
 }
 
-// Felhasználó kijelentkeztetése és a kezdőlapra átirányítása
+// Felhasználó kijelentkeztetése csak akkor, ha van aktív felhasználó a sessionben
 function logout() {
     $.ajax({
         type: "POST",
@@ -63,7 +64,11 @@ function logout() {
         data: { action: "logout" },
         success: function(response) {
             const result = JSON.parse(response);
-            window.location.href = result.redirectUrl; // Átirányítás a megadott URL-re
+            if (result.redirectUrl) {
+                window.location.href = result.redirectUrl; // Átirányítás a megadott URL-re
+            } else {
+                console.log("User not logged in"); // Hibaüzenet a konzolon
+            }
         }
     });
 }

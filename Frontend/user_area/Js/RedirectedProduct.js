@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(queryString);
     const productId = urlParams.get('id');
     
+    //Termék ID alapján az adatok lekérése és feltöltése.
     if (productId) {
         fetch('../../Backend/controllers/ProductController.php?action=getProductDetails&productId=' + productId)
             .then(response => response.json())
@@ -11,12 +12,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.querySelector('.container-product-details h1').innerText = product.product_name;
                 document.querySelector('.container-product-details p').innerText = product.description;
                 document.querySelector('.container-product-details h2').innerText = "$" + product.price;
+
+                // Beállítjuk a gomb szövegét az elérhetőség alapján
+                const buyButton = document.getElementById('buy-button');
+                if (buyButton) {
+                    buyButton.innerText = product.availability === 'In stock' ? 'Buy' : 'Out of stock';
+                    buyButton.disabled = product.availability !== 'In stock';
+                }
             })
             .catch(error => console.error('Error:', error));
     } else {
         console.error('No product ID provided');
     }
 
+    //Vásárlás gomb
     const buyButton = document.getElementById('buy-button');
     if (buyButton) {
         buyButton.addEventListener('click', function() {
@@ -31,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     if(data.status === 'success') {
                         showToast('Product added to cart successfully!');
                     } else {
-                        showToast('Failed to add product to cart: ' + data.message);
+                        showToast(data.message);
                     }
                 })
                 .catch(error => console.error('Error:', error));
@@ -40,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-//Felhasználói értesítés elem
+// Univerzális Toast értesítés
 let isToastVisible = false;
 
 function showToast(message) {
@@ -72,3 +81,4 @@ function showToast(message) {
         }, 500);
     }, 3000);
 }
+

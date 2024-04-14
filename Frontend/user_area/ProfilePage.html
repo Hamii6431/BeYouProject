@@ -1,3 +1,4 @@
+<!--Felhasználói profil oldal-->
 <!DOCTYPE html>
 <html lang="hu">
 <head>
@@ -8,7 +9,6 @@
     <!-- Stíluslapok linkelése -->
     <link rel="stylesheet" href="css/Navbar.css">
     <link rel="stylesheet" href="css/Toast.css">
-    <link rel="stylesheet" href="css/ImportFont.css">
     <link rel="stylesheet" href="css/ProfilePage.css">
     <link rel="stylesheet" href="css/Footer.css">
     <!-- Betüstílus linkelése -->
@@ -41,7 +41,7 @@
         <div class="navigation-menu">
             <!-- Navigációs linkek -->
             <div class="navigation-menu-item"><a href="Home.html">Home</a></div>
-            <div class="navigation-menu-item"><a href="Products.html">All products</a></div>
+            <div class="navigation-menu-item"><a href="AllProducts.html">All products</a></div>
             <div class="navigation-menu-item"><a href="Rings.html">Rings</a></div>
             <div class="navigation-menu-item"><a href="Bracelets.html">Bracelets</a></div>
             <div class="navigation-menu-item"><a href="Necklaces.html">Necklaces</a></div>
@@ -61,17 +61,12 @@
     </nav>
 </header>
 
+<!--Profil oldal tartalma-->
 <div class="container-for-profilepage">
     <div class="row">
         <div class="col-lg-3 col-md-6">
-            <div class="profile-name-image mb-3">
-                <div class="preview-image">
-                    <img src="../../public/img/download.jpg" alt="">
-                </div>
-                <h5 class="profile-name"></h5>
-            </div>
             <div class="container-menu">
-                <!-- Menüpontok -->
+                <!-- Menüpontok a tartalom betöltéshez -->
                 <div class="container-menuitem" id="accountMenuItem">Account</div>
                 <div class="container-menuitem" id="ordersMenuItem">My Orders</div>
                 <div class="container-menuitem" id="manageAccountMenuItem">Manage Account</div>
@@ -79,7 +74,7 @@
             </div>
         </div>
         <div class="container-surface col-lg-9 col-md-6" id="profileContainer">
-            <!-- Űrlapok -->
+            <!-- Betölthető tartalmak -->
             <div id="accountItemDiv" style="display: none;"></div>
             <div id="ordersItemDiv" style="display: none;"></div>
             <div id="manageAccountItemDiv" style="display: none;"></div>
@@ -88,35 +83,37 @@
     </div>
 </div>
 
+<!--Footer-->
 <footer class="footer">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-12 ">
-                <div class="about-us">
+                <!--Általános leírás-->
+                <div class="footer-about-us">
                     <h3>About Us</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.</p>
+                    <p>
+                        Welcome to BeYou - where elegance meets style. Discover our curated collection of exquisite jewelry, crafted to reflect your unique personality. From stunning rings to elegant necklaces, find the perfect accessory for any occasion. Thank you for choosing BeYou - elevate your look today.
+                    </p>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="navigation">
-                <h3>Navigation</h3>
-                    <div class="footer-navigation-links">
-                        <div class="footer-navigation-item"><a href="Home.html">Home</a></div>
-                        <div class="footer-navigation-item"><a href="Products.html">All Products</a></div>
-                        <div class="footer-navigation-item"><a href="Rings.html">Rings</a></div>
-                        <div class="footer-navigation-item"><a href="Bracelets.html">Bracelets</a></div>
-                        <div class="footer-navigation-item"><a href="Necklaces.html">Necklaces</a></div>
-                    </div>
+            <div class="col-lg-4 col-md-6 col-sm-12" >
+                <!--Footer navigációs menü-->
+                <div class="footer-navigation">
+                    <h3>Navigation</h3>
+                    <div class="footer-navigation-item"><a href="Home.html">Home</a></div>
+                    <div class="footer-navigation-item"><a href="AllProducts.html">All Products</a></div>
+                    <div class="footer-navigation-item"><a href="Rings.html">Rings</a></div>
+                    <div class="footer-navigation-item"><a href="Bracelets.html">Bracelets</a></div>
+                    <div class="footer-navigation-item"><a href="Necklaces.html">Necklaces</a></div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-12 col-sm-12 ">
-                <div class="contact-info">
+                <!--Kapcsolattartási információk-->
+                <div class="footer-contact-info">
                     <h3>Contact Us</h3>
-                    <div class="footer-info">
-                        <div class="footer-info-item"><i class="material-icons-outlined">location_on</i>123 Street, City, Country</div>
-                        <div class="footer-info-item"><i class="material-icons-outlined">phone</i>(123) 456-7890</div>
-                        <div class="footer-info-item"><i class="material-icons-outlined">email</i>info@example.com</div>
-                    </div>
+                    <div class="footer-info-item"><i class="material-icons-outlined">location_on</i>Pécs, Malomvölgyi út 1/b</div>
+                    <div class="footer-info-item"><i class="material-icons-outlined">phone</i>(06) 204040404</div>
+                    <div class="footer-info-item"><i class="material-icons-outlined">email</i>beyou@gmail.com</div>
                 </div>
             </div>
         </div>

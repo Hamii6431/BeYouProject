@@ -1,27 +1,21 @@
 
 /* Fő tartalmi részek stílusai */
-.container-for {
-    /*background-image: url('../../../public/img/stock-stone2.png');*/
-    background-size: cover;
-    background-repeat: no-repeat;
+.container-for-adminpage {
     display: flex;
     gap:1rem;
-    padding-top: 2vh;
-    padding-left: 1rem;
-    padding-right: 5rem;
-    height:110vh;
+    padding-top: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    height: fit-content;
 }
 
 .container-menu {
-    height: max-content;
+    height: fit-content;
     display:block;
-    width:30%;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     border-bottom: 2px solid #888;
     background-color: rgba(156, 189, 224, 0.5);
     border-radius: 16px;
-    transition: 1s;
-    
 }
 .container-menu-logo{
     display: flex;
@@ -58,14 +52,12 @@
 
 .container-surface {
     display:block;
-    width:100%;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     background-color: rgba(194, 210, 227, 0.5);
     border-radius: 16px;
     transition: 1s;
     padding: 1rem 1.25rem 1rem 1.25rem;
-    height:75vh;
-    max-height: 75vh;
+    height: fit-content;
 }
 
 
@@ -141,6 +133,9 @@ button {
 .card-text h2,.card-text h4{
     margin:0;
 }
+.card-text h2{
+    font-weight: 600;
+}
 .card-icon{
     display: flex;
     justify-content: end;
@@ -168,6 +163,7 @@ button {
     width:63%;
     background-color: rgba(131, 165, 202, 0.5);
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    padding:1rem;
 }
 
 .recent-users, .recent-orders, .recent-products{
@@ -183,11 +179,14 @@ button {
     justify-content: center;
     border-bottom: 2px solid black;
 }
+.recent-payments-table,
+.new-users-table {
+    overflow-x: auto;
+}
 
 table {
     width: 100%;
     border-collapse: collapse;
-    
 }
 table, th, td {
     border: 1px solid black;
@@ -249,4 +248,18 @@ overflow: auto;
     border-radius: 6px;
     background-color: rgba(156, 189, 224, 0.5);
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+
+
+@media (max-width: 1530px) {
+    .dashboard-base{
+        flex-direction: column;
+    }
+    .recent-payments{
+        width: 100%;
+    }
+    .new-users{
+        width: 100%;
+    }
 }

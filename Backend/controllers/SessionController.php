@@ -19,10 +19,17 @@ class SessionController {
 
     //Kijelentkezés funkció
     public function logout() {
-        session_unset();
-        session_destroy();
-        echo json_encode(['redirectUrl' => '../user_area/Logout.html']);
-        exit();
+        // Ellenőrizzük, hogy van-e aktív felhasználó a sessionben
+        if ($this->model->isUserLoggedIn()) {
+            session_unset();
+            session_destroy();
+            echo json_encode(['redirectUrl' => '../user_area/Logout.html']);
+            exit();
+        } else {
+            // Nincs aktív felhasználó, nem hajtunk végre kijelentkeztetést
+            echo json_encode(['error' => 'No active user session']);
+            exit();
+        }
     }
 
     //Kiválasztjuk a megfelelő funkciót

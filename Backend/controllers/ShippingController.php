@@ -14,29 +14,34 @@ class ShippingController {
         $this->userModel = new UserModel($this->db);
     }
 
-    //Get kérés validálása
     private function isGetRequest() {
-        return $_SERVER['REQUEST_METHOD'] == 'GET';
+        return isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'GET';
     }
-
-    //Post kérés validálása
+    
     private function isPostRequest() {
-        return $_SERVER['REQUEST_METHOD'] == 'POST';
+        return isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST';
     }
-
-    //Adatok kigyűjtése
+    
+    //Adatok begyűjtése az űrlapról.
     private function collectAddressDataFromPost() {
         $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
         return [
             'userId' => $userId,
-            'addressId' => $_POST['address_id'],
-            'phoneNumber' => $_POST['phone_number'] ?? null,
-            'country' => $_POST['country'] ?? null,
-            'postalCode' => $_POST['postal_code'] ?? null,
-            'city' => $_POST['city'] ?? null,
-            'streetAddress' => $_POST['street_address'] ?? null,
+            'addressId' => isset($_POST['address_id']) ? $_POST['address_id'] : null,
+            'phoneNumber' => isset($_POST['phone_number']) ? $_POST['phone_number'] : null,
+            'country' => isset($_POST['country']) ? $_POST['country'] : null,
+            'postalCode' => isset($_POST['postal_code']) ? $_POST['postal_code'] : null,
+            'city' => isset($_POST['city']) ? $_POST['city'] : null,
+            'streetAddress' => isset($_POST['street_address']) ? $_POST['street_address'] : null,
         ];
     }
+
+    // Telefonszám validációja
+    private function validatePhoneNumber($phoneNumber) {
+        // Ellenőrizzük, hogy a telefonszám csak számokat és a megadott kivételeket tartalmazza
+        return preg_match('/^(\+?\d{0,9})?([ -]?\d{2,3}){1,2}$/', $phoneNumber);
+    }
+
 
     //Amennyiben volt már korábban szállítási adat frissítjük az adatokat ha pedig nem volt még akkor létrehozzuk a felhasználó szállítási adatait.
     private function updateOrCreateAddress($addressData) {
@@ -96,6 +101,12 @@ class ShippingController {
                     return;
                 }
             }
+
+            // Telefonszám validálása
+            if (!$this->validatePhoneNumber($_POST['phone_number'])) {
+                $this->sendResponse("Please enter a valid phone number.", false);
+                return;
+            }
     
             $addressData = $this->collectAddressDataFromPost();
             $this->updateOrCreateAddress($addressData);
@@ -113,5 +124,4 @@ class ShippingController {
 
 $controller = new ShippingController();
 $controller->handleRequest();
-
 ?>

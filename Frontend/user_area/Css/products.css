@@ -33,16 +33,23 @@
     width: 100%;
 }
 
-.buy-button {
+.sample-buy-button {
     border-radius: 16px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
     width: 100%;
-    background-color: rgb(131, 165, 202);
+    background-color: #83A5CA;
     color: white;
     justify-content: center;
     height: 50px;
+    margin-bottom: 0.5rem;
 }
-
+.sample-buy-button:hover {
+    transition: 0.5s;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    background-color: #8BAFD6;
+    color: white;
+    opacity: 1;
+}
 button {
     border: none;
     background: none;

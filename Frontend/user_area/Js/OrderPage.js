@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+//Kosár összegének lekérése.
 function fetchCartSummary() {
     fetch('../../Backend/controllers/CartController.php', {
         method: 'POST',
@@ -28,6 +29,7 @@ function fetchCartSummary() {
     .catch(error => console.error('Error fetching cart summary:', error));
 }
 
+//Rendelés véglegesítése.
 function finishOrder() {
     updateShippingData()
         .then(() => {
@@ -43,10 +45,11 @@ function finishOrder() {
         })
         .catch(error => {
             console.error('Error updating shipping data:', error);
-            showToast('An error occurred while updating shipping data.');
+            showToast('Please fill all required fields.');
         });
 }
 
+//Felhasználó szállítási adatainak elküldése.
 function updateShippingData() {
     return new Promise((resolve, reject) => {
         const formData = new FormData(document.getElementById('shippingForm'));
@@ -92,6 +95,7 @@ function sendOrder(totalPrice) {
     });
 }
 
+//Szállítási adatok lekérése az úrlapok feltöltéséhez.
 function fetchShippingData() {
     fetch('/BeYou_web/Beyouproject/Backend/controllers/ShippingController.php')
     .then(response => response.json())
@@ -111,12 +115,14 @@ function fetchShippingData() {
     .catch(error => console.error('Error fetching shipping data:', error));
 }
 
+//Részösszegek és végösszegek frissítése kosár alapján.
 function updateCartSummaryDirectly(subtotal, shippingCost, total) {
     document.querySelector('.summary-subtotal .subtotal-price h5').textContent = `$${subtotal.toFixed(2)}`;
     document.querySelector('.summary-subtotal .subtotal-price p').textContent = `$${shippingCost.toFixed(2)}`;
     document.getElementById('totalPrice').textContent = `$${total.toFixed(2)}`;
 }
 
+//Szállítási úrlap kezelése.
 function setupShippingFormSubmit() {
     const shippingForm = document.getElementById('shippingForm');
     if (shippingForm) {
@@ -145,6 +151,7 @@ function setupShippingFormSubmit() {
     }
 }
 
+//Univerzális toast értesítés
 let isToastVisible = false;
 
 function showToast(message) {
