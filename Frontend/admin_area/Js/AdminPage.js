@@ -1,4 +1,7 @@
 $(document).ready(function() {
+    // Alapértelmezett tartalom betöltése az oldal betöltésekor
+    loadContent('dashboardMenuitem');
+
     $('.container-menuitem').click(function() {
         var menuItemId = $(this).attr('id'); // Kiválasztott menüpont azonosítója
 

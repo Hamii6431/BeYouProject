@@ -42,7 +42,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'addProduct') {
         $fileName = basename($_FILES['image']['name']);
         $targetFile = $targetDirectory . $fileName;
         if(move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
-            $default_image_url = '/../../public/product_images/' . $fileName; // Weben keresztül elérhető relatív útvonal
+            $default_image_url = $fileName;
         } else {
             echo json_encode(['success' => false, 'message' => 'Nem sikerült feltölteni a képet.']);
             exit;
@@ -75,6 +75,21 @@ if (isset($_POST['action']) && $_POST['action'] == 'addProduct') {
 
     
 }
+// AdminContentController.php folytatása
+
+if (isset($_GET['action']) && $_GET['action'] == 'getProductDetails' && isset($_GET['productId'])) {
+    $productId = (int)$_GET['productId'];
+    $productDetails = $adminAreaModel->getProductById($productId);
+
+    if ($productDetails) {
+        echo json_encode(['success' => true, 'data' => $productDetails]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Product not found']);
+    }
+    exit;
+}
+
+
 
 
 // AdminContentController része a termékek frissítésére
@@ -86,7 +101,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateProduct') {
     $price = $_POST['editPrice'];
     $description = $_POST['editDescription'];
     $stock = $_POST['editStock'];
-    $gemstone_id = $_POST['editgemstone_id'];
+    $gemstone_id = $_POST['editGemstone_id'];
     $type_id = $_POST['editType_id'];
     $material_id = $_POST['editMaterial_id'];
 
@@ -115,6 +130,18 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateProduct') {
     }
 }
 
+
+if (isset($_GET['action']) && $_GET['action'] == 'getUserDetails' && isset($_GET['userId'])) {
+    $userId = (int)$_GET['userId'];
+    $userDetails = $adminAreaModel->getUserById($userId);
+
+    if ($userDetails) {
+        echo json_encode(['success' => true, 'data' => $userDetails]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'User not found']);
+    }
+    exit;
+}
 // AdminContentController része a felhasználók frissítésére
 
 if (isset($_POST['action']) && $_POST['action'] == 'updateUser') {
@@ -135,6 +162,38 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateUser') {
         echo json_encode(['success' => false, 'message' => 'Nem sikerült frissíteni a felhasználót: ' . $updateResult['message']]);
     }
 }
+
+if (isset($_GET['action']) && $_GET['action'] == 'getOrderDetails' && isset($_GET['final_order_id'])) {
+    $final_order_id = (int)$_GET['final_order_id'];
+    $orderDetails = $adminAreaModel->getFinalOrderById($final_order_id);
+
+    if ($orderDetails) {
+        echo json_encode(['success' => true, 'data' => $orderDetails]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'User not found']);
+    }
+    exit;
+}
+// AdminContentController része a felhasználók frissítésére
+
+if (isset($_POST['action']) && $_POST['action'] == 'updateOrderStatus') {
+    // Azonosító és űrlapadatok kinyerése
+    $final_order_id = $_POST['editFinal_order_id']; 
+    $status = $_POST['editStatus']; 
+
+
+    // Adatbázisban való frissítés
+    $updateResult = $adminAreaModel->updateOrderStatus($final_order_id, $status);
+
+    if ($updateResult['success']) {
+        echo json_encode(['success' => true, 'message' => 'Felhasználó sikeresen frissítve.']);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Nem sikerült frissíteni a felhasználót: ' . $updateResult['message']]);
+    }
+}
+
+
+
 
 
 

@@ -79,6 +79,14 @@ class AdminAreaModel {
     }
 
 
+    public function getUserByID($userId) {
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE user_ID = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+
     public function AllUsers() {
         $sql = "SELECT COUNT(*) as userCount FROM users";
         $result = $this->db->query($sql);
@@ -103,6 +111,54 @@ class AdminAreaModel {
             return 0; // Ha nincs rekord, 0-t adunk vissza
         }
     }
+
+
+    public function getFinalOrderById($final_order_id) {
+        $stmt = $this->db->prepare("SELECT * FROM final_orders WHERE final_order_id = ?");
+        $stmt->bind_param("i", $final_order_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc(); // Visszaadja a termék adatait asszociatív tömbként
+        } else {
+            return null; // Nincs ilyen termék
+        }
+    }
+
+    
+
+    public function updateOrderStatus($final_order_id, $status) {
+
+        $sql = "UPDATE final_orders SET status=? WHERE final_order_id=?";
+        $stmt = $this->db->prepare($sql);
+    
+        if ($stmt === false) {
+            return ['success' => false, 'message' => 'Adatbázis hiba.'];
+        }
+    
+        $stmt->bind_param('si', $status, $final_order_id);
+    
+        if ($stmt->execute()) {
+            return ['success' => true, 'message' => 'Termék sikeresen frissítve.'];
+        } else {
+            return ['success' => false, 'message' => 'Nem sikerült frissíteni a terméket.'];
+        }
+    }   
+
+
+
+    public function getProductById($productId) {
+        $stmt = $this->db->prepare("SELECT * FROM products WHERE product_id = ?");
+        $stmt->bind_param("i", $productId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc(); // Visszaadja a termék adatait asszociatív tömbként
+        } else {
+            return null; // Nincs ilyen termék
+        }
+    }
+
 
 
     public function AllProducts() {
@@ -237,7 +293,7 @@ class AdminAreaModel {
         } else {
             return ['success' => false, 'message' => 'Nem sikerült frissíteni a terméket.'];
         }
-    }
+    }   
     
     public function updateUserCount() {
         

@@ -19,8 +19,7 @@
 <body>
 
 <div class="container-for-adminpage">
-    <!-- Bootstrap grid rendszerének használata -->
-    <div class="container-menu col-lg-3 sm-12">
+    <div class="container-menu col-lg-3 col-md-12">
         <div class="container-menu-logo">
             <img src="../../public/img/PngLogo.png" alt="Logo">
         </div>
@@ -33,7 +32,7 @@
         </div>
     </div>
 
-    <div class="container-surface col-lg-9 sm-12" id="adminContainer">
+    <div class="container-surface col-lg-9 col-md-12" id="adminContainer">
 
     </div>
 </div>

@@ -10,24 +10,26 @@
 }
 
 .container-menu {
-    height: fit-content;
-    display:block;
+    display:flex;
+    flex-direction: column;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    border-bottom: 2px solid #888;
     background-color: rgba(156, 189, 224, 0.5);
     border-radius: 16px;
+    height: fit-content;
 }
 .container-menu-logo{
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: rgba(131, 165, 202, 0.5);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 4px rgba(31, 165, 202, 0.1);
     border-radius: 16px;
     margin-bottom: 1.5rem;
 }
 .container-menu-logo img{
-    width:75%;
+    width:65%;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 .container-menuitems{
     margin: 0rem 1.25rem 2rem 1.25rem;
@@ -111,19 +113,21 @@ button {
 .surface{
     padding: 1rem;
 }
-.dashboard-cards{
+
+.dashboard-cards {
     display: flex;
+    flex-wrap: wrap; /* Hogy a kártyák a sor végén sortörést tegyenek */
     justify-content: space-between;
-    gap:2rem;
+    gap:1rem;
 }
 .card{
     display: flex;
     border-radius: 6px;
     gap:0.75rem;
-    width: 25%;
-    padding:1.5rem;
+    padding:1rem;
     background-color: rgba(131, 165, 202, 0.5);
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    width: calc(20% - 1rem); /* 768 pixelnél 2 kártya egy sorban */
 }
 .card-text{
     display: flex;
@@ -156,6 +160,14 @@ button {
     justify-content: center;
     gap:2rem;
 }
+
+.recent-products-table {
+    overflow-x: auto;
+}
+
+
+
+
 
 .recent-payments, .recent-users, .recent-orders, .recent-products, .new-users{
     border-radius: 6px;
@@ -249,7 +261,35 @@ overflow: auto;
     background-color: rgba(156, 189, 224, 0.5);
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
-
+.sample-admin-button {
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 100%;
+    background-color: #A8C1DC;
+    color: #212529;
+    font-weight: 600;
+    justify-content: center;
+    height: 50px;
+    margin-bottom: 0.5rem;
+    transition: 0.5s;
+}
+.sample-admin-button:hover {
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    background-color: #a2bad3;
+    opacity: 1;
+}
+.sample-button{
+    background-color: #3A4049;
+    border-radius: 8px;
+    color: white;
+    margin-bottom: 0.5rem;
+    height: 50px;
+}
+.sample-button:hover {
+    transition: 0.5s;
+    background-color: #545E67;
+    color: white;
+}
 
 
 @media (max-width: 1530px) {
@@ -261,5 +301,35 @@ overflow: auto;
     }
     .new-users{
         width: 100%;
+    }
+}
+
+@media (max-width: 992px) {
+.card{
+    width: calc(50% - 1rem); /* 768 pixelnél 2 kártya egy sorban */
+}
+    .container-for-adminpage{
+        flex-direction: column;
+    }
+    .container-menu-logo img{
+        width: 30%;
+    }
+}
+@media (max-width: 768px) {
+    .container-menu-logo img{
+        min-width: 250px;
+    }   
+    .dashboard-cards {
+        justify-content: center; /* Középre igazítjuk a kártyákat */
+    }
+}
+@media (max-width: 576px) {
+    .dashboard-cards {
+        flex-direction: column; /* Egymás alá rendezzük a kártyákat */
+        align-items: center; /* Középre igazítjuk őket */
+        gap: 1rem; /* Kisebb térköz az egymás alatti kártyák között */
+    }
+    .card {
+        width: 100%; /* 576 pixelnél minden kártya teljes szélességben jelenjen meg */
     }
 }

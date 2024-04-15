@@ -16,7 +16,7 @@
 
     <div class="form-group">
         <label for="description">Product Description:</label>
-        <textarea name="description" id="description" required></textarea>
+        <input type="text" name="description" id="description" required>
     </div>
 
     <div class="form-group">
@@ -62,7 +62,7 @@
         <input type="file" name="image" id="image" required>
     </div>
 
-    <button class="modalButton" type="submit" name="addProduct">Add Product</button>
+    <button class="sample-admin-button" type="submit" name="addProduct">Add Product</button>
 </form>
 
 

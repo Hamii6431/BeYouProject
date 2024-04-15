@@ -47,29 +47,29 @@
         <span class="close">&times;</span>
         <h2>Edit User</h2>
         <form id="editUserForm">
-            <input type="hidden" name="editUserId" id="editUserId">
+            <input type="hidden" name="editUserId" id="editUserId" value="">
                 
                 <div class="form-group">
-                        <label for="editUsername">Userame: <?= htmlspecialchars($user['username']) ?></label>
+                        <label for="editUsername">Userame: </label>
                     <input type="text" name="editUsername" id="editUsername" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="editEmail">Email: <?= htmlspecialchars($user['email']) ?></label>
+                    <label for="editEmail">Email: </label>
                     <input type="text" name="editEmail" id="editEmail" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="editFirstname">First Name: <?= htmlspecialchars($user['first_name']) ?></label>
+                    <label for="editFirstname">First Name: </label>
                     <input type="text" name="editFirstname" id="editFirstname" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="editLastname">Last Name: <?= htmlspecialchars($user['last_name']) ?></label>
+                    <label for="editLastname">Last Name: </label>
                     <input type="text" name="editLastname" id="editLastname" required>
                 </div>
 
-                <button class="modalButton2" type="button" onclick="updateProduct()">Save</button>
+                <button class="modalButton2" type="button" onclick="updateUser()">Save</button>
             
             </form>
         </div>
@@ -78,14 +78,26 @@
 
 
 <script>
-    // Modális ablak megnyitása
     function openModal(userId) {
-        // Ide jön a logika az adatok betöltésére a szerkesztési űrlapra
-        document.getElementById('editUserId').value = userId;
-        // További mezők kitöltése az adatbázisból lekérdezett adatok alapján
+            fetch(`/BeYou_web/Beyouproject/Backend/controllers/AdminContentController.php?action=getUserDetails&userId=${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    console.error('Error fetching user data:', data.message);
+                    return;
+                }
 
-        document.getElementById('editUserModal').style.display = 'block';
-    }
+                const userDetails = data.data;
+                document.getElementById('editUserId').value = userId;
+                document.getElementById('editUsername').value = userDetails.username || '';
+                document.getElementById('editEmail').value = userDetails.email || '';
+                document.getElementById('editFirstname').value = userDetails.first_name || '';
+                document.getElementById('editLastname').value = userDetails.last_name || '';
+
+                document.getElementById('editUserModal').style.display = 'block';
+            })
+            .catch(error => console.error('Error:', error));
+        }
 
     // Modális ablak bezárása
     var modal = document.getElementById('editUserModal');
@@ -100,24 +112,24 @@
     }
 
     
-    function updateProduct() {
-        var formData = new FormData(document.getElementById('editUserForm'));
-        formData.append('action', 'updateUser'); // Fel kell venni egy action mezőt, hogy a szerver tudja, mit kell tennie
+    function updateUser() {
+    var formData = new FormData(document.getElementById('editUserForm'));
+    formData.append('action', 'updateUser');
 
-        fetch('/BeYou_web/Beyouproject/Backend/controllers/AdminContentController.php', { // A pontos útvonalat be kell állítani
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message); // Visszajelzés megjelenítése
-            if(data.success) {
-                // Frissítheted a UI-t, ha szükséges
-                document.getElementById('editUserModal').style.display = 'none';
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
+    fetch('/BeYou_web/Beyouproject/Backend/controllers/AdminContentController.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        if(data.success) {
+            document.getElementById('editUserModal').style.display = 'none';
+            // Itt frissítheted a felhasználók listáját az UI-on, ha szükséges
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
 
 </script>
 </body>

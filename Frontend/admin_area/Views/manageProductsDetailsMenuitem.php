@@ -57,29 +57,28 @@
             <input type="hidden" name="editProductId" id="editProductId" value="">
             
             <div class="form-group">
-                <?php foreach ($latestProducts as $product): ?>
-                    <label for="editProduct_name">Product Name: <?= htmlspecialchars($product['product_name']) ?></label>
-                <input type="text" name="editProduct_name" id="editProduct_name" required>
+                <label for="editProduct_name">Product Name: </label>
+                <input type="text" name="editProduct_name" id="editProduct_name" class="container_input" novalidate>
             </div>
 
             <div class="form-group">
-                <label for="editPrice">Product Price: <?= htmlspecialchars($product['price']) ?></label>
+                <label for="editPrice">Product Price: </label>
                 <input type="number" name="editPrice" id="editPrice" step="0.01" required>
             </div>
 
             <div class="form-group">
-                <label for="editDescription">Product Description: <?= htmlspecialchars($product['description']) ?></label>
+                <label for="editDescription">Product Description: </label>
                 <textarea name="editDescription" id="editDescription" required></textarea>
             </div>
 
             <div class="form-group">
-                <label for="editStock">Product Stock: <?= htmlspecialchars($product['stock']) ?></label>
+                <label for="editStock">Product Stock: </label>
                 <input type="number" name="editStock" id="editStock" required>
             </div>
 
             <div class="form-group">
-                <label for="editgemstone_id">Select gemstone: <?= htmlspecialchars($product['gemstone_id']) ?></label>
-                <select name="editgemstone_id" id="editgemstone_id" required>
+                <label for="editGemstone_id">Select gemstone: </label>
+                <select name="editGemstone_id" id="editGemstone_id" required>
                     <option value="">--Select gemstone--</option>
                     <!-- PHP kód a színek dinamikus beillesztésére -->
                     <?php foreach ($gemstones as $gemstone): ?>
@@ -89,7 +88,7 @@
             </div>
 
             <div class="form-group">
-                <label for="editType_id">Select Type: <?= htmlspecialchars($product['type_id']) ?></label>
+                <label for="editType_id">Select Type: </label>
                 <select name="editType_id" id="editType_id" required>
                     <option value="">--Select Type--</option>
                     <!-- PHP kód a típusok dinamikus beillesztésére -->
@@ -100,7 +99,7 @@
             </div>
 
             <div class="form-group">
-                <label for="editMaterial_id">Select Material: <?= htmlspecialchars($product['material_id']) ?></label>
+                <label for="editMaterial_id">Select Material: </label>
                 <select name="editMaterial_id" id="editMaterial_id" required>
                     <option value="">--Select Material--</option>
                     <!-- PHP kód az anyagok dinamikus beillesztésére -->
@@ -110,12 +109,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="editImage">Product Image:</label>
-                <input type="file" name="editImage" id="editImage" required>
-                <?php endforeach; ?>
-            </div>
-                <button class="modalButton2" type="button" onclick="updateProduct()">Save</button>
+            <button class="modalButton2" type="button" onclick="updateProduct()">Save</button>
             </form>
         </div>
     </div>
@@ -125,12 +119,30 @@
 <script>
     // Modális ablak megnyitása
     function openModal(productId) {
-        // Ide jön a logika az adatok betöltésére a szerkesztési űrlapra
-        document.getElementById('editProductId').value = productId;
-        // További mezők kitöltése az adatbázisból lekérdezett adatok alapján
+        fetch(`/BeYou_web/Beyouproject/Backend/controllers/AdminContentController.php?action=getProductDetails&productId=${productId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (!data.success) {
+                console.error('Error fetching product data:', data.message);
+                return;
+            }
 
-        document.getElementById('editProductModal').style.display = 'block';
+            const productDetails = data.data;
+            document.getElementById('editProductId').value = productId;
+            document.getElementById('editProduct_name').value = productDetails.product_name || '';
+            document.getElementById('editPrice').value = productDetails.price || '';
+            document.getElementById('editDescription').value = productDetails.description || '';
+            document.getElementById('editStock').value = productDetails.stock || '';
+            document.getElementById('editGemstone_id').value = productDetails.gemstone_id || '';
+            document.getElementById('editType_id').value = productDetails.type_id || '';
+            document.getElementById('editMaterial_id').value = productDetails.material_id || '';
+            // Megjegyzés: A képfeltöltési logika itt eltérhet, mivel az input típusú fájl mezők nem támogatják a "value" attribútum beállítását JavaScriptből.
+            
+            document.getElementById('editProductModal').style.display = 'block';
+        })
+        .catch(error => console.error('Error:', error));
     }
+
 
     // Modális ablak bezárása
     var modal = document.getElementById('editProductModal');
