@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2024. Ápr 15. 14:41
+-- Létrehozás ideje: 2024. Ápr 22. 20:11
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -148,23 +148,23 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `price`, `description`, `stock`, `gemstone_id`, `type_id`, `material_id`, `default_image_url`) VALUES
-(34, 'Amethyst Bracelet', 69.99, 'Beautiful amethyst bracelet featuring intricate design, perfect for any occasion.', 0, 10, 5, 6, 'ametist_bracelet_2-removebg-preview.png'),
-(35, 'Amethyst Necklace', 79.99, 'Elegant amethyst necklace with delicate detailing, adding a touch of sophistication to your look.', 0, 10, 6, 6, 'ametist_necklace_1-removebg-preview.png'),
-(36, 'Amethyst Necklace', 89.99, 'Exquisite amethyst necklace featuring a unique pendant design, a must-have addition to your jewelry collection.', 0, 10, 6, 6, 'ametist_necklace_2-removebg-preview.png'),
-(42, 'Opal Bracelet', 49.99, 'Elegant opal bracelet with intricate design, perfect for any occasion.', 0, 6, 5, 6, 'opal_bracelet_1-removebg-preview.png'),
-(43, 'Opal Bracelet', 59.99, 'Stunning opal bracelet featuring a modern twist design, guaranteed to turn heads.', 7, 6, 5, 6, 'opal_bracelet_2-removebg-preview.png'),
-(44, 'Opal Bracelet', 39.99, 'Simple yet chic opal bracelet, ideal for everyday wear.', 3, 6, 5, 6, 'opal_bracelet_3-removebg-preview.png'),
-(45, 'Opal Bracelet', 69.99, 'Exquisite opal bracelet adorned with intricate patterns, a timeless piece for your collection.', 0, 6, 5, 6, 'opal_bracelet_4-removebg-preview.png'),
-(46, 'Opal Bracelet', 79.99, 'Opulent opal bracelet featuring a luxurious design, perfect for special occasions.', 0, 6, 5, 6, 'opal_bracelet_5-removebg-preview.png'),
+(34, 'Amethyst Bracelet', 69.99, 'Beautiful amethyst bracelet featuring intricate design, perfect for any occasion.', 14, 10, 5, 6, 'ametist_bracelet_2-removebg-preview.png'),
+(35, 'Amethyst Necklace', 79.99, 'Elegant amethyst necklace with delicate detailing, adding a touch of sophistication to your look.', 6, 10, 6, 6, 'ametist_necklace_1-removebg-preview.png'),
+(36, 'Amethyst Necklace', 89.99, 'Exquisite amethyst necklace featuring a unique pendant design, a must-have addition to your jewelry collection.', 12, 10, 6, 6, 'ametist_necklace_2-removebg-preview.png'),
+(42, 'Opal Bracelet', 49.99, 'Elegant opal bracelet with intricate design, perfect for any occasion.', 7, 6, 5, 6, 'opal_bracelet_1-removebg-preview.png'),
+(43, 'Opal Bracelet', 59.99, 'Stunning opal bracelet featuring a modern twist design, guaranteed to turn heads.', 5, 6, 5, 6, 'opal_bracelet_2-removebg-preview.png'),
+(44, 'Opal Bracelet', 39.99, 'Simple yet chic opal bracelet, ideal for everyday wear.', 6, 6, 5, 6, 'opal_bracelet_3-removebg-preview.png'),
+(45, 'Opal Bracelet', 69.99, 'Exquisite opal bracelet adorned with intricate patterns, a timeless piece for your collection.', 7, 6, 5, 6, 'opal_bracelet_4-removebg-preview.png'),
+(46, 'Opal Bracelet', 79.99, 'Opulent opal bracelet featuring a luxurious design, perfect for special occasions.', 16, 6, 5, 6, 'opal_bracelet_5-removebg-preview.png'),
 (47, 'Opal Ring', 79.99, 'Opulent opal ring featuring a classic design, perfect for adding a touch of glamour to your look.', 7, 6, 4, 6, 'opal_ring_2-removebg-preview.png'),
-(48, 'Opal Ring', 69.99, 'Exquisite opal ring with intricate detailing, a timeless piece that exudes sophistication.', 0, 6, 4, 6, 'opal_ring_3-removebg-preview.png'),
+(48, 'Opal Ring', 69.99, 'Exquisite opal ring with intricate detailing, a timeless piece that exudes sophistication.', 7, 6, 4, 6, 'opal_ring_3-removebg-preview.png'),
 (49, 'Opal Ring', 89.99, 'Stunning opal ring showcasing a modern design, a must-have addition to your jewelry collection.', 6, 6, 4, 6, 'opal_ring_4-removebg-preview.png'),
 (50, 'Opal Ring', 99.99, 'Elegant opal ring featuring a minimalist design, perfect for everyday wear.', 9, 6, 4, 6, 'opal_ring_5-removebg-preview.png'),
 (51, 'Pink Bracelet', 49.99, 'Charming pink bracelet with delicate detailing, ideal for adding a pop of color to your look.', 14, 7, 5, 6, 'pink_bracelet_2-removebg-preview.png'),
 (52, 'Pink Necklace', 59.99, 'Feminine pink necklace featuring a stunning pendant design, a versatile piece for any occasion.', 18, 7, 6, 6, 'pink_necklace_1-removebg-preview.png'),
-(53, 'Rosegold Opal Ring', 129.99, 'Luxurious rosegold opal ring adorned with intricate patterns, a statement piece for any jewelry lover.', 0, 6, 4, 7, 'rosegold_opal_ring_1-removebg-preview.png'),
+(53, 'Rosegold Opal Ring', 129.99, 'Luxurious rosegold opal ring adorned with intricate patterns, a statement piece for any jewelry lover.', 9, 6, 4, 7, 'rosegold_opal_ring_1-removebg-preview.png'),
 (54, 'Rosegold Opal Ring', 139.99, 'Exquisite rosegold opal ring featuring a modern design, perfect for adding a touch of elegance to your look.', 6, 6, 4, 7, 'rosegold_opal_ring_2-removebg-preview.png'),
-(81, 'Twisted Amethyst Bracelet', 59.99, 'Stunning amethyst bracelet with a modern twist design, sure to make a statement.', 1, 10, 5, 6, 'ametist_bracelet_1-removebg-preview.png');
+(81, 'Twisted Amethyst Bracelet', 59.99, 'Stunning amethyst bracelet with a modern twist design, sure to make a statement.', 3, 10, 5, 6, 'ametist_bracelet_1-removebg-preview.png');
 
 -- --------------------------------------------------------
 
@@ -319,19 +319,19 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT a táblához `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT a táblához `final_orders`
 --
 ALTER TABLE `final_orders`
-  MODIFY `final_order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `final_order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT a táblához `final_order_items`
 --
 ALTER TABLE `final_order_items`
-  MODIFY `final_order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `final_order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT a táblához `gemstones`
@@ -355,7 +355,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT a táblához `shipping_addresses`
 --
 ALTER TABLE `shipping_addresses`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT a táblához `types`
@@ -367,7 +367,7 @@ ALTER TABLE `types`
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Megkötések a kiírt táblákhoz

@@ -95,6 +95,9 @@
     border:2px solid #E0E8F1;
     transition: 1s;
 }
+.collection a {
+    text-decoration: none;
+}
 .collection button:hover{
     background-color: #E0E8F1;
 }
