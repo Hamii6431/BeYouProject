@@ -59,19 +59,30 @@ button {
     padding-bottom: 0.5rem;
 }
 
+/* Rendelés összegzése */
+.summary-subtotal,
+.summary-total {
+    padding: 1rem 0rem;
+    display: flex;
+    justify-content: space-between;
+}
+.summary-subtotal{
+    border-bottom: 2px solid #8C959F;
+}
+
 /* Kosárban lévő termék tároló doboza */
 .item-box {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 10px 0; /* Kis térköz az elemek között */
+    padding: 10px 0; 
 }
 
 .box-image img {
-    width: 150px; /* A kép méretének csökkentése, igazodva az új layout-hoz */
+    width: 150px; 
     height: auto;
-    margin-right: 20px; /* Térköz a kép és a terméknév között */
+    margin-right: 20px; 
 }
 
 .box-name-price {
@@ -80,7 +91,7 @@ button {
 
 .box-quantity,
 .box-subtotal {
-    text-align: right; /* Elemek jobbra igazítása */
+    text-align: right; 
 }
 
 .box-subtotal {
@@ -133,23 +144,6 @@ button {
     height: 40px;
 }
 
-/* Rendelés összegzése */
-.summary-subtotal,
-.summary-total {
-    padding: 1rem 0rem;
-    display: flex;
-    justify-content: space-between;
-}
-.summary-subtotal{
-    border-bottom: 2px solid #8C959F;
-}
-.subtotal-text p{
-    margin: 0;
-}
-
-.summary-total h4 {
-    margin: 0;
-}
 
 
 
@@ -161,7 +155,7 @@ button {
     }
     
     .cart-items-body {
-        margin-bottom: 1rem;
+        margin-bottom: 0rem;
     }
 }
 
@@ -170,4 +164,11 @@ button {
         padding-left: 2rem;
         padding-right: 2rem;
     }
+    .item-box{
+        gap:2px;
+    }
+    .box-image img{
+    max-width: 110px;
+    margin-right: 0;
+}
 }

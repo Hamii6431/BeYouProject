@@ -10,9 +10,9 @@ class Database {
     // Az adatbázis szerverének neve vagy címe.
     private $DB_servername = "localhost";
     // Az adatbázis felhasználói neve.
-    private $DB_username = "Hamii";
+    private $DB_username = "TestDBUsername";
     // Az adatbázis felhasználó jelszava.
-    private $DB_password = "4M9TZedhhxxd-PFP";
+    private $DB_password = "TestDBPassword";
     // Az adatbázis neve, amelyhez kapcsolódni szeretnénk.
     private $DB_database = "BeYou";
 

@@ -1,26 +1,25 @@
+/*Alapértelmezett beviteli mezők stílusai*/
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-    outline: none; /* Alapértelmezett keret letiltása */
+    outline: none; 
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus {
-    outline: 2px solid #6B6B6B; /* Fókuszban lévő mező esetén fekete outline */
-    outline-offset: -1px; /* Az outline befelé vastagodik */
-    /* Egyéb stílusok... */
+    outline: 2px solid #6B6B6B; 
+    outline-offset: -1px; 
 }
 
 
-/*Univerzális elemek stílusai:*/
 body,html{
     margin:0;
     padding:0;
 }
 a.terms-style {
-    color: inherit; /* Örökli az ős elem (a label) színét */
-    text-decoration: underline; /* Aláhúzás megtartása */
+    color: inherit; 
+    text-decoration: underline;
 }
 
 
@@ -113,7 +112,7 @@ position: absolute;
 top: 3px;
 left: 5px;
 font-size: 14px;
-color: #888; /* Példa: szürke szín a kisebb fontmérethez */
+color: #888; 
 transition: all 0.3s;
 margin-left: 0.5em;
 cursor: pointer;
@@ -163,8 +162,8 @@ display: block;
 
 @media (max-width: 1200px) {
     .container-for-loginpage{
-    padding-left: 5rem;
-    padding-right: 5rem;
+    padding-left: 0em;
+    padding-right: 0rem;
 }
 .container-login-register{
     width:60%;

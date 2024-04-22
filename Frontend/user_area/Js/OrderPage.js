@@ -97,7 +97,7 @@ function sendOrder(totalPrice) {
 
 //Szállítási adatok lekérése az úrlapok feltöltéséhez.
 function fetchShippingData() {
-    fetch('/BeYou_web/Beyouproject/Backend/controllers/ShippingController.php')
+    fetch('../../Backend/controllers/ShippingController.php')
     .then(response => response.json())
     .then(data => {
         if (data.error) {

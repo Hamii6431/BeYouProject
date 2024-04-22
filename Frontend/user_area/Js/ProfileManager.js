@@ -260,7 +260,7 @@ function fetchShippingData() {
 }
 
 function fetchUserData() {
-    fetch('/BeYou_web/Beyouproject/Backend/controllers/ProfileController.php')
+    fetch('../../Backend/controllers/ProfileController.php')
     .then(response => response.json())
     .then(data => {
         if (data.status === 'error') {
@@ -278,7 +278,7 @@ function fetchUserData() {
 
 
 function fetchUserOrders() {
-    fetch('/BeYou_web/Beyouproject/Backend/controllers/GetOrdersController.php')
+    fetch('../../Backend/controllers/GetOrdersController.php')
     .then(response => response.json())
     .then(data => {
         if (data.status === 'success') {

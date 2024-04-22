@@ -4,7 +4,7 @@
     padding-left: 10rem;
     padding-right: 10rem;
     text-align: center;
-    height: 100vh; /* Teljes képernyős magasság */
+    height: 100vh;
 
 }
 .collection{
@@ -24,15 +24,15 @@
     font-weight:bold;
     border-radius: 16px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 200px; /* Gomb szélességének beállítása */
+    width: 200px; 
     background-color: rgb(131, 165, 202);
     color: #F8FAF7;
     justify-content: center;
     height: 50px;
-    border: none; /* A gomb keretének eltávolítása */
-    cursor: pointer; /* Mutató ikon a gomb felett */
-    font-size: 16px; /* Betűméret beállítása */
-    margin-top: 20px; /* Távolság a felső elemhez */
+    border: none;
+    cursor: pointer; 
+    font-size: 16px;
+    margin-top: 20px;
 }
 
 

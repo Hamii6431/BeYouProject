@@ -91,9 +91,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'getProductDetails' && isset($_
 
 
 
-
-// AdminContentController része a termékek frissítésére
-
 if (isset($_POST['action']) && $_POST['action'] == 'updateProduct') {
     // Azonosító és űrlapadatok kinyerése
     $product_id = $_POST['editProductId'];
@@ -105,23 +102,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateProduct') {
     $type_id = $_POST['editType_id'];
     $material_id = $_POST['editMaterial_id'];
 
-    // Képfájl kezelése
-    $default_image_url = ''; // Alapértelmezett érték
-    if (isset($_FILES['editImage']) && $_FILES['editImage']['error'] == 0) {
-        $targetDirectory = __DIR__ . '/../../public/product_images/';
-        $fileName = basename($_FILES['editImage']['name']);
-        $targetFile = $targetDirectory . $fileName;
-
-        if (move_uploaded_file($_FILES['editImage']['tmp_name'], $targetFile)) {
-            $default_image_url = '/../../public/product_images/' . $fileName; // Weben elérhető útvonal
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Nem sikerült feltölteni a képet.']);
-            exit;
-        }
-    }
-
     // Adatbázisban való frissítés
-    $updateResult = $adminAreaModel->updateProduct($product_id, $product_name, $price, $description, $stock, $gemstone_id, $type_id, $material_id, $default_image_url);
+    $updateResult = $adminAreaModel->updateProduct($product_id, $product_name, $price, $description, $stock, $gemstone_id, $type_id, $material_id);
 
     if ($updateResult['success']) {
         echo json_encode(['success' => true, 'message' => 'Termék sikeresen frissítve.']);
@@ -157,9 +139,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateUser') {
     $updateResult = $adminAreaModel->updateUser($user_id, $username, $email, $first_name, $last_name);
 
     if ($updateResult['success']) {
-        echo json_encode(['success' => true, 'message' => 'Felhasználó sikeresen frissítve.']);
+        echo json_encode(['success' => true, 'message' => 'Felhasználói adatok sikeresen frissítve.']);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Nem sikerült frissíteni a felhasználót: ' . $updateResult['message']]);
+        echo json_encode(['success' => false, 'message' => 'Nem sikerült frissíteni a felhasználói adatokat: ' . $updateResult['message']]);
     }
 }
 
@@ -186,9 +168,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateOrderStatus') {
     $updateResult = $adminAreaModel->updateOrderStatus($final_order_id, $status);
 
     if ($updateResult['success']) {
-        echo json_encode(['success' => true, 'message' => 'Felhasználó sikeresen frissítve.']);
+        echo json_encode(['success' => true, 'message' => 'Szállítási adatok sikeresen frissítve.']);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Nem sikerült frissíteni a felhasználót: ' . $updateResult['message']]);
+        echo json_encode(['success' => false, 'message' => 'Nem sikerült frissíteni a szállítási adatokat: ' . $updateResult['message']]);
     }
 }
 

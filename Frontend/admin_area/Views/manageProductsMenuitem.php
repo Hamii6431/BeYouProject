@@ -74,14 +74,20 @@ document.getElementById('productForm').addEventListener('submit', function(e) {
     var formData = new FormData(this);
     formData.append('action', 'addProduct'); // Biztosítja, hogy az 'action' kulcs be legyen állítva
 
-    fetch('/BeYou_web/Beyouproject/Backend/controllers/AdminContentController.php', {
+    fetch('../../Backend/controllers/AdminContentController.php', {
         method: 'POST',
         body: formData
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => {
+        alert(data.message); // Visszajelzés megjelenítése
+        if(data.success) {
+            // Frissítheted a UI-t, ha szükséges
+        }
+    })
     .catch(error => console.error('Error:', error));
 });
+
 </script>
 
 

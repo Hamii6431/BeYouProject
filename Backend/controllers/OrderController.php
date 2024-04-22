@@ -10,7 +10,7 @@ class OrderController {
 
     public function __construct() {
         $this->cartModel = new CartModel();
-        $this->productModel = new productModel();
+        $this->productModel = new ProductModel();
         $this->userModel = new UserModel();
     }
 
@@ -20,6 +20,11 @@ class OrderController {
 
         if (!$this->userModel->isUserLoggedIn()) {
             echo json_encode(['status' => 'error', 'message' => 'User not logged in']);
+            return;
+        }
+
+        if (!$this->cartModel->isUserHaveItemsInCart($_SESSION['user_id'])) {
+            echo json_encode(['status' => 'error', 'message' => 'Cart is empty']);
             return;
         }
 

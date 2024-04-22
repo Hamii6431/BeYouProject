@@ -69,7 +69,7 @@
                     <input type="text" name="editLastname" id="editLastname" required>
                 </div>
 
-                <button class="modalButton2" type="button" onclick="updateUser()">Save</button>
+                <button class="sample-admin-button" type="button" onclick="updateUser()">Save</button>
             
             </form>
         </div>
@@ -79,7 +79,7 @@
 
 <script>
     function openModal(userId) {
-            fetch(`/BeYou_web/Beyouproject/Backend/controllers/AdminContentController.php?action=getUserDetails&userId=${userId}`)
+            fetch(`../../Backend/controllers/AdminContentController.php?action=getUserDetails&userId=${userId}`)
             .then(response => response.json())
             .then(data => {
                 if (!data.success) {
@@ -116,7 +116,7 @@
     var formData = new FormData(document.getElementById('editUserForm'));
     formData.append('action', 'updateUser');
 
-    fetch('/BeYou_web/Beyouproject/Backend/controllers/AdminContentController.php', {
+    fetch('../../Backend/controllers/AdminContentController.php', {
         method: 'POST',
         body: formData
     })

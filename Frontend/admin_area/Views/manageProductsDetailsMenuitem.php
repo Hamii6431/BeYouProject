@@ -1,6 +1,5 @@
 
 <body>
-    
     <div class="surface">
         <div class="dashboard-base1">
             <div class="recent-products">
@@ -68,7 +67,7 @@
 
             <div class="form-group">
                 <label for="editDescription">Product Description: </label>
-                <textarea name="editDescription" id="editDescription" required></textarea>
+                <input type="text" name="editDescription" id="editDescription" class="container_input" novalidate>
             </div>
 
             <div class="form-group">
@@ -109,7 +108,7 @@
                 </select>
             </div>
 
-            <button class="modalButton2" type="button" onclick="updateProduct()">Save</button>
+            <button class="sample-admin-button" type="button" onclick="updateProduct()">Save</button>
             </form>
         </div>
     </div>
@@ -119,7 +118,7 @@
 <script>
     // Modális ablak megnyitása
     function openModal(productId) {
-        fetch(`/BeYou_web/Beyouproject/Backend/controllers/AdminContentController.php?action=getProductDetails&productId=${productId}`)
+        fetch(`../../Backend/controllers/AdminContentController.php?action=getProductDetails&productId=${productId}`)
         .then(response => response.json())
         .then(data => {
             if (!data.success) {

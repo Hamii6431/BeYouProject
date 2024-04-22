@@ -45,35 +45,39 @@
     </div>
 
 
-    <!-- Modális Ablak HTML -->
-    <div id="editOrderStatusModal" class="modal">
+<!-- Modális Ablak HTML -->
+<div id="editOrderStatusModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Edit Order Status</h2>
         <form id="editStatusForm">
             <input type="hidden" name="editFinal_order_id" id="editFinal_order_id" value="">
                 
-                <div class="form-group">
-                    <label for="editStatus">Select order Status: </label>
-                    <select name="editStatus" id="editStatus" required>
-                        <option value="">--Select Order Status--</option>
-                        <?php foreach ($orderCount as $order): ?>
-                            <option value="<?= $order['final_order_id'] ?>"><?= $order['status'] ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>  
+            <div class="form-group">
+                <label for="editStatus">Select order Status: </label>
+                <select name="editStatus" id="editStatus" required>
+                    <option value="">--Select Order Status--</option>
+                    <?php
+                    // Az adatbázisból lekérjük a rendelés állapotokat
+                    $statuses = ['Received', 'Processing', 'Shipped']; // Példa tömb, amelyben az állapotok vannak
+                    foreach ($statuses as $status):
+                    ?>
+                        <option value="<?= $status ?>"><?= $status ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>  
 
-                <button class="modalButton2" type="button" onclick="updateOrderStatus()">Save</button>
-            
-            </form>
-        </div>
+            <button class="sample-admin-button" type="button" onclick="updateOrderStatus()">Save</button>
+        </form>
     </div>
+</div>
+
 
 
 
 <script>
     function openModal(finalOrderId) {
-        fetch(`/BeYou_web/Beyouproject/Backend/controllers/AdminContentController.php?action=getOrderDetails&final_order_id=${finalOrderId}`)
+        fetch(`../../Backend/controllers/AdminContentController.php?action=getOrderDetails&final_order_id=${finalOrderId}`)
         .then(response => response.json())
         .then(data => {
             if (!data.success) {
@@ -106,7 +110,7 @@
     var formData = new FormData(document.getElementById('editStatusForm'));
     formData.append('action', 'updateOrderStatus');
 
-    fetch('/BeYou_web/Beyouproject/Backend/controllers/AdminContentController.php', {
+    fetch('../../Backend/controllers/AdminContentController.php', {
         method: 'POST',
         body: formData
     })

@@ -62,7 +62,7 @@ button {
     top: 3px;
     left: 5px;
     font-size: 14px;
-    color: #888; /* Példa: szürke szín a kisebb fontmérethez */
+    color: #888; 
     transition: all 0.3s;
     margin-left: 0.2rem;
     cursor: pointer;
@@ -184,7 +184,7 @@ button {
 
 /*Rendelések táblázat stílusa*/
 .scrollable-table {
-    max-height: 400px; /* Példában 400px magasság, de módosítható a konkrét igényeknek megfelelően */
+    max-height: 400px;
     overflow-y: auto;
     width: 100%;
 }

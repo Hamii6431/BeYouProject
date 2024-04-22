@@ -127,7 +127,7 @@ input[type="checkbox"]:checked:after {
         width: 50%;
     }
     .container-filters {
-        padding-top: 60px; /* Hozzáadott térköz a kijelző tetejétől */
+        padding-top: 60px; 
     }
 }
 
@@ -157,7 +157,7 @@ input[type="checkbox"]:checked:after {
         width: calc(50% - 1.5rem);
     }
     .container-filters .filter {
-        width: 100%; /* Szűrők maximális szélessége a kijelzőn */
+        width: 100%; 
     }
 }
 

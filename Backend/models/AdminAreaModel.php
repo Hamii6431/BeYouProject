@@ -259,15 +259,15 @@ class AdminAreaModel {
     }
 
 
-    public function updateProduct($product_id, $product_name, $price, $description, $stock, $gemstone_id, $type_id, $material_id, $default_image_url) {
-        $sql = "UPDATE products SET product_name=?, price=?, description=?, stock=?, gemstone_id=?, type_id=?, material_id=?, default_image_url=? WHERE product_id=?";
+    public function updateProduct($product_id, $product_name, $price, $description, $stock, $gemstone_id, $type_id, $material_id) {
+        $sql = "UPDATE products SET product_name=?, price=?, description=?, stock=?, gemstone_id=?, type_id=?, material_id=? WHERE product_id=?";
         $stmt = $this->db->prepare($sql);
     
         if ($stmt === false) {
             return ['success' => false, 'message' => 'Adatbázis hiba.'];
         }
     
-        $stmt->bind_param('sdssiiisi', $product_name, $price, $description, $stock, $gemstone_id, $type_id, $material_id, $default_image_url, $product_id);
+        $stmt->bind_param('sdssiiii', $product_name, $price, $description, $stock, $gemstone_id, $type_id, $material_id, $product_id);
     
         if ($stmt->execute()) {
             return ['success' => true, 'message' => 'Termék sikeresen frissítve.'];

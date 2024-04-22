@@ -65,10 +65,12 @@ button {
     color: white;
 }
 
+/* Kosár tartalma és rendelés összegzése */
 .cart-items,
 .cart-summary {
     padding: 30px;
 }
+
 
 /* Rendelés összegzése */
 .cart-summary {

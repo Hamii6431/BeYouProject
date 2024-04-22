@@ -161,7 +161,7 @@ button {
     gap:2rem;
 }
 
-.recent-products-table {
+.recent-products-table, .recent-users-table, .recent-orders-table{
     overflow-x: auto;
 }
 
@@ -237,16 +237,16 @@ overflow: auto;
 
 
 .close {
-    color: #aaa;
+    color: #3A4049;
     float: right;
     font-size: 28px;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .close:hover,
 .close:focus {
-    color: black;
-    text-decoration: none;
+    color: #292d33;
     cursor: pointer;
 }
 

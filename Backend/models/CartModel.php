@@ -69,7 +69,15 @@ public function addOrUpdateProductInCart($userId, $productId, $quantity = 1) {
         $stmt->close();
         return $cartItems;
     }
-
+    // Felhasználó kosarában lévő termékek ellenőrzése
+    public function isUserHaveItemsInCart($userId) {
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM carts WHERE user_id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $count = $result->fetch_assoc()['count']; // Definiáljuk a count változót
+        return $count > 0;
+    }
     //Termék eltávolítása a kosárból
     public function deleteCartItem($userId, $productId) {
         $stmt = $this->db->prepare("DELETE FROM carts WHERE user_id = ? AND product_id = ?");
